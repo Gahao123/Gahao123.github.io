@@ -157,7 +157,7 @@ npm install // 重新安装依赖
 npm install -g hexo-cli
 ```
 然后手动迁移主题目录:去原笔记本的`themes/mashiro`下,把这个文件夹整个用U盘复制到新设备上
-然后清除Git追踪,在新设备的hexo目录下`git rm -rf --cached .deploy_git`,并且还要把`./.deploy_git`给删了
+然后清除Git追踪,在新设备的hexo目录下`git rm -rf --cached .deploy_git`,并且还要把`./.deploy_git`给删了,并确认`gitignore`这个东西在
 接着验证环境能跑就行:
 ```
 hexo clean

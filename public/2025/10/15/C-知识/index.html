@@ -193,7 +193,7 @@ mmap的映射可分为三个阶段:1.进程启动映射过程<span class="bd-box
 <p>然后全局安装hexo-cli,为了能正常使用hexo命令:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 <p>然后手动迁移主题目录:去原笔记本的<code>themes/mashiro</code>下,把这个文件夹整个用U盘复制到新设备上<br>
-然后清除Git追踪,在新设备的hexo目录下<code>git rm -rf --cached .deploy_git</code>,并且还要把<code>./.deploy_git</code>给删了<br>
+然后清除Git追踪,在新设备的hexo目录下<code>git rm -rf --cached .deploy_git</code>,并且还要把<code>./.deploy_git</code>给删了,并确认<code>gitignore</code>这个东西在<br>
 接着验证环境能跑就行:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
 <p>接下来pull的时候也得注意先把这个<code>./.deploy_git</code>给删了再pull,否则还是弄不下来<br>
@@ -484,6 +484,10 @@ CPU也会被绑定,无法兼容</p>
       <ul>
         
           <li>
+            <a href="/2026/07/16/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
             <a href="/2026/04/28/HTTPS-TLS%E6%A0%B8%E5%BF%83%E6%B1%87%E6%80%BB/">HTTPS,TLS核心汇总</a>
           </li>
         
@@ -497,10 +501,6 @@ CPU也会被绑定,无法兼容</p>
         
           <li>
             <a href="/2025/11/12/Java%E5%87%86%E5%A4%87/">Java准备</a>
-          </li>
-        
-          <li>
-            <a href="/2025/10/15/C-%E7%9F%A5%E8%AF%86/">C++知识</a>
           </li>
         
       </ul>

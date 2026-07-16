@@ -125,6 +125,35 @@ git的流程就是:本地更新主干，基于主干新建一个分支并切换 
 > 空的clone之前记得`git init`在当前路径创git
 > 要是仓库改ip了就直接去搜改法
 
+## 远程通过git同步hexo,其实就是迁移hexo
+首先在原笔记本上初始化git仓库:
+```
+cd 你的hexo项目目录
+git init
+git add .
+git commit -m "初始化hexo博客"
+```
+然后设置远程仓库:
+```
+git remote add origin 你的仓库地址
+git push origin master //(或者main,具体使用git branch检查是哪个)
+```
+然后这就传上去了,接下来在新设备上:
+```
+git clone 你的仓库地址 //要直接一步到位分支也选好的话就是git clone -b main https://github.com/Gahao123/Gahao123.github.io.git
+cd 项目目录
+npm install // 重新安装依赖
+```
+接着验证环境就行:
+```
+hexo clean
+hexo generate
+hexo deploy
+```
+【注意,这样搞的话不管在哪台机器上写文章】写之前先pull,写完之后commit+push
+【`npm install`报错】管理员身份打开PowerShell执行`Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`,下面的询问输入`Y`回车确认,然后就能`npm install`了
+【调整vscode代码高亮样式/中文】: 在vscode下`Ctrl+Shift+P`,然后输入`Preferences: Color Theme`,回车,弹出的框里选"深色(Visual Studio) Visual Studio Dark" ; 中文直接在扩展里搜`Chinese`,找到微软的简体中文,安装即可
+
 ## 隔离hexo和Gitea本地仓库
 本地git大概率用的是http,因此push本地Gitea时,把http代理先取消,push完再加上就行
 

@@ -188,9 +188,14 @@ mmap的映射可分为三个阶段:1.进程启动映射过程<span class="bd-box
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin 你的仓库地址</span><br><span class="line">git push origin master //(或者main,具体使用git branch检查是哪个)</span><br></pre></td></tr></table></figure>
 <p>然后这就传上去了,接下来在新设备上:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone 你的仓库地址 //要直接一步到位分支也选好的话就是git clone -b main https://github.com/Gahao123/Gahao123.github.io.git</span><br><span class="line">cd 项目目录</span><br><span class="line">npm install // 重新安装依赖</span><br></pre></td></tr></table></figure>
-<p>接着验证环境就行:</p>
+<p>然后全局安装hexo-cli,为了能正常使用hexo命令:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<p>然后手动迁移主题目录:去原笔记本的<code>themes/mashiro</code>下,把这个文件夹整个用U盘复制到新设备上<br>
+然后清除Git追踪,在新设备的hexo目录下<code>git rm -rf --cached .deploy_git</code>,并且还要把<code>./.deploy_git</code>给删了<br>
+接着验证环境就行:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-<p><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>注意,这样搞的话不管在哪台机器上写文章<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>写之前先pull,写完之后commit+push<br>
+<p>接下来pull的时候也得注意先把这个<code>./.deploy_git</code>给删了再pull,否则还是弄不下来<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>注意,这样搞的话不管在哪台机器上写文章<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>写之前先pull,写完之后commit+push<br>
 <span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span><code>npm install</code>报错<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>管理员身份打开PowerShell执行<code>Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned</code>,下面的询问输入<code>Y</code>回车确认,然后就能<code>npm install</code>了<br>
 <span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>调整vscode代码高亮样式/中文<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>: 在vscode下<code>Ctrl+Shift+P</code>,然后输入<code>Preferences: Color Theme</code>,回车,弹出的框里选&quot;深色(Visual Studio) Visual Studio Dark&quot; ; 中文直接在扩展里搜<code>Chinese</code>,找到微软的简体中文,安装即可</p>
 <h2 id="隔离hexo和gitea本地仓库">隔离hexo和Gitea本地仓库</h2>
@@ -477,10 +482,6 @@ CPU也会被绑定,无法兼容</p>
       <ul>
         
           <li>
-            <a href="/2026/07/16/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
             <a href="/2026/04/28/HTTPS-TLS%E6%A0%B8%E5%BF%83%E6%B1%87%E6%80%BB/">HTTPS,TLS核心汇总</a>
           </li>
         
@@ -494,6 +495,10 @@ CPU也会被绑定,无法兼容</p>
         
           <li>
             <a href="/2025/11/12/Java%E5%87%86%E5%A4%87/">Java准备</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/15/C-%E7%9F%A5%E8%AF%86/">C++知识</a>
           </li>
         
       </ul>

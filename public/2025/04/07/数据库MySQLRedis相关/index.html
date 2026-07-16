@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>数据库MySQLRedis相关 | Ga豪笔记😀</title>
+  <link rel="stylesheet" href="/css/fonts/Chinese-normal-normal.min.css">
+  <link rel="stylesheet" href="/css/fonts/ChineseMono-normal-normal.min.css">
+  <link rel="stylesheet" href="/css/fonts/Chinese-italic-normal.min.css">
+  <link rel="stylesheet" href="/css/fonts/Chinese-normal-bold.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="description" content="高并发系统全景图(是靠分层削峰的)
+用户 -&amp;gt; Cloudflare/CDN（抗流量洪峰）-&amp;gt; Nginx（入口并发 + 限流） -&amp;gt; Spring Boot（业务并发）-&amp;gt; Redis（高并发数据）-&amp;gt; MySQL（最终数据）
+【Redis的核心价值】就是抗高并发,但不是取代MySQL,而是搭配使用
+MySQL是关系型数据库,数据存磁盘,速度慢并发有限(磁盘IO拖累/锁竞争严重/写操作互斥)但是持久化;Redis属于内存数据库,数据存内存,速度快并发强,是极快的单线程,但持久能力有限,特别适合【读多写少,计数,状态判断】,用于【抢课名额,秒杀库存,登录状态,验证码】
+【但是不能只用Redis】Redis内存有限,数据会丢,不适合复杂查询和长期存储;一般是Redis抗并发,MySQL存最终结果,">
+  
+  
+  
+    <link rel="shortcut icon" href="/icon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox-1.3.4.css">
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div id="nav-outer">
+  <nav id="main-nav" class="outer">
+    <a id="main-nav-toggle" class="nav-icon"></a>
+    
+      <a class="main-nav-link" href="/">主页</a>
+    
+      <a class="main-nav-link" href="/archives">归档</a>
+    
+      <a class="main-nav-link" href="/about">关于</a>
+    
+    <div class="main-nav-space-between"></div>
+    
+  </nav>
+</div>
+<div id="header-title">
+  <h1 id="logo-wrap">
+    <a href="/" id="logo">Ga豪笔记😀</a>
+  </h1>
+  
+    <h2 id="subtitle-wrap">
+      <a href="/" id="subtitle">25518xw</a>
+    </h2>
+  
+</div>
+
+      <div id="content" class="outer">
+        <section id="main"><article id="post-数据库MySQLRedis相关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/04/07/%E6%95%B0%E6%8D%AE%E5%BA%93MySQLRedis%E7%9B%B8%E5%85%B3/" class="article-date">
+  <time class="dt-published" datetime="2025-04-07T01:06:04.000Z" itemprop="datePublished">2025-04-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91tip/">开发tip</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      数据库MySQLRedis相关
+    </h1>
+  
+
+      </header>
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="高并发系统全景图(是靠分层削峰的)">高并发系统全景图(是靠分层削峰的)</h2>
+<p>用户 -&gt; Cloudflare/CDN<span class="bd-box"><h-char class="bd bd-end"><h-inner>（</h-inner></h-char></span>抗流量洪峰<span class="bd-box"><h-char class="bd bd-beg"><h-inner>）</h-inner></h-char></span>-&gt; Nginx<span class="bd-box"><h-char class="bd bd-end"><h-inner>（</h-inner></h-char></span>入口并发 + 限流<span class="bd-box"><h-char class="bd bd-beg"><h-inner>）</h-inner></h-char></span> -&gt; Spring Boot<span class="bd-box"><h-char class="bd bd-end"><h-inner>（</h-inner></h-char></span>业务并发<span class="bd-box"><h-char class="bd bd-beg"><h-inner>）</h-inner></h-char></span>-&gt; Redis<span class="bd-box"><h-char class="bd bd-end"><h-inner>（</h-inner></h-char></span>高并发数据<span class="bd-box"><h-char class="bd bd-beg"><h-inner>）</h-inner></h-char></span>-&gt; MySQL<span class="bd-box"><h-char class="bd bd-end"><h-inner>（</h-inner></h-char></span>最终数据<span class="bd-box"><h-char class="bd bd-beg"><h-inner>）</h-inner></h-char></span><br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>Redis的核心价值<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>就是抗高并发,但不是取代MySQL,而是搭配使用<br>
+MySQL是关系型数据库,数据存磁盘,速度慢并发有限(磁盘IO拖累/锁竞争严重/写操作互斥)但是持久化;Redis属于内存数据库,数据存内存,速度快并发强,是极快的单线程,但持久能力有限,特别适合<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>读多写少,计数,状态判断<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>,用于<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>抢课名额,秒杀库存,登录状态,验证码<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>但是不能只用Redis<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>Redis内存有限,数据会丢,不适合复杂查询和长期存储;一般是Redis抗并发,MySQL存最终结果,</p>
+<span id="more"></span>
+<h2 id="数据库的增改查都可以&lt;span-class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;，&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;但删一定要慎重">数据库的增改查都可以<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>但删一定要慎重</h2>
+<p>增改查都是有迹可循<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>删的话就没了<br>
+所以增改查都可以让用户来<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>但是删一般要考虑让管理员来搞</p>
+<h2 id="为什么不要用外键foreignkey&lt;span-class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;？&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;">为什么不要用外键ForeignKey<span class="bd-box"><h-char class="bd bd-beg"><h-inner>？</h-inner></h-char></span></h2>
+<p>实际企业开发中<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>外键是被严格禁止的<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>当需要多个表之间进行关联的时候<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>做法是冗余相关字段<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>而不是建立外键<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span><br>
+外键会引发级联(即外键对应那个表更新了会使引用了这个外键的表也得跟着更新)<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>尤其是阿里开发手册中提到<span class="bd-box"><h-char class="bd bd-beg"><h-inner>：</h-inner></h-char><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>强制<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>不得使用外键与级联<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>一切外键概念必须在应用层解决<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span><br>
+外键会大大降低速度(每次都要检查外键约束+级联是强阻塞<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>加在一起使数据库性能急剧下降)<br>
+当数据量大的时候需要进行分库分表(破千万的时候)<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>外键会导致分库分表难搞</p>
+<blockquote>
+<p>只有单机低并发业务才可以考虑使用外键来保证一致性</p>
+</blockquote>
+<h2 id="mysql优化查询性能">MySQL优化查询性能</h2>
+<ul>
+<li>加索引<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>但不要加太多的索引<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>否则会影响写入性能</li>
+<li>查询缓存<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>对于静态查询有用<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>动态查询效果不大</li>
+<li>大的表分区</li>
+<li>避免全表扫描<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>加索引<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>用WHERE</li>
+<li>不要用子查询<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>用JOIN</li>
+<li>将复杂查询拆成多个简单查询</li>
+</ul>
+<h2 id="mysql安全模式">MySQL安全模式</h2>
+<p>MySQL默认会开启safe-updates状态<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>导致非主键条件下无法执行update或者delete命令</p>
+<blockquote>
+<p>查询该状态:<code>show variables like 'SQL_SAFE_UPDATES'</code>;<br>
+关闭安全模式:<code>SET SQL_SAFE_UPDATES = 0</code>;<br>
+开启安全模式:<code>SET SQL_SAFE_UPDATES = 1</code>;</p>
+</blockquote>
+<h2 id="mysql唯一键的大坑">MySQL唯一键的大坑</h2>
+<p>MySQL底层null值是不等于null值的,MySQL认为null之间无法比较,因此往唯一键里插两个null不会报错<br>
+涉及唯一键的字段最好有默认值,且这个默认值最好不是正常业务值 ; 或者unique的列一定要有not null</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A2%9E%E6%94%B9%E6%9F%A5-%E5%88%A0%E8%A6%81%E6%85%8E%E9%87%8D/" rel="tag">增改查,删要慎重</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%96%E9%94%AE/" rel="tag">外键</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/07/21/%E7%A0%94%E7%A9%B6%E7%94%9F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          研究生
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/03/26/PPT%E7%AE%80%E5%8E%86%E6%B1%87%E6%8A%A5Word%E7%AD%89%E7%9B%B8%E5%85%B3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          PPT简历汇报Word等相关
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/04/28/HTTPS-TLS%E6%A0%B8%E5%BF%83%E6%B1%87%E6%80%BB/">HTTPS,TLS核心汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2026/04/21/%E8%87%AA%E5%BB%BA%E8%8A%82%E7%82%B9%E6%90%AC%E8%BF%90/">自建节点搬运</a>
+          </li>
+        
+          <li>
+            <a href="/2026/01/11/AI%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">AI相关知识</a>
+          </li>
+        
+          <li>
+            <a href="/2025/11/12/Java%E5%87%86%E5%A4%87/">Java准备</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/15/C-%E7%9F%A5%E8%AF%86/">C++知识</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BF%A1%E6%81%AF%E4%BF%9D%E5%AD%98/">信息保存</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91tip/">开发tip</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E7%9B%B8%E5%85%B3/">论文相关</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AI%E7%9B%B8%E5%85%B3/" style="font-size: 10px;">AI相关</a> <a href="/tags/Axios%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8HTTPS/" style="font-size: 10px;">Axios、为什么不用HTTPS</a> <a href="/tags/C-C/" style="font-size: 10px;">C/C++</a> <a href="/tags/DOTA/" style="font-size: 10px;">DOTA</a> <a href="/tags/DRAM/" style="font-size: 10px;">DRAM</a> <a href="/tags/Date%E7%B1%BB%E9%80%89sql-Date/" style="font-size: 10px;">Date类选sql.Date</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/GPT%E7%89%B9%E5%88%AB%E6%B3%A8%E6%84%8F/" style="font-size: 10px;">GPT特别注意</a> <a href="/tags/HTTP-HTTPS/" style="font-size: 10px;">HTTP,HTTPS</a> <a href="/tags/HTTPS%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">HTTPS学习</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">Java学习</a> <a href="/tags/Java%E7%89%88%E6%9C%AC%E7%9B%B8%E5%85%B3/" style="font-size: 10px;">Java版本相关</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PPT%E6%B3%A8%E6%84%8F/" style="font-size: 10px;">PPT注意</a> <a href="/tags/Sins-of-a-Solar-Empire/" style="font-size: 10px;">Sins of a Solar Empire</a> <a href="/tags/Steam/" style="font-size: 10px;">Steam</a> <a href="/tags/TLS%E5%8A%A0%E5%AF%86/" style="font-size: 10px;">TLS加密</a> <a href="/tags/Terraria/" style="font-size: 10px;">Terraria</a> <a href="/tags/TitanFall2/" style="font-size: 10px;">TitanFall2</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/Word%E6%A0%87%E9%A2%98/" style="font-size: 10px;">Word标题</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jar%E5%8C%85%E5%92%8Cwar%E5%8C%85/" style="font-size: 10px;">jar包和war包</a> <a href="/tags/v2%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">v2配置</a> <a href="/tags/%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E6%98%AF%E4%BB%80%E4%B9%88%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">一些工具是什么学习</a> <a href="/tags/%E4%B8%89%E8%8C%83%E5%BC%8F/" style="font-size: 10px;">三范式</a> <a href="/tags/%E4%B9%B0%E6%89%8B%E6%9C%BAtip/" style="font-size: 10px;">买手机tip</a> <a href="/tags/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">云服务器</a> <a href="/tags/%E4%BF%9D%E6%8A%A4%E6%B8%85%E7%90%86%E7%A1%AC%E7%9B%98/" style="font-size: 10px;">保护清理硬盘</a> <a href="/tags/%E5%85%AC%E8%AF%81%E5%85%AC%E7%AB%A0tip/" style="font-size: 10px;">公证公章tip</a> <a href="/tags/%E5%86%85%E5%AD%98%E6%9D%A1%E7%89%A9%E7%90%86%E5%B1%82%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">内存条物理层知识</a> <a href="/tags/%E5%89%91%E6%98%9F/" style="font-size: 10px;">剑星</a> <a href="/tags/%E5%8A%9B%E6%89%A3tip/" style="font-size: 10px;">力扣tip</a> <a href="/tags/%E5%8A%9B%E6%89%A3%E8%BF%94%E5%9B%9E/" style="font-size: 10px;">力扣返回</a> <a href="/tags/%E5%8E%8B%E7%BC%A9%E8%BD%AF%E4%BB%B67zip/" style="font-size: 10px;">压缩软件7zip</a> <a href="/tags/%E5%8E%BBVFS%E5%BE%B7%E7%AD%BE%E7%AB%99%E7%82%B9/" style="font-size: 10px;">去VFS德签站点</a> <a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/" style="font-size: 10px;">命令行</a> <a href="/tags/%E5%9B%9B%E5%A4%A7%E5%9F%BA%E7%9F%B3/" style="font-size: 10px;">四大基石</a> <a href="/tags/%E5%9D%A6%E5%85%8B%E4%B8%96%E7%95%8C/" style="font-size: 10px;">坦克世界</a> <a href="/tags/%E5%A2%9E%E6%94%B9%E6%9F%A5-%E5%88%A0%E8%A6%81%E6%85%8E%E9%87%8D/" style="font-size: 10px;">增改查,删要慎重</a> <a href="/tags/%E5%A4%96%E9%94%AE/" style="font-size: 10px;">外键</a> <a href="/tags/%E5%AD%A6%E6%9C%AF%E4%BC%9A%E8%AE%AE%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">学术会议记录</a> <a href="/tags/%E5%AD%A6%E6%A0%A1%E8%B4%A2%E5%8A%A1/" style="font-size: 10px;">学校财务</a> <a href="/tags/%E5%B0%8F%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">小知识</a> <a href="/tags/%E5%B7%A5%E4%BD%9Ctip/" style="font-size: 10px;">工作tip</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E7%95%99%E7%97%95%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6/" style="font-size: 10px;">工作留痕保存文件</a> <a href="/tags/%E5%B8%B8%E7%94%A8%E5%BE%B7%E8%AF%AD/" style="font-size: 10px;">常用德语</a> <a href="/tags/%E5%BB%BA%E8%8A%82%E7%82%B9/" style="font-size: 10px;">建节点</a> <a href="/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 10px;">快捷键</a> <a href="/tags/%E6%89%A9%E5%B1%95%E5%AD%98%E5%82%A8NAS/" style="font-size: 10px;">扩展存储NAS</a> <a href="/tags/%E6%8A%A5%E5%91%8A%E5%BC%80%E5%8F%91tip/" style="font-size: 10px;">报告开发tip</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%96%87%E7%AB%A0%E7%AD%89%E7%BA%A7/" style="font-size: 10px;">文章等级</a> <a href="/tags/%E6%AC%A7%E5%85%83/" style="font-size: 10px;">欧元</a> <a href="/tags/%E6%B1%BD%E8%BD%A6%E7%A7%9F%E8%BD%A6tip/" style="font-size: 10px;">汽车租车tip</a> <a href="/tags/%E6%B6%A6tip/" style="font-size: 10px;">润tip</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E4%BF%A1%E6%81%AF/" style="font-size: 10px;">游戏信息</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E9%85%8D%E7%BD%AE/" style="font-size: 20px;">游戏配置</a> <a href="/tags/%E7%88%860E/" style="font-size: 10px;">爆0E</a> <a href="/tags/%E7%9D%80%E8%A3%85%E6%80%BB%E7%BB%93/" style="font-size: 10px;">着装总结</a> <a href="/tags/%E7%A0%B4%E9%99%A4String/" style="font-size: 10px;">破除String</a> <a href="/tags/%E7%A7%81%E9%92%A5%E5%85%AC%E9%92%A5/" style="font-size: 10px;">私钥公钥</a> <a href="/tags/%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%BB%B4%E6%8A%A4/" style="font-size: 10px;">笔记本维护</a> <a href="/tags/%E7%AD%94%E8%BE%A9%E6%BC%94%E8%AE%B2%E6%80%BB%E7%BB%93/" style="font-size: 10px;">答辩演讲总结</a> <a href="/tags/%E7%AE%80%E5%8E%86%E7%9B%B8%E5%85%B3/" style="font-size: 10px;">简历相关</a> <a href="/tags/%E7%AE%A1%E7%90%86%EF%BF%A5/" style="font-size: 10px;">管理￥</a> <a href="/tags/%E8%80%83%E7%A0%94%E6%88%90%E7%BB%A9/" style="font-size: 10px;">考研成绩</a> <a href="/tags/%E8%81%8C%E5%9C%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">职场学习</a> <a href="/tags/%E8%AE%B0%E5%A8%B1%E4%B9%90/" style="font-size: 10px;">记娱乐</a> <a href="/tags/%E8%AE%BA%E6%96%87%E7%8A%B6%E6%80%81/" style="font-size: 10px;">论文状态</a> <a href="/tags/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98Cors/" style="font-size: 10px;">跨域问题Cors</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%85%92%E5%8F%8A%E4%B9%A0%E4%BF%97%E7%9B%B8%E5%85%B3/" style="font-size: 10px;">酒及习俗相关</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+        <p></p>
+      
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/jquery-1.4.3.min.js"></script>
+
+<script src="/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+<script>
+  MathJax = {
+    options: {
+      enableMenu: false
+    },
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    }
+  };
+</script>
+<!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+    CommonHTML: {
+      linebreaks: false
+    }
+  });
+  </script> -->
+<script type="text/javascript" id="MathJax-script" async
+  src="/mathjax/tex-chtml.js">
+</script>
+<!-- <script type="text/javascript"
+   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML">
+</script> -->
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>保护硬盘U盘 | Ga豪笔记😀</title>
+  <link rel="stylesheet" href="/css/fonts/Chinese-normal-normal.min.css">
+  <link rel="stylesheet" href="/css/fonts/ChineseMono-normal-normal.min.css">
+  <link rel="stylesheet" href="/css/fonts/Chinese-italic-normal.min.css">
+  <link rel="stylesheet" href="/css/fonts/Chinese-normal-bold.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="description" content="注意扫盘软件
+做清理:Dism++,spacesniffer分析磁盘(这个一定要以管理员身份运行!)
+关闭休眠功能清C盘:管理员权限运行powershell,输入powercfg -h off,重启即可自动删掉C盘里的hiberfil.sys,省下磁盘空间
+不用担心,多用睡眠功能,不用休眠功能就好了,删掉没啥影响
+NVIDIA Corporation文件夹可以删除，因为它包含的是显卡驱动的解压文件，安装完成后这些文件对系统没有影响。删除这些文件不会对显卡的正常工作产生不良影响，但在删除之前，建议确认显卡驱动已经成功安装并且稳定运行。
+NVIDIA APP在更新完驱动之后也可以卸了,能省下大量C盘空间
+用户/AppData下的Java相关组件都可以全删了,不会影响
+pip是python的包管理,不用python了可以删
+Local/NVIDIA/DXCache是游戏预编译着色器缓存,太大可以删,但是一般建议保留
+C盘里和打印机相关的如果不用打印机了可以删,比如HPPrintScanDoctor
+Local\Microsoft\vscode-cpptools下是vscode的C++缓存可以全删
+WSL也占空间,往非系统盘(D盘迁移): 1.wsl -l -v记录下NAME那一列; 2.在确认wsl --shutdown的前提下在D盘新建目录并导出wsl --export Ubuntu D:\wsl\Ubuntu.tar(后面那个目录自己建),这里需要等导出完; 3.注销原来的WSL,wsl --unregister Ubuntu,C盘的文件会删除; 4.导入D盘的那个tar包wsl --import Ubuntu D:\wsl\Ubuntu D:\wsl\Ubuntu.tar --version 2; 5.查看是否正常wsl -l -v要和原来一样,并且vscode开WSL也正常即可; 6.删除D:\wsl\Ubuntu.tar,这个只是导出的备份文件 -&amp;gt; Linux系统可以自己打包备份
+【终极大法】备份有用的文件,然后设置 -&amp;gt; Windows更新 -&amp;gt; 高级选项 -&amp;gt; 重置此电脑
+
+QQ和WX会在启动时扫盘，从而对硬盘带来负荷！
+扫盘次数太多会导致固态硬盘坏掉，就是爆0E
+硬盘检测工具DiskInfo，其中0E栏介质与数据完整性错误计数正常为0，如果不是0就说明已经在坏掉倒计时了 -&amp;gt; 去掉启动声音:./CdiResource/voice里的全删了
+扫盘的大多是杀毒软件和反作弊程序，切记注意。
+启动项管理:任务管理器左边&amp;quot;启动应用&amp;quot;这里,把不需要开机就自动运行的软件全部右键选择&amp;quot;禁用&amp;quot; -&amp;gt; 建议禁用&amp;quot;手机连接&amp;quot;和&amp;quot;移动设备&amp;quot;,避免开机时这俩进行局域网搜索手机进行握手同步产生卡顿
+">
+  
+  
+  
+    <link rel="shortcut icon" href="/icon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox-1.3.4.css">
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div id="nav-outer">
+  <nav id="main-nav" class="outer">
+    <a id="main-nav-toggle" class="nav-icon"></a>
+    
+      <a class="main-nav-link" href="/">主页</a>
+    
+      <a class="main-nav-link" href="/archives">归档</a>
+    
+      <a class="main-nav-link" href="/about">关于</a>
+    
+    <div class="main-nav-space-between"></div>
+    
+  </nav>
+</div>
+<div id="header-title">
+  <h1 id="logo-wrap">
+    <a href="/" id="logo">Ga豪笔记😀</a>
+  </h1>
+  
+    <h2 id="subtitle-wrap">
+      <a href="/" id="subtitle">25518xw</a>
+    </h2>
+  
+</div>
+
+      <div id="content" class="outer">
+        <section id="main"><article id="post-保护硬盘U盘" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/22/%E4%BF%9D%E6%8A%A4%E7%A1%AC%E7%9B%98U%E7%9B%98/" class="article-date">
+  <time class="dt-published" datetime="2025-02-22T09:07:08.000Z" itemprop="datePublished">2025-02-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E4%BF%A1%E6%81%AF%E4%BF%9D%E5%AD%98/">信息保存</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      保护硬盘U盘
+    </h1>
+  
+
+      </header>
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="注意扫盘软件">注意扫盘软件</h2>
+<p>做清理:Dism++,spacesniffer分析磁盘(<strong>这个一定要以管理员身份运行!</strong>)<br>
+关闭休眠功能清C盘:管理员权限运行powershell,输入powercfg -h off,重启即可自动删掉C盘里的hiberfil.sys,省下磁盘空间<br>
+不用担心,多用睡眠功能,不用休眠功能就好了,删掉没啥影响<br>
+NVIDIA Corporation文件夹可以删除<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>因为它包含的是显卡驱动的解压文件<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>安装完成后这些文件对系统没有影响<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span>删除这些文件不会对显卡的正常工作产生不良影响<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>但在删除之前<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>建议确认显卡驱动已经成功安装并且稳定运行<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span><br>
+NVIDIA APP在更新完驱动之后也可以卸了,能省下大量C盘空间<br>
+<code>用户/AppData</code>下的Java相关组件都可以全删了,不会影响<br>
+pip是python的包管理,不用python了可以删<br>
+<code>Local/NVIDIA/DXCache</code>是游戏预编译着色器缓存,太大可以删,但是一般建议保留<br>
+C盘里和打印机相关的如果不用打印机了可以删,比如HPPrintScanDoctor<br>
+<code>Local\Microsoft\vscode-cpptools</code>下是vscode的C++缓存可以全删<br>
+<strong>WSL也占空间</strong>,往非系统盘(D盘迁移): 1.<code>wsl -l -v</code>记录下<code>NAME</code>那一列; 2.在确认<code>wsl --shutdown</code>的前提下在D盘新建目录并导出<code>wsl --export Ubuntu D:\wsl\Ubuntu.tar</code>(后面那个目录自己建),这里需要等导出完; 3.注销原来的WSL,<code>wsl --unregister Ubuntu</code>,C盘的文件会删除; 4.导入D盘的那个tar包<code>wsl --import Ubuntu D:\wsl\Ubuntu D:\wsl\Ubuntu.tar --version 2</code>; 5.查看是否正常<code>wsl -l -v</code>要和原来一样,并且vscode开WSL也正常即可; 6.删除<code>D:\wsl\Ubuntu.tar</code>,这个只是导出的备份文件 -&gt; Linux系统可以自己打包备份<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>终极大法<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>备份有用的文件,然后设置 -&gt; Windows更新 -&gt; 高级选项 -&gt; <strong>重置此电脑</strong></p>
+<blockquote>
+<p>QQ和WX会在启动时扫盘<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>从而对硬盘带来负荷<span class="bd-box"><h-char class="bd bd-beg"><h-inner>！</h-inner></h-char></span><br>
+扫盘次数太多会导致固态硬盘坏掉<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>就是爆0E<br>
+硬盘检测工具DiskInfo<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>其中0E栏介质与数据完整性错误计数正常为0<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>如果不是0就说明已经在坏掉倒计时了 -&gt; 去掉启动声音:<code>./CdiResource/voice</code>里的全删了<br>
+扫盘的大多是杀毒软件和反作弊程序<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>切记注意<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span><br>
+启动项管理:任务管理器左边&quot;启动应用&quot;这里,把不需要开机就自动运行的软件全部右键选择&quot;禁用&quot; -&gt; 建议禁用&quot;手机连接&quot;和&quot;移动设备&quot;,避免开机时这俩进行局域网搜索手机进行握手同步产生卡顿</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="硬盘删文件后留有碎片,ssd的trim会自动处理">硬盘删文件后留有碎片,SSD的TRIM会自动处理</h2>
+<p>固态磁盘SSD会有TRIM机制,不用的块会被逐渐清理,所以删了的文件慢慢就没了</p>
+<h2 id="删xbox相关&lt;span-class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;，&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;其实就是删系统内置的搜不到的应用">删xbox相关<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>其实就是删系统内置的搜不到的应用</h2>
+<p>基本是需要管理员运行powershell才能删 -&gt; <code>Get-AppxPackage *xbox* | Remove-AppxPackage</code> 拿着这个命令问GPT即可<br>
+还有一些能删的:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">项目名</th>
+<th style="text-align:center">命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">人脉</td>
+<td style="text-align:center"><code>Get-AppxPackage *people* | Remove-AppxPackage</code></td>
+</tr>
+<tr>
+<td style="text-align:center">Groove音乐<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>电影与电视</td>
+<td style="text-align:center"><code>Get-AppxPackage *zune* | Remove-AppxPackage</code></td>
+</tr>
+<tr>
+<td style="text-align:center">3D</td>
+<td style="text-align:center"><code>Get-AppxPackage *3d* | Remove-AppxPackage </code></td>
+</tr>
+<tr>
+<td style="text-align:center">新闻订阅</td>
+<td style="text-align:center"><code>Get-AppxPackage *bing* | Remove-AppxPackage</code></td>
+</tr>
+<tr>
+<td style="text-align:center">地图</td>
+<td style="text-align:center"><code>Get-AppxPackage *map* | Remove-AppxPackage</code></td>
+</tr>
+<tr>
+<td style="text-align:center">OneNote</td>
+<td style="text-align:center"><code>Get-AppxPackage *OneNote* | Remove-AppxPackage</code></td>
+</tr>
+</tbody>
+</table>
+<p><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>然后再关调用<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>移除ms-gamingoverlay调用 -&gt; Windows设置 -&gt; 游戏 -&gt; Game Bar全关,摄像全关<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>然后再注册表禁用两条命令<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>:<code>reg add HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR /v AppCaptureEnabled /t REG_DWORD /d 0 /f</code><br>
+<code>reg add HKCU\System\GameConfigStore /v GameDVR_Enabled /t REG_DWORD /d 0 /f</code></p>
+<h2 id="`c:\users\用户`目录清理"><code>C:\Users\用户</code>目录清理</h2>
+<p><code>.cache</code>是各种缓存,<code>.matplotlib</code>是Python绘图,<code>.e4mc_cache</code>,<code>Logs</code>,<code>.bash_history</code>命令行历史,<code>.python_history</code>Python REPL历史,<code>.lesshst</code>Linux工具历史都可删<br>
+<code>.vscode</code>是vscode用户配置,<code>.ssh</code>是SSH的key,<code>.gitconfig</code>是Git全局配置,<code>.eclipse</code>+<code>.p2</code>+<code>.sts4</code>是Eclipse用户配置,带<code>wsl</code>的都是WSL配置文件<br>
+<code>xwechat_files</code>是wx的直接删</p>
+<h2 id="强删软件:revo-uninstaller">强删软件:Revo Uninstaller</h2>
+<p>直接去搜索下载即可,要便携版<br>
+看见要删的直接删,选模式那里一般用Moderate即可;如果宁可冒错杀风险也要清干净就选Advanced<br>
+像比如有多个Java版本这种就别Advanced了,用Moderate(要不删其中一个容易把另一个的也删了)<br>
+在列表右边空白处可以右键 -&gt; Export list to -&gt; txt或html导出列表<br>
+半手动扫描问题:上面的Tools -&gt; 选对应的使用 ; 点一下全空白的是上方有&quot;Scan&quot;和&quot;Delete&quot;的需要扫描 ; Browsers Cleaner这里最好日常就选Delete temporary internet files即可 ; Evidence Remover这个是已删除文件的全盘覆写防找回(硬盘消耗大) ; Unrecoverable Delete这个是单个文件/目录的删除+覆写防找回<br>
+还有<em>WindowsApps</em>也可以删不常用的,如Xbox , Xbox Game Bar , Clipchamp , Microsoft Solitaire Collection(纸牌游戏) , Mixed Reality , 3D Viewer , Phone Link(如果不用手机连接,这个是无线连,不影响USB插手机), 反馈中心</p>
+<h2 id="压缩软件7zip&lt;span-class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;，&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;这个是开源的">压缩软件7zip<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>这个是开源的</h2>
+<p>直接搜7zip<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>各个系统的都有<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>无广告<br>
+要7z接管压缩文件:安装的地方管理员打开7-Zip File Manager,Tools(工具),Options(选项),这里可以调文件接管<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>右键菜单和语言<br>
+右键菜单建议只留&quot;解压到&quot;3条和&quot;添加到&quot;3条 ; 然后选上&quot;右键菜单显示图标&quot;<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span><strong>使用</strong><span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>自己存档/备份/发给自己,用<code>.7z</code>文件压缩 ; 发给别人/不确定对方能不能装软件/作业提交/群里分享,用<code>.zip</code></p>
+<h2 id="系统迁移">系统迁移</h2>
+<p>DiskGenius做磁盘迁移<br>
+可以直接热迁移,然后应该会自动弄成从新盘启动(如果没有,那就进BIOS设置一下)</p>
+<h2 id="扩展存储nas">扩展存储NAS</h2>
+<p>是一种通过网络连接的存储设备,允许多个用户和设备访问和共享数据<br>
+通常用于文件存储备份<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>媒体流传输等<br>
+搭NAS的话基本上要用机械硬盘,静态放置的话更稳定且便宜;固态贵而且可能有数据丢失问题</p>
+<blockquote>
+<p>注意AI大基建导致硬盘在狂涨价</p>
+</blockquote>
+<h2 id="清理环境变量">清理环境变量</h2>
+<p>在cmd里直接搜<code>set</code>即会输出所有环境变量,贴给AI做分析<br>
+然后设置里搜高级系统设置,下面的环境变量,去里面把该删的删掉</p>
+<h2 id="查看系统信息cpu-z">查看系统信息CPU-Z</h2>
+<p>直接去搜索下载<code>cpu-z_*.*.*-cn</code>,启动就能看相关信息</p>
+<h2 id="amd-rx 7650 gre显卡驱动损坏/版本冲突/windows自动覆盖驱动等">AMD RX 7650 GRE显卡驱动损坏/版本冲突/Windows自动覆盖驱动等</h2>
+<p>导致设备管理器显示显卡黄色感叹号,无法使用 -&gt; 这是AMD驱动安装失败或残留/Windows Update自动替换驱动/Adrenalin与底层驱动版本不匹配/多次安装卸载导致驱动栈混乱</p>
+<h3 id="修复流程">修复流程</h3>
+<ol>
+<li>断网 -&gt; 拔网线/关Wifi , 防止Windows自动安装错误驱动</li>
+<li>断网下使用DDU彻底清理驱动(网上下载工具Display Driver Uninstaller(DDU)),选择GPU,AMD,点Clean and restart,可以彻底清除当前显卡的一切,彻底避免版本冲突</li>
+<li>保持断网重启</li>
+<li>重启后联网,去AMD官网手动选择Graphics -&gt; Radeon RX 7000 Series -&gt; RX 7650 GRE(对应项)并下载AMD Software: Adrenalin Edition WHQL(完整安装包),就是选大的,1.5G那个版本下载,然后安装,然后重启</li>
+<li>重启后设备管理器,显示适配器里AMD Radeon RX 7650 GRE(无感叹号),修复成功,启动游戏不再报OpenGL错误</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BF%9D%E6%8A%A4%E6%B8%85%E7%90%86%E7%A1%AC%E7%9B%98/" rel="tag">保护清理硬盘</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8E%8B%E7%BC%A9%E8%BD%AF%E4%BB%B67zip/" rel="tag">压缩软件7zip</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%89%A9%E5%B1%95%E5%AD%98%E5%82%A8NAS/" rel="tag">扩展存储NAS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%88%860E/" rel="tag">爆0E</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/03/03/Vue-Springboot%E5%BC%80%E5%8F%91%E9%83%A8%E7%BD%B2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Vue+Springboot开发部署
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/02/07/%E8%AE%BA%E6%96%87just-accepted%E7%8A%B6%E6%80%81%E6%B3%A8%E6%84%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          论文just accepted状态注意
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/04/28/HTTPS-TLS%E6%A0%B8%E5%BF%83%E6%B1%87%E6%80%BB/">HTTPS,TLS核心汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2026/04/21/%E8%87%AA%E5%BB%BA%E8%8A%82%E7%82%B9%E6%90%AC%E8%BF%90/">自建节点搬运</a>
+          </li>
+        
+          <li>
+            <a href="/2026/01/11/AI%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">AI相关知识</a>
+          </li>
+        
+          <li>
+            <a href="/2025/11/12/Java%E5%87%86%E5%A4%87/">Java准备</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/15/C-%E7%9F%A5%E8%AF%86/">C++知识</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BF%A1%E6%81%AF%E4%BF%9D%E5%AD%98/">信息保存</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91tip/">开发tip</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E7%9B%B8%E5%85%B3/">论文相关</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AI%E7%9B%B8%E5%85%B3/" style="font-size: 10px;">AI相关</a> <a href="/tags/Axios%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8HTTPS/" style="font-size: 10px;">Axios、为什么不用HTTPS</a> <a href="/tags/C-C/" style="font-size: 10px;">C/C++</a> <a href="/tags/DOTA/" style="font-size: 10px;">DOTA</a> <a href="/tags/DRAM/" style="font-size: 10px;">DRAM</a> <a href="/tags/Date%E7%B1%BB%E9%80%89sql-Date/" style="font-size: 10px;">Date类选sql.Date</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/GPT%E7%89%B9%E5%88%AB%E6%B3%A8%E6%84%8F/" style="font-size: 10px;">GPT特别注意</a> <a href="/tags/HTTP-HTTPS/" style="font-size: 10px;">HTTP,HTTPS</a> <a href="/tags/HTTPS%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">HTTPS学习</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">Java学习</a> <a href="/tags/Java%E7%89%88%E6%9C%AC%E7%9B%B8%E5%85%B3/" style="font-size: 10px;">Java版本相关</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PPT%E6%B3%A8%E6%84%8F/" style="font-size: 10px;">PPT注意</a> <a href="/tags/Sins-of-a-Solar-Empire/" style="font-size: 10px;">Sins of a Solar Empire</a> <a href="/tags/Steam/" style="font-size: 10px;">Steam</a> <a href="/tags/TLS%E5%8A%A0%E5%AF%86/" style="font-size: 10px;">TLS加密</a> <a href="/tags/Terraria/" style="font-size: 10px;">Terraria</a> <a href="/tags/TitanFall2/" style="font-size: 10px;">TitanFall2</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/Word%E6%A0%87%E9%A2%98/" style="font-size: 10px;">Word标题</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jar%E5%8C%85%E5%92%8Cwar%E5%8C%85/" style="font-size: 10px;">jar包和war包</a> <a href="/tags/v2%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">v2配置</a> <a href="/tags/%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E6%98%AF%E4%BB%80%E4%B9%88%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">一些工具是什么学习</a> <a href="/tags/%E4%B8%89%E8%8C%83%E5%BC%8F/" style="font-size: 10px;">三范式</a> <a href="/tags/%E4%B9%B0%E6%89%8B%E6%9C%BAtip/" style="font-size: 10px;">买手机tip</a> <a href="/tags/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">云服务器</a> <a href="/tags/%E4%BF%9D%E6%8A%A4%E6%B8%85%E7%90%86%E7%A1%AC%E7%9B%98/" style="font-size: 10px;">保护清理硬盘</a> <a href="/tags/%E5%85%AC%E8%AF%81%E5%85%AC%E7%AB%A0tip/" style="font-size: 10px;">公证公章tip</a> <a href="/tags/%E5%86%85%E5%AD%98%E6%9D%A1%E7%89%A9%E7%90%86%E5%B1%82%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">内存条物理层知识</a> <a href="/tags/%E5%89%91%E6%98%9F/" style="font-size: 10px;">剑星</a> <a href="/tags/%E5%8A%9B%E6%89%A3tip/" style="font-size: 10px;">力扣tip</a> <a href="/tags/%E5%8A%9B%E6%89%A3%E8%BF%94%E5%9B%9E/" style="font-size: 10px;">力扣返回</a> <a href="/tags/%E5%8E%8B%E7%BC%A9%E8%BD%AF%E4%BB%B67zip/" style="font-size: 10px;">压缩软件7zip</a> <a href="/tags/%E5%8E%BBVFS%E5%BE%B7%E7%AD%BE%E7%AB%99%E7%82%B9/" style="font-size: 10px;">去VFS德签站点</a> <a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/" style="font-size: 10px;">命令行</a> <a href="/tags/%E5%9B%9B%E5%A4%A7%E5%9F%BA%E7%9F%B3/" style="font-size: 10px;">四大基石</a> <a href="/tags/%E5%9D%A6%E5%85%8B%E4%B8%96%E7%95%8C/" style="font-size: 10px;">坦克世界</a> <a href="/tags/%E5%A2%9E%E6%94%B9%E6%9F%A5-%E5%88%A0%E8%A6%81%E6%85%8E%E9%87%8D/" style="font-size: 10px;">增改查,删要慎重</a> <a href="/tags/%E5%A4%96%E9%94%AE/" style="font-size: 10px;">外键</a> <a href="/tags/%E5%AD%A6%E6%9C%AF%E4%BC%9A%E8%AE%AE%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">学术会议记录</a> <a href="/tags/%E5%AD%A6%E6%A0%A1%E8%B4%A2%E5%8A%A1/" style="font-size: 10px;">学校财务</a> <a href="/tags/%E5%B0%8F%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">小知识</a> <a href="/tags/%E5%B7%A5%E4%BD%9Ctip/" style="font-size: 10px;">工作tip</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E7%95%99%E7%97%95%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6/" style="font-size: 10px;">工作留痕保存文件</a> <a href="/tags/%E5%B8%B8%E7%94%A8%E5%BE%B7%E8%AF%AD/" style="font-size: 10px;">常用德语</a> <a href="/tags/%E5%BB%BA%E8%8A%82%E7%82%B9/" style="font-size: 10px;">建节点</a> <a href="/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 10px;">快捷键</a> <a href="/tags/%E6%89%A9%E5%B1%95%E5%AD%98%E5%82%A8NAS/" style="font-size: 10px;">扩展存储NAS</a> <a href="/tags/%E6%8A%A5%E5%91%8A%E5%BC%80%E5%8F%91tip/" style="font-size: 10px;">报告开发tip</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%96%87%E7%AB%A0%E7%AD%89%E7%BA%A7/" style="font-size: 10px;">文章等级</a> <a href="/tags/%E6%AC%A7%E5%85%83/" style="font-size: 10px;">欧元</a> <a href="/tags/%E6%B1%BD%E8%BD%A6%E7%A7%9F%E8%BD%A6tip/" style="font-size: 10px;">汽车租车tip</a> <a href="/tags/%E6%B6%A6tip/" style="font-size: 10px;">润tip</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E4%BF%A1%E6%81%AF/" style="font-size: 10px;">游戏信息</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E9%85%8D%E7%BD%AE/" style="font-size: 20px;">游戏配置</a> <a href="/tags/%E7%88%860E/" style="font-size: 10px;">爆0E</a> <a href="/tags/%E7%9D%80%E8%A3%85%E6%80%BB%E7%BB%93/" style="font-size: 10px;">着装总结</a> <a href="/tags/%E7%A0%B4%E9%99%A4String/" style="font-size: 10px;">破除String</a> <a href="/tags/%E7%A7%81%E9%92%A5%E5%85%AC%E9%92%A5/" style="font-size: 10px;">私钥公钥</a> <a href="/tags/%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%BB%B4%E6%8A%A4/" style="font-size: 10px;">笔记本维护</a> <a href="/tags/%E7%AD%94%E8%BE%A9%E6%BC%94%E8%AE%B2%E6%80%BB%E7%BB%93/" style="font-size: 10px;">答辩演讲总结</a> <a href="/tags/%E7%AE%80%E5%8E%86%E7%9B%B8%E5%85%B3/" style="font-size: 10px;">简历相关</a> <a href="/tags/%E7%AE%A1%E7%90%86%EF%BF%A5/" style="font-size: 10px;">管理￥</a> <a href="/tags/%E8%80%83%E7%A0%94%E6%88%90%E7%BB%A9/" style="font-size: 10px;">考研成绩</a> <a href="/tags/%E8%81%8C%E5%9C%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">职场学习</a> <a href="/tags/%E8%AE%B0%E5%A8%B1%E4%B9%90/" style="font-size: 10px;">记娱乐</a> <a href="/tags/%E8%AE%BA%E6%96%87%E7%8A%B6%E6%80%81/" style="font-size: 10px;">论文状态</a> <a href="/tags/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98Cors/" style="font-size: 10px;">跨域问题Cors</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%85%92%E5%8F%8A%E4%B9%A0%E4%BF%97%E7%9B%B8%E5%85%B3/" style="font-size: 10px;">酒及习俗相关</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+        <p></p>
+      
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/jquery-1.4.3.min.js"></script>
+
+<script src="/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+<script>
+  MathJax = {
+    options: {
+      enableMenu: false
+    },
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    }
+  };
+</script>
+<!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+    CommonHTML: {
+      linebreaks: false
+    }
+  });
+  </script> -->
+<script type="text/javascript" id="MathJax-script" async
+  src="/mathjax/tex-chtml.js">
+</script>
+<!-- <script type="text/javascript"
+   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML">
+</script> -->
+
+  </div>
+</body>
+</html>

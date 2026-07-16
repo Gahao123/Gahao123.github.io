@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>AI相关知识 | Ga豪笔记😀</title>
+  <link rel="stylesheet" href="/css/fonts/Chinese-normal-normal.min.css">
+  <link rel="stylesheet" href="/css/fonts/ChineseMono-normal-normal.min.css">
+  <link rel="stylesheet" href="/css/fonts/Chinese-italic-normal.min.css">
+  <link rel="stylesheet" href="/css/fonts/Chinese-normal-bold.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="description" content="大模型落地四大基石:RAG,微调,Agent,提示词工程
+配置环境+环境切换+安各种包:python + conda(可以用Miniconda,更小)
+注意作业跑模型【用CUDA,GPU,别让CPU搁那拉大车了】4060才适合跑模型
+【验证GPU是否成功】python -c &amp;quot;import torch; print(torch.cuda.is_available())&amp;quot; -&amp;gt; 输出&amp;quot;True&amp;quot;才算成功 -&amp;gt; 【再进一步】python -c &amp;quot;import torch; print(torch.cuda.get_device_name(0))&amp;quot; -&amp;gt; 输出&amp;quot;NVIDIA GeForce RTX 4060 Laptop GPU&amp;quot;才算成功
+【python单行注释: # 】">
+  
+  
+  
+    <link rel="shortcut icon" href="/icon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox-1.3.4.css">
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div id="nav-outer">
+  <nav id="main-nav" class="outer">
+    <a id="main-nav-toggle" class="nav-icon"></a>
+    
+      <a class="main-nav-link" href="/">主页</a>
+    
+      <a class="main-nav-link" href="/archives">归档</a>
+    
+      <a class="main-nav-link" href="/about">关于</a>
+    
+    <div class="main-nav-space-between"></div>
+    
+  </nav>
+</div>
+<div id="header-title">
+  <h1 id="logo-wrap">
+    <a href="/" id="logo">Ga豪笔记😀</a>
+  </h1>
+  
+    <h2 id="subtitle-wrap">
+      <a href="/" id="subtitle">25518xw</a>
+    </h2>
+  
+</div>
+
+      <div id="content" class="outer">
+        <section id="main"><article id="post-AI相关知识" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/01/11/AI%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/" class="article-date">
+  <time class="dt-published" datetime="2026-01-11T02:30:04.000Z" itemprop="datePublished">2026-01-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      AI相关知识
+    </h1>
+  
+
+      </header>
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="大模型落地四大基石:rag,微调,agent,提示词工程">大模型落地四大基石:RAG,微调,Agent,提示词工程</h2>
+<p>配置环境+环境切换+安各种包:python + conda(可以用Miniconda,更小)<br>
+注意作业跑模型<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>用CUDA,GPU,别让CPU搁那拉大车了<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>4060才适合跑模型<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>验证GPU是否成功<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><code>python -c &quot;import torch; print(torch.cuda.is_available())&quot;</code> -&gt; 输出<code>&quot;True&quot;</code>才算成功 -&gt; <span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>再进一步<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><code>python -c &quot;import torch; print(torch.cuda.get_device_name(0))&quot;</code> -&gt; 输出<code>&quot;NVIDIA GeForce RTX 4060 Laptop GPU&quot;</code>才算成功<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>python单行注释: # <span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span></p>
+<span id="more"></span>
+<h2 id="260613,fable5被政府禁,gpt56跟着受影响--&gt; 最新的ai成果已经不平等的属于所有人了">260613,Fable5被政府禁,GPT5.6跟着受影响 -&gt; 最新的AI成果已经不平等的属于所有人了</h2>
+<p>越强的模型越不会人人可用,有了更强的,才放出淘汰的,这样永远保持领先<br>
+<code>on hold</code>:暂停,指暂时停止或延迟某事物的进行</p>
+<h2 id="模型基础网络架构方面">模型基础网络架构方面</h2>
+<p>从CNN -&gt; Transformer是一次大突破,给NLP<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>CV<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>多模态提供了统一范式,后续基本都是基于Transformer架构的改进<br>
+后续的性能提升主要靠规模(Scale/Scaling),提升参数规模,数据规模,训练算力</p>
+<h2 id="大模型幻觉">大模型幻觉</h2>
+<p>即模型有时会很自信地给出一些看似合理但完全错误的答案<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>就是&quot;一本正经胡说八道&quot;<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>原因<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>模型其实是最大化下一个token的预测概率,学习的是语言的统计规律,而非事实 -&gt; 语言建模目标和真实世界知识之间的结构性偏差,在现有框架下没办法根本消除<br>
+大模型的本质是一台概率预测机,给他一段输入,他干的事是根据训练数据里的统计规律,去预测下一个最可能出现的词,因此学会判断,关键是能判断它什么时候输出的东西看起来完全正确但实际上是非常危险的</p>
+<h2 id="gpt特别注意">GPT特别注意</h2>
+<p>上传文件(如图片,甚至cpp代码文件)会导致快速限额 -&gt; 还是多用文字,–图片,–cpp代码文件<br>
+就用纯输入框,额度更大</p>
+<h2 id="解决gpt聊天太长导致大规模前端渲染--&gt; 卡顿+硬件压力(注意gpt的每一个聊天都是完全隔离的上下文容器,彼此之间没有交流)">解决GPT聊天太长导致大规模前端渲染 -&gt; 卡顿+硬件压力(注意GPT的每一个聊天都是完全隔离的上下文容器,彼此之间没有交流)</h2>
+<p>GPT现在没有只保留记忆,不显示太长的历史,或者就是浏览器不再渲染上面很长的聊天内容的功能,因为<strong>收益/复杂度比目前不划算</strong>:<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>1<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>现实情况是80%用户都是聊10–20轮一次性问题,看完就走,单会话太多轮,强上下文,技术导向的不是产品目标用户;<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>2<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>上下文不等于原文也会引入语义风险,使用户信任成本高,所以设计为-&gt; 所见即所用,所用即所见,“笨&quot;却有效;<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>3<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>虚拟化只能优化浏览器体验,但完全不优化模型,不能降OpenAI的成本;<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>4<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>引入局部上下文,虚拟折叠,动态摘要会导致多端一致性困难<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span><strong>最优解决方法:总结+新开聊天</strong><span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>在当前对话里发一句:请你把我们目前这个聊天中对我有用的长期上下文做一个结构化总结<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>包括<span class="bd-box"><h-char class="bd bd-beg"><h-inner>：</h-inner></h-char></span>我的背景,正在做的事,偏好/目标,已经达成的结论<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span>用要点列出来<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>方便我复制<br>
+然后AI给出一份高度压缩的&quot;上下文快照”,然后新开一个聊天,第一条消息直接粘贴这份总结,继续聊<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span><strong>GPT给的高保真上下文迁移提示词</strong><span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>:<br>
+请你把<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>本聊天中对我后续继续使用ChatGPT最重要的上下文<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>整理成一个高保真上下文快照<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>用于我在新聊天中作为第一条消息粘贴<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span><br>
+要求如下<span class="bd-box"><h-char class="bd bd-end"><h-inner>（</h-inner></h-char></span>请严格遵守<span class="bd-box"><h-char class="bd bd-beg"><h-inner>）</h-inner></h-char><h-char class="bd bd-beg"><h-inner>：</h-inner></h-char></span><br>
+1.只保留长期有效的信息<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>不要保留一次性闲聊或已失效内容<br>
+2.用结构化要点<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>而不是长段叙述<br>
+3.必须覆盖以下维度<span class="bd-box"><h-char class="bd bd-end"><h-inner>（</h-inner></h-char></span>如果有<span class="bd-box"><h-char class="bd bd-beg"><h-inner>）</h-inner></h-char><h-char class="bd bd-beg"><h-inner>：</h-inner></h-char></span><br>
+我的背景/身份/阶段<span class="bd-box"><h-char class="bd bd-end"><h-inner>（</h-inner></h-char></span>如<span class="bd-box"><h-char class="bd bd-beg"><h-inner>：</h-inner></h-char></span>学生<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>在做什么<span class="bd-box"><h-char class="bd bd-beg"><h-inner>）</h-inner></h-char></span><br>
+当前长期目标<span class="bd-box"><h-char class="bd bd-end"><h-inner>（</h-inner></h-char></span>学习/项目/求职/论文等<span class="bd-box"><h-char class="bd bd-beg"><h-inner>）</h-inner></h-char></span><br>
+已经达成的重要共识或结论<br>
+我偏好的回答风格<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>深度<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>约束条件<br>
+正在进行中的主题<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>问题或项目<span class="bd-box"><h-char class="bd bd-end"><h-inner>（</h-inner></h-char></span>含进度<span class="bd-box"><h-char class="bd bd-beg"><h-inner>）</h-inner></h-char></span><br>
+明确<span class="bd-box"><h-char class="bd bd-end"><h-inner>“</h-inner></h-char></span>我已经知道/不需要再解释<span class="bd-box"><h-char class="bd bd-beg"><h-inner>”</h-inner></h-char></span>的内容<br>
+4.保留必要的技术细节和关键术语<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>避免过度概括导致语义损失<br>
+5.如果存在不确定或可能过期的信息<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>请单独标注<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>需确认<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><br>
+6.最终输出请控制在1–2屏以内<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>但优先保证信息完整性而非极度压缩</p>
+<p>输出格式示例<span class="bd-box"><h-char class="bd bd-beg"><h-inner>：</h-inner></h-char></span><br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>用户背景<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>长期目标<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>当前进行中的主题/项目<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>已达成的重要结论<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>偏好与使用习惯<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>已确认无需重复的知识点<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>待确认/可选补充<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span></p>
+<h2 id="提示词工程">提示词工程</h2>
+<p>通过精心设计自然语言指令,引导大模型输出符合预期的结果,它是最基础的<br>
+<strong>核心技巧</strong>:1.描述清楚任务目标;2.补充上下文信息,减少歧义;3.限定输出格式,如要求表格或JSON返回;4.给出参考答案,提升模型模仿能力;5.结构化输出,便于后续自动化处理<br>
+无需训练,开发成本低,灵活性高<br>
+<strong>问题是</strong>:效果受限于模型原有知识和提示设计,对用户设计能力要求高</p>
+<h2 id="ai-agent(智能体)">AI Agent(智能体)</h2>
+<p>即人工智能代理,就是不仅能回答问题,还能办事的AI<br>
+传统AI,只能问问题回答,但是AI Agent还能去做,调用各种工具(如API<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>数据库<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>软件)<br>
+比如你想让AI推荐餐厅,传统AI只能给几个回答,但是AI Agent就能给出回答并直接帮你订好吃的和打车还有路线,你直接去吃就行了(相当于智库-&gt;秘书)<br>
+<strong>问题是</strong>:决策失误,安全性和标准化问题,工具集成和权限管理复杂 -&gt; 要让Agent充分发挥作用,就得给充分的系统授权;但授权越高,发生网络安全问题的概率越大</p>
+<h2 id="大模型微调">大模型微调</h2>
+<p>就是在预训练好的大语言模型<span class="bd-box"><h-char class="bd bd-end"><h-inner>（</h-inner></h-char></span>例如Qwen<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>GPT系列<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>DeepSeek等<span class="bd-box"><h-char class="bd bd-beg"><h-inner>）</h-inner></h-char></span>基础上<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>利用特定的数据集对模型的参数进行小规模训练(“二次训练”)<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>以更好地适应特定任务或领域<br>
+相当于让AI<span class="bd-box"><h-char class="bd bd-end"><h-inner>“</h-inner></h-char></span>背熟教材<span class="bd-box"><h-char class="bd bd-beg"><h-inner>”</h-inner></h-char><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>把知识牢牢写进大脑里<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>考试时可以直接输出<br>
+是可以与RAG,Agent协同的<br>
+要进行二次训练<br>
+<strong>问题是</strong>:需要高质量标注数据和较高算力,开发周期和成本较高</p>
+<h2 id="rag-结合信息检索和文本生成">RAG 结合信息检索和文本生成</h2>
+<p>在生成回答之前先检索相关的外部知识<br>
+RAG属于动态获取最新信息,可访问私有或实时数据并基于权重,突破了传统LLM的知识截止时间限制<br>
+两个阶段:1.检索,根据用户查询找到相关的知识片段;2.生成,基于检索到的知识生成准确回答;3.用户提供的知识库会给予更高权重<br>
+相当于像开卷考试一样<span class="bd-box"><h-char class="bd bd-end"><h-inner>“</h-inner></h-char></span>查资料回答<span class="bd-box"><h-char class="bd bd-beg"><h-inner>”</h-inner></h-char></span><br>
+不用进行重新训练<br>
+<strong>问题是</strong>:依赖知识库质量,且检索与生成的融合需要精细调优</p>
+<h2 id="多模态">多模态</h2>
+<p>多模态(Multimodal)是指通过整合来自不同模态(如视觉<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>听觉<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>文本<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>触觉<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>雷达带来的空间信息等)的信息<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>以增强数据理解和处理能力的技术<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span>模态可以理解为信息的来源或形式<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>例如图像<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>音频<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>视频和文本等<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span>在多模态学习中<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>模型通过融合不同模态的数据来提高其感知与理解能力<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span></p>
+<h2 id="模糊测试(是一种思想,不需要库)">模糊测试(是一种思想,不需要库)</h2>
+<p>是一种自动化软件测试技术<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>核心思想:不断往程序里&quot;乱塞&quot;大量异常<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>随机或半随机的输入<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>看看它会不会崩<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span>如果程序因为这些输入而崩溃<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>卡死<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>异常退出<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>触发断言<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>那基本就说明存在Bug或安全漏洞<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>进一步的<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>RowHammer模糊测试=自动探索最容易产生bit flip的攻击配置<br>
+相当于不停的试<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>但是和循环穷举测试不一样<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>是有反馈驱动的<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>是根据&quot;历史试过的结果&quot;<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>决定&quot;接下来怎么试&quot; -&gt; 自动生成输入+根据反馈调整下一轮输入<br>
+在跑通的学长代码里加反馈循环 -&gt; 算模糊测试<br>
+只要做到: 1.自动生成攻击参数(不是手写); 2.有基于结果的反馈调整; 3.跑出来的数据明显多于原工具; 就已经算完成了&quot;模糊测试部分&quot;的学术任务<br>
+模糊测试<strong>可产生大量数据</strong>,有了数据之后才是引入什么机器学习库,配置模型这些</p>
+<blockquote>
+<p>注意,要训练模型去加到反馈部分的时候,是用模型&quot;增强/指导&quot;反馈,而不是完全接管(防老师问,说&quot;完全替代&quot;就没退路了) -&gt; 最后可用模型给出&quot;哪些参数重要&quot;</p>
+</blockquote>
+<h2 id="多源交叉验证">多源交叉验证</h2>
+<p>通过对不同渠道<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>不同维度<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>不同格式的数据进行整合比对<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>来验证信息的准确性<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>一致性<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>可靠性</p>
+<h2 id="消融实验">消融实验</h2>
+<p>就是把&quot;部件&quot;逐个拿掉,看看最终效果,从而判断每个部分到底有没有用<br>
+就是&quot;控制变量地删模块&quot;<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>注意<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>模块之间可能有联动,比如A或B单独看都没用,但A+B就很有用 -&gt; 会有组合效果 -&gt; 看起来&quot;可疑&quot;的模块再做一下组合测试 -&gt; 真的没用再删</p>
+<h2 id="ai方向相关">AI方向相关</h2>
+<p>AI还是在代码<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>图片生成这两个方向更好,视频生成成本比其他形式高 -&gt; OpenAI已经于260426彻底关停Sora,成人模型和科研模型AI for Science也都砍了<br>
+订阅收费逐渐 -&gt; 用量收费 -&gt; 260503看的GPT5.5每百万token Input 5刀(你往模型输入的收费),Cached input 0.5刀,Output 30刀(模型给你输出的收费) -&gt; B端Agent应用跑通变现渠道<br>
+模型技术层三家差别不大了 -&gt; Agent应用层 -&gt; 算力层(得有算力供烧才行)<br>
+1 token约0.75个单词或1个汉字,日常聊天消耗token很少,但Agent跑一次轻松几万-几十万token<br>
+260426GPT-image2 -&gt; 效果很好,平面设计,老照片啥的都很好,中文也不乱码了<br>
+生成一定注意别牵扯政治,想缝合去缝那些企业老板 -&gt; 马斯克,奥特曼这些</p>
+<h2 id="&lt;span-class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-end&quot;&gt;&lt;h-inner&gt;【&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;极海&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;】&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;ai编程如何节省token(不过一般都得报销token?)"><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>极海<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>AI编程如何节省token(不过一般都得报销token?)</h2>
+<ol>
+<li>提示词缓存<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>项目和团队的规范约束<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>架构设计<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>数据库类型这种基本不变<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>不用重复输入<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>就是上下文通过接口缓存在服务端/定义在全局的markdown文件中<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>只需写入消耗一次token就可以不停读取<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>读取的token消耗小</li>
+<li>输入精简<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>只选取和你文案相关的代码片段<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>日志<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>注释<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>空格完全都可以去掉</li>
+<li>输入输出结构化精简<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>明确结构化<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>描述好任务<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>技术栈<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>约束条件<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>输出格式<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>减少客套话</li>
+</ol>
+<h2 id="显存颗粒学习2606">显存颗粒学习2606</h2>
+<p>家用显卡上GPU周围紧密挨着的那些就是显存颗粒,显存颗粒和GPU通过导线连接,通过电压信号进行数据传输 ; <code>带宽=频率*位宽</code>,要提升带宽<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>就提升传输的频率/多增加几根导线提升位宽(1根导线就是1bit位宽),普通的GDDR7显存位宽为32,5090满载支持16颗显存颗粒,总位宽可达512bit ; 不过普通的GDDR7 是32根导线传数据,还需要供电线<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>地址线<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>时钟线,所以GDDR7实际有266根导线 ; 5090上的单颗GDDR7容量一般2G,GPU周围焊满16颗总容量32G,打游戏完全够,但对AI来说太小了<br>
+AI服务器上用的是HBM显存,是和GPU封装在一起的,HBM3E显存单颗位宽1024bit,B300 GPU周围8颗HBM3E,总位宽8192bit ; HBM3E光传数据的导线就有1024根,加上配套那些,HBM3E有3982根导线 ; GB300服务器每块HBM容量是36G,1颗GPU配置8块,就是288G,一共4颗GPU,总容量1152GB ; HBM虽然给AI提供了基础设施,但它的生产工艺和设备与传统的DRAM高度重叠,大量抢占了普通内存的产能 ; 不过HBM延迟太高,并不适合家用</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI%E7%9B%B8%E5%85%B3/" rel="tag">AI相关</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GPT%E7%89%B9%E5%88%AB%E6%B3%A8%E6%84%8F/" rel="tag">GPT特别注意</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%9B%E5%A4%A7%E5%9F%BA%E7%9F%B3/" rel="tag">四大基石</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2026/04/21/%E8%87%AA%E5%BB%BA%E8%8A%82%E7%82%B9%E6%90%AC%E8%BF%90/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          自建节点搬运
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/11/12/Java%E5%87%86%E5%A4%87/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          Java准备
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/04/28/HTTPS-TLS%E6%A0%B8%E5%BF%83%E6%B1%87%E6%80%BB/">HTTPS,TLS核心汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2026/04/21/%E8%87%AA%E5%BB%BA%E8%8A%82%E7%82%B9%E6%90%AC%E8%BF%90/">自建节点搬运</a>
+          </li>
+        
+          <li>
+            <a href="/2026/01/11/AI%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">AI相关知识</a>
+          </li>
+        
+          <li>
+            <a href="/2025/11/12/Java%E5%87%86%E5%A4%87/">Java准备</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/15/C-%E7%9F%A5%E8%AF%86/">C++知识</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BF%A1%E6%81%AF%E4%BF%9D%E5%AD%98/">信息保存</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91tip/">开发tip</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E7%9B%B8%E5%85%B3/">论文相关</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AI%E7%9B%B8%E5%85%B3/" style="font-size: 10px;">AI相关</a> <a href="/tags/Axios%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8HTTPS/" style="font-size: 10px;">Axios、为什么不用HTTPS</a> <a href="/tags/C-C/" style="font-size: 10px;">C/C++</a> <a href="/tags/DOTA/" style="font-size: 10px;">DOTA</a> <a href="/tags/DRAM/" style="font-size: 10px;">DRAM</a> <a href="/tags/Date%E7%B1%BB%E9%80%89sql-Date/" style="font-size: 10px;">Date类选sql.Date</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/GPT%E7%89%B9%E5%88%AB%E6%B3%A8%E6%84%8F/" style="font-size: 10px;">GPT特别注意</a> <a href="/tags/HTTP-HTTPS/" style="font-size: 10px;">HTTP,HTTPS</a> <a href="/tags/HTTPS%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">HTTPS学习</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">Java学习</a> <a href="/tags/Java%E7%89%88%E6%9C%AC%E7%9B%B8%E5%85%B3/" style="font-size: 10px;">Java版本相关</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PPT%E6%B3%A8%E6%84%8F/" style="font-size: 10px;">PPT注意</a> <a href="/tags/Sins-of-a-Solar-Empire/" style="font-size: 10px;">Sins of a Solar Empire</a> <a href="/tags/Steam/" style="font-size: 10px;">Steam</a> <a href="/tags/TLS%E5%8A%A0%E5%AF%86/" style="font-size: 10px;">TLS加密</a> <a href="/tags/Terraria/" style="font-size: 10px;">Terraria</a> <a href="/tags/TitanFall2/" style="font-size: 10px;">TitanFall2</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/Word%E6%A0%87%E9%A2%98/" style="font-size: 10px;">Word标题</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jar%E5%8C%85%E5%92%8Cwar%E5%8C%85/" style="font-size: 10px;">jar包和war包</a> <a href="/tags/v2%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">v2配置</a> <a href="/tags/%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E6%98%AF%E4%BB%80%E4%B9%88%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">一些工具是什么学习</a> <a href="/tags/%E4%B8%89%E8%8C%83%E5%BC%8F/" style="font-size: 10px;">三范式</a> <a href="/tags/%E4%B9%B0%E6%89%8B%E6%9C%BAtip/" style="font-size: 10px;">买手机tip</a> <a href="/tags/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">云服务器</a> <a href="/tags/%E4%BF%9D%E6%8A%A4%E6%B8%85%E7%90%86%E7%A1%AC%E7%9B%98/" style="font-size: 10px;">保护清理硬盘</a> <a href="/tags/%E5%85%AC%E8%AF%81%E5%85%AC%E7%AB%A0tip/" style="font-size: 10px;">公证公章tip</a> <a href="/tags/%E5%86%85%E5%AD%98%E6%9D%A1%E7%89%A9%E7%90%86%E5%B1%82%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">内存条物理层知识</a> <a href="/tags/%E5%89%91%E6%98%9F/" style="font-size: 10px;">剑星</a> <a href="/tags/%E5%8A%9B%E6%89%A3tip/" style="font-size: 10px;">力扣tip</a> <a href="/tags/%E5%8A%9B%E6%89%A3%E8%BF%94%E5%9B%9E/" style="font-size: 10px;">力扣返回</a> <a href="/tags/%E5%8E%8B%E7%BC%A9%E8%BD%AF%E4%BB%B67zip/" style="font-size: 10px;">压缩软件7zip</a> <a href="/tags/%E5%8E%BBVFS%E5%BE%B7%E7%AD%BE%E7%AB%99%E7%82%B9/" style="font-size: 10px;">去VFS德签站点</a> <a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/" style="font-size: 10px;">命令行</a> <a href="/tags/%E5%9B%9B%E5%A4%A7%E5%9F%BA%E7%9F%B3/" style="font-size: 10px;">四大基石</a> <a href="/tags/%E5%9D%A6%E5%85%8B%E4%B8%96%E7%95%8C/" style="font-size: 10px;">坦克世界</a> <a href="/tags/%E5%A2%9E%E6%94%B9%E6%9F%A5-%E5%88%A0%E8%A6%81%E6%85%8E%E9%87%8D/" style="font-size: 10px;">增改查,删要慎重</a> <a href="/tags/%E5%A4%96%E9%94%AE/" style="font-size: 10px;">外键</a> <a href="/tags/%E5%AD%A6%E6%9C%AF%E4%BC%9A%E8%AE%AE%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">学术会议记录</a> <a href="/tags/%E5%AD%A6%E6%A0%A1%E8%B4%A2%E5%8A%A1/" style="font-size: 10px;">学校财务</a> <a href="/tags/%E5%B0%8F%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">小知识</a> <a href="/tags/%E5%B7%A5%E4%BD%9Ctip/" style="font-size: 10px;">工作tip</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E7%95%99%E7%97%95%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6/" style="font-size: 10px;">工作留痕保存文件</a> <a href="/tags/%E5%B8%B8%E7%94%A8%E5%BE%B7%E8%AF%AD/" style="font-size: 10px;">常用德语</a> <a href="/tags/%E5%BB%BA%E8%8A%82%E7%82%B9/" style="font-size: 10px;">建节点</a> <a href="/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 10px;">快捷键</a> <a href="/tags/%E6%89%A9%E5%B1%95%E5%AD%98%E5%82%A8NAS/" style="font-size: 10px;">扩展存储NAS</a> <a href="/tags/%E6%8A%A5%E5%91%8A%E5%BC%80%E5%8F%91tip/" style="font-size: 10px;">报告开发tip</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%96%87%E7%AB%A0%E7%AD%89%E7%BA%A7/" style="font-size: 10px;">文章等级</a> <a href="/tags/%E6%AC%A7%E5%85%83/" style="font-size: 10px;">欧元</a> <a href="/tags/%E6%B1%BD%E8%BD%A6%E7%A7%9F%E8%BD%A6tip/" style="font-size: 10px;">汽车租车tip</a> <a href="/tags/%E6%B6%A6tip/" style="font-size: 10px;">润tip</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E4%BF%A1%E6%81%AF/" style="font-size: 10px;">游戏信息</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E9%85%8D%E7%BD%AE/" style="font-size: 20px;">游戏配置</a> <a href="/tags/%E7%88%860E/" style="font-size: 10px;">爆0E</a> <a href="/tags/%E7%9D%80%E8%A3%85%E6%80%BB%E7%BB%93/" style="font-size: 10px;">着装总结</a> <a href="/tags/%E7%A0%B4%E9%99%A4String/" style="font-size: 10px;">破除String</a> <a href="/tags/%E7%A7%81%E9%92%A5%E5%85%AC%E9%92%A5/" style="font-size: 10px;">私钥公钥</a> <a href="/tags/%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%BB%B4%E6%8A%A4/" style="font-size: 10px;">笔记本维护</a> <a href="/tags/%E7%AD%94%E8%BE%A9%E6%BC%94%E8%AE%B2%E6%80%BB%E7%BB%93/" style="font-size: 10px;">答辩演讲总结</a> <a href="/tags/%E7%AE%80%E5%8E%86%E7%9B%B8%E5%85%B3/" style="font-size: 10px;">简历相关</a> <a href="/tags/%E7%AE%A1%E7%90%86%EF%BF%A5/" style="font-size: 10px;">管理￥</a> <a href="/tags/%E8%80%83%E7%A0%94%E6%88%90%E7%BB%A9/" style="font-size: 10px;">考研成绩</a> <a href="/tags/%E8%81%8C%E5%9C%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">职场学习</a> <a href="/tags/%E8%AE%B0%E5%A8%B1%E4%B9%90/" style="font-size: 10px;">记娱乐</a> <a href="/tags/%E8%AE%BA%E6%96%87%E7%8A%B6%E6%80%81/" style="font-size: 10px;">论文状态</a> <a href="/tags/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98Cors/" style="font-size: 10px;">跨域问题Cors</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%85%92%E5%8F%8A%E4%B9%A0%E4%BF%97%E7%9B%B8%E5%85%B3/" style="font-size: 10px;">酒及习俗相关</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+        <p></p>
+      
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/jquery-1.4.3.min.js"></script>
+
+<script src="/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+<script>
+  MathJax = {
+    options: {
+      enableMenu: false
+    },
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    }
+  };
+</script>
+<!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+    CommonHTML: {
+      linebreaks: false
+    }
+  });
+  </script> -->
+<script type="text/javascript" id="MathJax-script" async
+  src="/mathjax/tex-chtml.js">
+</script>
+<!-- <script type="text/javascript"
+   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML">
+</script> -->
+
+  </div>
+</body>
+</html>

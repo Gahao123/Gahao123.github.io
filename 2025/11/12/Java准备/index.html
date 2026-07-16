@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Java准备 | Ga豪笔记😀</title>
+  <link rel="stylesheet" href="/css/fonts/Chinese-normal-normal.min.css">
+  <link rel="stylesheet" href="/css/fonts/ChineseMono-normal-normal.min.css">
+  <link rel="stylesheet" href="/css/fonts/Chinese-italic-normal.min.css">
+  <link rel="stylesheet" href="/css/fonts/Chinese-normal-bold.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="description" content="力扣返回(时间复杂度,空间复杂度)
+注意面试没有竞赛那种&amp;quot;默认时间优先,空间基本不管&amp;quot;的规则,但也没有&amp;quot;空间必须极小&amp;quot; -&amp;gt; 应该是&amp;quot;知道自己用了多少空间&amp;quot; -&amp;gt; 确实时间复杂度更优先,但空间复杂度也得知道
+力扣要返回结果的话直接参考下面:
+return new int[]&amp;#123;i, j&amp;#125;;
+返回对应结果的数组就好了,就是这个格式
+【多方法的话】看题目所属标签和讨论区主要解法,会那个主流解法即可;实在太绕的话就是能写对、能解释清楚的优先">
+  
+  
+  
+    <link rel="shortcut icon" href="/icon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox-1.3.4.css">
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div id="nav-outer">
+  <nav id="main-nav" class="outer">
+    <a id="main-nav-toggle" class="nav-icon"></a>
+    
+      <a class="main-nav-link" href="/">主页</a>
+    
+      <a class="main-nav-link" href="/archives">归档</a>
+    
+      <a class="main-nav-link" href="/about">关于</a>
+    
+    <div class="main-nav-space-between"></div>
+    
+  </nav>
+</div>
+<div id="header-title">
+  <h1 id="logo-wrap">
+    <a href="/" id="logo">Ga豪笔记😀</a>
+  </h1>
+  
+    <h2 id="subtitle-wrap">
+      <a href="/" id="subtitle">25518xw</a>
+    </h2>
+  
+</div>
+
+      <div id="content" class="outer">
+        <section id="main"><article id="post-Java准备" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/11/12/Java%E5%87%86%E5%A4%87/" class="article-date">
+  <time class="dt-published" datetime="2025-11-12T04:14:04.000Z" itemprop="datePublished">2025-11-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Java准备
+    </h1>
+  
+
+      </header>
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="力扣返回(时间复杂度,空间复杂度)">力扣返回(时间复杂度,空间复杂度)</h2>
+<p>注意面试没有竞赛那种&quot;默认时间优先,空间基本不管&quot;的规则,但也没有&quot;空间必须极小&quot; -&gt; 应该是&quot;知道自己用了多少空间&quot; -&gt; 确实时间复杂度更优先,但空间复杂度也得知道<br>
+力扣要返回结果的话直接参考下面:<br>
+<code>return new int[]&#123;i, j&#125;;</code><br>
+返回对应结果的数组就好了,就是这个格式<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>多方法的话<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>看题目所属标签和讨论区主要解法,会那个主流解法即可;实在太绕的话就是能写对<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>能解释清楚的优先</p>
+<span id="more"></span>
+<h3 id="对于力扣上题目边界的一点小思考">对于力扣上题目边界的一点小思考</h3>
+<p>指针和数组操作的话,想清楚是先加再赋值还是先赋值再加指针 -&gt; 有助于判断循环完那个指针到底指的哪里</p>
+<blockquote>
+<p>数了一下,简单的题目20,困难的12个,余下中等<br>
+N皇后就算是困难题了<br>
+<strong>二叉搜索树中第K小的元素</strong>:中序遍历第k个(方法1)就够了,记录子树节点数(方法2)已经是会讲就差不多了,手写AVL树(平衡二叉搜索树)(方法3)面试中纯自杀<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>要会选复杂度合适的方案<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span></p>
+</blockquote>
+<h2 id="ide">IDE</h2>
+<p>就用Eclipse,要Eclipse IDE for Enterprise Java and Web Developers这个<br>
+本科大创<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>实训课<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>毕设都是这个</p>
+<h2 id="java版本jdk相关">Java版本JDK相关</h2>
+<p>JDK8有大量钉子户,因为这个版本已经把最核心功能开发完了,后面更多是优化升级<br>
+后面换就是JDK21稳定,引入了虚拟线程,侧重并发层面犯错的空间更少<br>
+SpringBoot3可以大大节省内存利用率,可以比JDK8少一半机器,但是强依赖JDK17,JDK17不稳定,一步到位JDK21<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>251217极h<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span></p>
+<h2 id="数学小定理">数学小定理</h2>
+<p><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>素数定理<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>:一个数n,小于n的质数个数约为 n/ln(n) -&gt; 不是等于,但可以用来估算复杂度<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>Stirling公式<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>:n! 约= sqrt(2πn)*(n/e)^n -&gt; 可以算数量级,将阶乘变指数</p>
+<h2 id="string:别再畏惧了">String:别再畏惧了</h2>
+<p>String对象直接创建赋值<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>并且String对象的值一旦创建不可改变(要修改很多字符的话就是StringBuffer&amp;StringBuilder了)<br>
+数组<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>String<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>Buffer和Builder长度都是.length()方法即可<br>
+String要拼接直接用+来连就行<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>剩下的就只有比较<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>按表达式拆分<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>判是否为空</p>
+<h2 id="对于时间">对于时间</h2>
+<p>LocalDate类就看LocalDate,LocalTime,LocalDateTime就行了,带时区的和时间戳就建议查资料不看了(java.time(8+))<br>
+Date类和Calendar类都太老旧了,新项目尽量用LocalDate,实在只要搞简单的日期的话就用Date就够了(java.util),再要功能强大就用LocalDate不用Calendar<br>
+线程休眠:<code>Thread.sleep(1000*3);</code>就是休眠3秒(后面是毫秒),注意sleep不会释放线程锁</p>
+<h2 id="java正则特殊">Java正则特殊</h2>
+<p>在 Java 中正则表达式中则需要有两个反斜杠才能被解析为其他语言中的转义作用<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>在 Java 的正则表达式中<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>两个(反斜杠)代表其他语言中的一个(反斜杠)<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>表示一位数字的正则表达式是(两个反斜杠)d<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>而表示一个普通的反斜杠是(两个反斜杠)<br>
+<strong>一些正则语法</strong>:</p>
+<ul>
+<li><code>^</code>匹配开始,<code>$</code>匹配结尾</li>
+<li>跟在要匹配的字符后面:<code>*</code>匹配0~多次,<code>+</code>匹配1~多次,<code>?</code>匹配0~1次,<code>&#123;n&#125;</code>正好匹配n次,<code>&#123;n,&#125;</code>匹配n~多次,<code>&#123;n,m&#125;</code>匹配n~m次,<code>.</code>匹配单个任意字符</li>
+<li><code>x|y</code>匹配x或y(<code>z|food</code>匹配z或food,而<code>(z|f)ood</code>匹配zood或food)</li>
+<li><code>[xyz]</code>匹配包含的一个字符,<code>[^xyz]</code>匹配不包含的一个字符,<code>[a-z]</code>匹配指定范围内一个,<code>[^a-z]</code>匹配不在范围内的一个</li>
+<li><code>\d</code>数字字符0-9,<code>\D</code>非数字(不是0-9),<code>\n</code>换行,<code>\s</code>空白字符,<code>\S</code>非空白字符,<code>\w</code>字类字符大小写字母+数字+下划线,<code>\W</code>非字类字符</li>
+<li>记一点看得懂就行,剩下查资料+AI</li>
+</ul>
+<p>总体流程:正则式String -&gt; <code>Pattern.compile(正则式)</code> -&gt; <code>p.matcher(要匹的串)</code> -&gt; <code>m.方法</code>进行操作</p>
+<h2 id="java-io流">Java IO流</h2>
+<p>可分为<strong>字符流</strong>:处理文本数据;<strong>字节流</strong>:处理二进制数据,文件,图像,视频等<br>
+文件读写:FileInputStream从文件读数据;FileOutputStream向文件写数据,目标文件不存在则创建<br>
+输出就是<code>System.out.print()/println();</code><br>
+输入Scanner类<code>Scanner scan=new Scanner(System.in)</code>,流程基本就是如果<code>.hasNextXxx</code>则<code>.nextXxx</code></p>
+<h2 id="多态">多态</h2>
+<p>当使用多态方式调用方法时<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>首先检查父类中是否有该方法<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>如果没有<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>则编译错误<span class="bd-box"><h-char class="bd bd-beg"><h-inner>；</h-inner></h-char></span>如果有<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>再去调用子类的同名方法<br>
+不管是向上转型:<code>父类 a=new 子类()</code>;还是向下转型:<code>子类 b=(子类) a</code>;调用方法用的还是子类的方法,要调父类方法只能<code>super</code><br>
+判类型:<code>a instanceof 其中一个子类</code>,即可判断是否属于该类</p>
+<h2 id="虚函数&lt;span-class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;、&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;抽象类&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;、&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;封装&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;、&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;接口&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;、&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;枚举&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;、&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;包&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;、&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;反射">虚函数<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>抽象类<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>封装<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>接口<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>枚举<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>包<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>反射</h2>
+<p>Java的普通函数就是C++中的虚函数,动态绑定是Java的默认行为<br>
+若不希望虚函数特征,加上<code>final</code>即可变成非虚函数<br>
+抽象类不能实例化对象,必须通过继承使用<code>(abstract class)</code>;抽象方法必须没有方法体,实现由子类确定<strong>若一个类包含抽象方法,该类必须是抽象类;子类必须重写父类的抽象方法,或声明自己是抽象类</strong><br>
+封装即类自己的变量<code>private</code>,用<code>public</code>的<code>getter</code>和<code>setter</code>弄<br>
+接口定义<code>interface</code>,实现<code>implements</code>,接口无法实例化但可以被实现,接口可以<code>extend</code>其他接口<br>
+枚举enum,定义<code>enum Color&#123;RED,GREEN,BLUE&#125;;</code>变量赋值<code>Color c1=Color.RED;</code>输出的话就只有RED;<code>Color.values()</code>返回enum所有值<br>
+包package其实就是文件目录,<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span><strong>通常一个公司使用域名的形式作为包名,<a target="_blank" rel="noopener" href="http://xn--abc-q33er8o2xcct9agkk.com">比如域名是abc.com</a>,则所有包名都以com.abc开头</strong><span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><br>
+反射就是让程序在运行时查询<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>访问和修改类<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>接口<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>字段和方法的信息(主要是Spring在用)</p>
+<h2 id="数据结构(涉及去重一定要想hashset和hashmap)">数据结构(涉及去重一定要想HashSet和HashMap)</h2>
+<h3 id="数组">数组</h3>
+<p><code>int[] array=new int[5];</code>Java数组也是要指定大小的,只不过是在后面赋值指定<br>
+新建定值数组<code>new int[]&#123;1,2,3&#125;</code><br>
+数组new时的默认初值:整数类型 -&gt; <code>0</code>;浮点型 -&gt; <code>0.0</code>;char -&gt; <code>'\u0000'</code>;boolean -&gt; <code>false</code>;对象类型(如String) -&gt; 全null</p>
+<h3 id="列表">列表</h3>
+<p><code>List&lt;String&gt; arrayList=new ArrayList&lt;&gt;();</code>一般用这个(99%),这个是动态数组,可变大小<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>高效随机访问和快速尾部插入<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>但中间插入和删除慢<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>注意<code>new ArrayList&lt;&gt;()</code>那个&lt;&gt;里就是可以不指定类型的,类型在前面的&lt;&gt;里定义,后面new里是可以不写的<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><br>
+另一个是<code>LinkedList&lt;&gt;()</code>;是双向链表<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>插入删除高效但访问慢,定义也是<code>new LinkedList&lt;&gt;();</code><br>
+ArrayList:要添加就是<code>.add(元素)</code>;访问元素<code>.get(i)</code>,记得索引从0开始;修改<code>.set(i,元素)</code>,把索引i的改成元素;删除<code>.remove(i)</code>,把第i个删了;要元素数量<code>.size()</code>;判断元素是否在表里<code>.contains(元素)</code>;清空<code>.clear()</code>;转化为数组<code>.toArray()</code>;<br>
+LinkedList:<code>.add(val)/.addLast(val)</code>在尾部加;<code>.addFirst(val)</code>在头部加;<code>.removeFirst()</code>移除并返回头部;<code>.removeLast()</code>移除并返回尾部;<code>.getFirst()</code>获取头部;<code>.getLast()</code>获取尾部;要大小<code>.size()</code>;访问第i个<code>.get(i)</code>;<code>.poll()</code>和<code>.remove()</code>都是删除并返回头部;判断是否包含<code>.contains(元素)</code>;清空<code>.clear()</code>;</p>
+<h3 id="集合">集合</h3>
+<p><code>Set&lt;String&gt; hashset=new HashSet&lt;&gt;();</code><br>
+存储不重复的元素<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>为无序集合<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>有高效查找和插入<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>但无序<br>
+HashSet是不允许有重复元素的集合<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>允许有null值<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>用法同ArrayList<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>只不过add重复元素则不会再添加同时add函数返回false,如果add成功添加返回true<br>
+HashSet的contains平均复杂度O(1),最坏O(logn),一般认为就是接近O(1);但是!ArrayList的contains就是O(n)遍历了</p>
+<h3 id="映射">映射</h3>
+<p><code>Map&lt;String,Integer&gt; hashMap=new HashMap&lt;&gt;();</code><br>
+基于哈希表实现的键值对存储<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>高效查找<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>插入<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>删除<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>但无序;key不允许重复<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>value可以重复<br>
+初始化:<code>Map&lt;Integer,String&gt; map=Map.of(1,&quot;aaa&quot;,2,&quot;bbb&quot;)</code>,则map里有两个键值对,为 1 -&gt; “aaa”,2 -&gt; “bbb”;<br>
+添加键值对<code>.put(key,value)</code>;获取key对应的value<code>.get(key)</code>;删除key对应value<code>.remove(key)</code>;<code>.getOrDefault(Object key, V defaultValue)</code>,获取指定key对应的value,如果找不到key,则返回设置的默认值;<code>.clear()</code>和<code>.size()</code>仍然有效;返回所有value值<code>.values()</code>;判是否有key<code>.containsKey()</code>;<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>注意put<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>若插入的key对应的value已存在,则执行value替换操作,返回旧的value值;如果不存在则插入并返回null</p>
+<h3 id="栈">栈</h3>
+<p><code>Stack&lt;Integer&gt; stack=new Stack&lt;&gt;();</code>为后进先出,<code>.empty()</code>是否为空,<code>.peek()</code>查顶端,<code>.pop()</code>弹出并返回顶端;<code>.push(i)</code>压入栈,<code>.search(i)</code>返回对象位置从1开始,<code>.clear()</code>清空</p>
+<h3 id="队列">队列</h3>
+<p><code>Queue&lt;String&gt; queue=new LinkedList&lt;&gt;();</code>先进先出,<code>.offer(i)</code>入队,<code>.poll()</code>删除并返回队头,<code>.peek()</code>查队头,<code>.isEmpty()</code>是否为空,<code>.size()</code>大小</p>
+<h4 id="优先队列priorityqueue&lt;span-class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;，&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;也是堆">优先队列PriorityQueue<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>也是堆</h4>
+<p>检索绝对是按顺序(默认升序,如果是自定义排序的话,<code>public int compare(变量1,变量2)</code>函数,返回&gt;0认为变量2优先,返回&lt;0认为变量1优先<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>具体记:要升序1减2,要降序2减1<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>)<br>
+增<code>.offer(i)</code>;访问队头(极值)<code>.peek()</code>;返回并删除队头<code>.poll()</code>;<code>.remove()</code>,<code>.add(i)</code>,<code>.contains(i)</code>,<code>.toArray()</code>都可用</p>
+<blockquote>
+<p>若自定义比较<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>需要实现<code>Comparator&lt;&gt;()</code>接口</p>
+</blockquote>
+<h3 id="堆">堆</h3>
+<p>分为最大堆和最小堆<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>近似是完全二叉树<br>
+记住根就是最值<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>然后左右结点无大小关系<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>只有上下有大小关系</p>
+<h3 id="树&lt;span-class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;，&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;图&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;，&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;向量vector">树<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>图<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>向量Vector</h3>
+<p>Vector类数组但大小动态变化</p>
+<h2 id="iterator&lt;span-class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;，&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;object类&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;，&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;nio files类&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;，&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;泛型&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;，&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;序列化&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;，&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;java网络编程(tcp,udp,socket)">iterator<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>Object类<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>NIO Files类<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>泛型<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>序列化<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>Java网络编程(TCP,UDP,Socket)</h2>
+<p>iterator为迭代器<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>类似指针<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>用来遍历的<br>
+Object类就记一个<code>.toString()</code>是返回对象的字符串表示形式<br>
+NIO Files类是用于文件I/O相关的<br>
+泛型,是参数类型不确定的时候用<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>为了提高类型安全性<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>把类型错误提前到编译期<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>减少强制类型转换;要记:泛型不能用基本类型(即可Integer不可int),运行时有类型擦除<br>
+序列化是把Java对象变成字节流<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>用于存文件和网络传输<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>反序列化是把字节流还原成Java对象;要记:要让类能被序列化<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>实现Serializable接口即可;被transient关键字标记即不可被序列化<br>
+TCP是可靠<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>有连接<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>慢,有确认和重传,常用于HTTP/数据库/登录<br>
+UDP是不可靠<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>无连接<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>快,可能丢包<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>乱序但延迟低,常用于视频<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>语音<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>游戏<br>
+Socket就是应用层和传输层的接口,用来进行网络通信;Socket编程一般分客户端和服务端</p>
+<h2 id="java多线程:是为了充分利用cpu">Java多线程:是为了充分利用CPU</h2>
+<p>进程是程序的一次执行<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>为资源分配单位<br>
+线程是进程中的执行单元<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>为CPU调度单位<br>
+-&gt; 一个进程可包含一个或多个线程</p>
+<h3 id="?如何创建线程">?如何创建线程</h3>
+<ol>
+<li>继承Thread类</li>
+<li>实现<code>Runnable</code>接口,这个更推荐,因为Java是单继承,实现Runnable更灵活</li>
+</ol>
+<h3 id="线程生命周期">线程生命周期</h3>
+<p>线程先进行创建,后调用<code>start()</code>即就绪,再执行<code>run()</code>即开始运行,期间可能阻塞也可能继续<code>run()</code>,运行完后<code>(run()执行完)</code>即终止</p>
+<h3 id="核心问题:线程安全">核心问题:线程安全</h3>
+<p>-&gt; 多个线程同时访问共享资源<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>则结果不可预期 -&gt; 多线程下要保护共享资源<br>
+使用<code>synchronized</code>修饰即可保证同一时间只有一个线程访问共享代码<br>
+<strong>小tip</strong>:<code>.sleep()</code>不会释放锁;<code>.wait()</code>会释放锁 -&gt; 这里的锁就是对共享资源的锁</p>
+<h2 id="注释">注释</h2>
+<p>单行注释//,多行/* <em>/,文档注释/</em>* */,文档注释里可以加很多@的特殊注解</p>
+<h2 id="java-mysql连接:需要去下驱动包的">Java MySQL连接:需要去下驱动包的</h2>
+<p>流程(这个是JDBC的):设置驱动和数据库url -&gt; 创建Connection -&gt; 弄一个PreparedStatement(相比Statement可防SQL注入),写SQL语句并执行,返回ResultSet -&gt; 遍历ResultSet得到结果 -&gt; 最后关闭资源<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>tip<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>实际项目中很少直接用JDBC,而是通过MyBatis框架封装JDBC,MyBatis也是自己写SQL,但让框架连数据库<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>映射结果集<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>管事务(SQL更清晰可控,也更安全)</p>
+<h2 id="一些力扣思考与tip">一些力扣思考与tip</h2>
+<ul>
+<li>若第一眼看上去两层循环模拟<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>但其中一个增必会导致另一个减小的(比如和为定值) -&gt; 双指针,能将O(n2)降低为O(n)<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>一定要记得排序!<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span></li>
+<li>去重思路: HashSet,HashMap(也可以判断重复元素) ; 跳过相同元素</li>
+<li>注意<code>new ArrayList&lt;&gt;()</code>那个&lt;&gt;里就是可以不指定类型的,类型在前面的&lt;&gt;里定义,后面new里是可以不写的</li>
+<li>数组长度是<code>a.length</code>;字符串长度是<code>s.length()</code>;注意带不带括号</li>
+<li>字符串子串必须连续,子序列不用连续(记忆:只要是串,那就必须穿起来,连续)</li>
+<li>字符串的字符数量统计支持<code>++sCount[s.charAt(i) - 'a'];</code><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>注意这样写下标是0-25<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span></li>
+<li>字符串的<code>.length()</code>复杂度是O(1),放心用</li>
+<li>int的极值<code>Integer.MAX_VALUE</code>,用于初始化;极小值是<code>Integer.MIN_VALUE</code></li>
+<li>动态规划:连续区间内最值+只要结果,不要求得到那个连续区间是哪一个(<strong>无后效性</strong>)</li>
+<li><code>Arrays.sort()</code>自定义排序的话,sort里第一个变量还是要排的数组,第二个是实现Comparator并实现里面的<code>public int compare(变量1,变量2)</code>函数,返回&gt;0的情况则认为排序时变量1&gt;变量2,返回&lt;0的情况则认为排序时变量1&lt;变量2<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>具体记:要升序1减2,要降序2减1<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span></li>
+<li>螺旋矩阵:不是用<code>vis[][]</code>在那标记,而是弄4个<strong>边界变量</strong>,走完一条之后++或–边界变量 ; 不要额外开num变量计数了,用ArrayList的<code>.size()</code>计数 ; 每走完一条就要判一次退出(一个螺旋判4次)不是一个螺旋才判一次</li>
+<li>搜索二维矩阵:从(0,0)开始有问题,若要增大,不知道该往右还是往下 -&gt; 从右上角(0,n-1)开始,要小就往左,要大就往下,超边界就false</li>
+<li>环形链表:Floyd判圈,快慢指针 -&gt; 两个指针,快指针每次走2步,慢指针每次走1步,若快追上慢,则有环,否则到链表尾,无环(注意快指针走2步,要加一些非null判断) -&gt; 找循环位置:设置前面的无环线为a,环中slow走的是b,环中剩下的是c,则slow走的长度是a+b,fast走的是a+b+c+b,slow*2=fast得到a=c,则再弄一个指针从head开始,和slow同步走,这俩最终会在循环处相遇</li>
+<li>删链表的倒数第N个结点:操作链表时<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>常用技巧是添加一个哑节点dummy node(node0)<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>它的next指向链表的头节点<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>这样就不用对头节点进行特殊判断了</li>
+<li>两两交换链表中的节点:也是用哑结点,每次取2个进行操作,注意结点交换想不明白就画图分析!</li>
+<li>合并K个链表:以合成2个链表为基础 -&gt; 简单就前缀和那样合并,复杂度低点就二分那样合并</li>
+<li>LRU缓存:HashMap+双向链表,HashMap通过key得到双向链表里的节点,双向链表存使用顺序,两个dummy节点head和tail,用的节点就挪到head后(挪-&gt;先删再加),新加节点也是head后,超容量就删tail前</li>
+<li>栈访问二叉树:root开始(注意while外面root不用入栈),若当前节点非null,入栈,left,否则出栈,right;条件是节点存在或栈非空 -&gt; 入栈时访问是前序,出栈时访问是中序 -&gt; 后序稍复杂,用递归吧</li>
+<li>验证二叉搜索树:二叉搜索树中序遍历必得到升序序列,可验证中序遍历为升序序列来判</li>
+<li><strong>二叉搜索树中第K小的元素</strong>:中序遍历第k个(方法1)就够了,记录子树节点数(方法2)已经是会讲就差不多了,手写AVL树(平衡二叉搜索树)(方法3)面试中纯自杀<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>要会选复杂度合适的方案<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span></li>
+<li>LCA最近公共祖先:1.递归:当前为空,p,q返回当前 -&gt; 递归在左右里找pq -&gt; 左右都有,返回当前 -&gt; 只找到一个,返回非空那个 ; 2.先遍历一遍记父节点 -&gt; p往上跳到root -&gt; q往上跳,遇到访问过的第一个就返回那个</li>
+<li>二叉树中最大路径和:额外开一个递归弄当前node的最大贡献值:为null返回0,递归lr贡献值和0取最大,以当前node为拐点的最大路径和为<code>node.val+l+r</code>,和ans取最大,返回是<code>node.val+max(l,r)</code>;主函数跑一遍递归返回ans即可</li>
+<li>岛屿数量:不是再开一个vis[][]判断了,而是搜到’1’直接变成’0’</li>
+<li>腐烂的橘子:多源广搜:把所有起点先全入队当第一层,然后正常广搜</li>
+<li>课程表:有向图DFS判环的vis一定是3种状态:未访问0,在当前路1,已完成2三种,在递归最后需要标记已完成(vis当前=2) ; 广搜是不断把入度为0的入队,扩展,最后判入过队数是否=n</li>
+<li>实现Trie树(字典树):相当于写26叉树,根据下一个字符是啥来指向下一个节点,然后每个节点包括一个<code>boolean isEnd</code>来标记是否是字符串的结尾;检查前缀和串存在都是一样,只不过检查串加一个判isEnd</li>
+<li>根据已有List新建一个复制:<code>new ArrayList&lt;&gt;(mid)</code>,为了防止操作mid导致关联修改 ; 后面的<code>mid(List)</code>换成set也可以转换</li>
+<li>递归小tip:若要全排列,则递归里才有for循环;若没有全排列,递归里只有当前位置和下一位置的递归,没有for循环</li>
+<li><code>new String(char[])</code>可以把字符数组直接变成String</li>
+<li>取String子串的<code>.substring(l,r)</code>是左闭右开,从i取到j是<code>.substring(i,j+1)</code></li>
+<li><strong>n皇后</strong>: 1.当前层只影响后续层,所以循环弄vis标记的时候只从当前层往后到n即可,不是从0开始 ; 2.回溯应只回溯当前层的影响,不能覆盖前序层,因此vis不是01而是要记录层数</li>
+<li>标准二分查找,找第1个&gt;=的下标:while里有=,下面if没=,l和r都有+1-1 ; 注意l必有+1,l和r的=和r的-1才有问题 -&gt; 如果是<strong>左闭右闭</strong>区间,l和r的=和r的-1都有;<strong>左闭右开</strong>则l和r的=和r的-1都没有 -&gt; 就写==,&gt;,&lt;三种情况,若要找符合的第1个就是在==里面不break,而是往左走,加上r=mid-1继续循环;找符合的最后一个也是==里不break而是往右走,加上l=mid+1继续循环</li>
+<li>寻找两个正序数组的中位数:相当于找两个数组的第k小数,由于两个数组有序还要log复杂度,因此每次判定排除掉k/2个位置;将偶数和奇数的情况合并,k为(n+m+1)/2和(n+m+2)/2分别算一次后加起来*0.5;让len1的长度小于len2,这样就能保证如果有数组空了,一定是len1,此时返回nums2的第k个就得;k==1特判返回<code>nums1[l1]</code>和<code>nums2[l2]</code>中的较小那个;i和j的长度都是要<code>+min(len,k/2)-1</code>的,然后递归的k也是按位置减少的<code>k-(i-l1+1)</code></li>
+<li>最小栈,O(1)寻找栈内最小值:弄两个栈,一个正常,另一个就弄最小值(初始有<code>MAX_VALUE</code>),就和正常栈顶判最小值,同步进出就行</li>
+<li>Java字符串比较<strong>必须</strong>用<code>A.equals(B)</code>才行<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>基本类型用==(8个基本类型),对象内容用<code>.equals()</code>包括String,List,Map,包装类(如Integer,Long),自定义类<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span> ; 而且字符串的+是O(n)复杂度的,在循环里做字符串拼接,必须用可变字符串StringBuilder<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>记得最后加上<code>.toString()</code>!!<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>,不用StringBuffer是因为StringBuilder更快(因为不是线程安全的,不加锁,所以快;不过这俩语法是一样的) ; LinkedList需要<code>addLast()</code>然后<code>reverse()</code>的就直接变成<code>addFirst()</code></li>
+<li>O(n)求出数组各个元素右侧第一个更大的元素及其坐标:单调栈,存下标,是一个单调递减栈,然后遇到一个i处的若比栈顶大,则循环弹出栈顶,确定栈顶的ans,最后将i加入单调栈</li>
+<li>数据流的中位数:一个大根堆quemin放小于中位数的,一个小根堆quemax放大于中位数的 ; 每次要加num和<code>quemin.peek()</code>比较,num小就放quemin里,num大就放quemax里,然后平衡quemin和quemax(一个往另一个放),确保这俩的.peek()都和中位数有关 ; 初始0时先放quemin,然后中间维护也是奇数时quemin长度为quemax+1,此时要中位数就是<code>quemin.peek()</code>,偶数时要中位数就是<code>(quemin.peek()+quemax.peek())*0.5</code></li>
+<li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span><strong>动态规划dp</strong><span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>相当于带备忘录的递归,就是:拆分子问题,记住过往,减少重复计算,记住求过的解是核心(就是先想递归,然后想一下递归是不是存在大量重复计算,然后用一个结构存下那个重复计算的结果,即变成dp)<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>即已经算出的结果就不会改变了,然后有状态转移方程<code>f(i)=f(i-1)+f(i-2)</code>这种依赖前面结果的<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span></li>
+<li>乘积最大子数组++思路: 对于最后的答案区间<code>[l,r]</code><span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>区间两端(不包含l和r): 1.不会任何一边有正数<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>有的话肯定能乘正数变大或不变 ; 2.不会同时两边有负数<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>有的话肯定能乘俩负数变大或不变 -&gt; 所以答案的一端一定是0或者整个数组起止点<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>因此从左右两端算乘积<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>遇到0就重新当起点<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>ans实时更新即可 -&gt; <code>ans=Math.max(Math.max(ans,nums[i]),Math.max(l,r));</code></li>
+<li>分割等和子集:经典NP完全问题,类似01背包,数学上不存在多项式算法(就是时间复杂度只带n),只能用非多项式时间复杂度的算法(就是时间复杂度里带k),如动态规划</li>
+<li>最长有效括号:从左往右,记l为’(‘数,r为’)'数,l&gt;r就继续,l==r<strong>这时必定合法</strong>,更新ans,一旦r&gt;l,那说明当前右括号多了,必不合法,重置l=r=0 ; 然后为了避免l一直&gt;r更不了ans,从左往右和从右往左都弄一遍,即可</li>
+<li>最长回文子串:就枚举中心,往l和r两边扩展,扩完弄ans即可,O(n2) ; 马拉车虽然是O(n)但太复杂,面试不考<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>进一步说明题解并不是全得会<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span></li>
+<li>最长公共子序列:考研题,两重循环,字符相等就是左上+1,不等就是左和上取最大(就是考研那个箭头图)</li>
+<li>编辑距离:<code>f[i][j]</code>表示A的前i个字符和B的前j个字符的编辑距离;定义<code>f[n+1][m+1]</code>;边界<code>f[i][0]=i,f[0][j]=j;</code>循环若i和j字符相等,<code>f[i][j]=f[i-1][j-1]</code>,若字符不等则<code>f[i][j]=min(f[i-1][j]+1,f[i][j-1]+1,f[i-1][j-1]+1)</code>;返回f[n][m]</li>
+<li>只出现一次的数字:看标签有位运算:异或^,注意a^0=a</li>
+<li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>特别注意<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>要对题目的边界条件敏感,比如字符串和数组的长度有没有0</li>
+<li>多数元素:投票法:不同的两个数同归于尽,因为众数最多且比其他加起来都多,所以最后剩下的一定是众数</li>
+<li>下一个排列:先倒着找第一个<code>a[i] &lt; a[i+1]</code>的(如果找不到,那就翻转整个数组) -&gt; 然后从<code>a[i+1]</code>到<code>a[n]</code>倒着找第一个<code>a[j]&gt;a[i]</code>的,交换<code>a[i]和a[j]</code><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>i&gt;=0才做<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span> -&gt; 然后将<code>a[i+1]</code>到<code>a[n]</code>翻转</li>
+<li>寻找重复数:O(n)时间+O(1)空间:连边<code>i-&gt;nums[i]</code>,即转化成环形链表找环的入口,就是<code>2*(a+b)=a+b+c+b</code>然后得到<code>a=c</code>那个,先都从0开始快慢走到相遇,然后slow变0再同速走到相遇,然后就是slow</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E5%AD%A6%E4%B9%A0/" rel="tag">Java学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E7%89%88%E6%9C%AC%E7%9B%B8%E5%85%B3/" rel="tag">Java版本相关</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%9B%E6%89%A3tip/" rel="tag">力扣tip</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%9B%E6%89%A3%E8%BF%94%E5%9B%9E/" rel="tag">力扣返回</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A0%B4%E9%99%A4String/" rel="tag">破除String</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2026/01/11/AI%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          AI相关知识
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/10/15/C-%E7%9F%A5%E8%AF%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          C++知识
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/04/28/HTTPS-TLS%E6%A0%B8%E5%BF%83%E6%B1%87%E6%80%BB/">HTTPS,TLS核心汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2026/04/21/%E8%87%AA%E5%BB%BA%E8%8A%82%E7%82%B9%E6%90%AC%E8%BF%90/">自建节点搬运</a>
+          </li>
+        
+          <li>
+            <a href="/2026/01/11/AI%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">AI相关知识</a>
+          </li>
+        
+          <li>
+            <a href="/2025/11/12/Java%E5%87%86%E5%A4%87/">Java准备</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/15/C-%E7%9F%A5%E8%AF%86/">C++知识</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BF%A1%E6%81%AF%E4%BF%9D%E5%AD%98/">信息保存</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91tip/">开发tip</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E7%9B%B8%E5%85%B3/">论文相关</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AI%E7%9B%B8%E5%85%B3/" style="font-size: 10px;">AI相关</a> <a href="/tags/Axios%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8HTTPS/" style="font-size: 10px;">Axios、为什么不用HTTPS</a> <a href="/tags/C-C/" style="font-size: 10px;">C/C++</a> <a href="/tags/DOTA/" style="font-size: 10px;">DOTA</a> <a href="/tags/DRAM/" style="font-size: 10px;">DRAM</a> <a href="/tags/Date%E7%B1%BB%E9%80%89sql-Date/" style="font-size: 10px;">Date类选sql.Date</a> <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/GPT%E7%89%B9%E5%88%AB%E6%B3%A8%E6%84%8F/" style="font-size: 10px;">GPT特别注意</a> <a href="/tags/HTTP-HTTPS/" style="font-size: 10px;">HTTP,HTTPS</a> <a href="/tags/HTTPS%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">HTTPS学习</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">Java学习</a> <a href="/tags/Java%E7%89%88%E6%9C%AC%E7%9B%B8%E5%85%B3/" style="font-size: 10px;">Java版本相关</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PPT%E6%B3%A8%E6%84%8F/" style="font-size: 10px;">PPT注意</a> <a href="/tags/Sins-of-a-Solar-Empire/" style="font-size: 10px;">Sins of a Solar Empire</a> <a href="/tags/Steam/" style="font-size: 10px;">Steam</a> <a href="/tags/TLS%E5%8A%A0%E5%AF%86/" style="font-size: 10px;">TLS加密</a> <a href="/tags/Terraria/" style="font-size: 10px;">Terraria</a> <a href="/tags/TitanFall2/" style="font-size: 10px;">TitanFall2</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/Word%E6%A0%87%E9%A2%98/" style="font-size: 10px;">Word标题</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jar%E5%8C%85%E5%92%8Cwar%E5%8C%85/" style="font-size: 10px;">jar包和war包</a> <a href="/tags/v2%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">v2配置</a> <a href="/tags/%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E6%98%AF%E4%BB%80%E4%B9%88%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">一些工具是什么学习</a> <a href="/tags/%E4%B8%89%E8%8C%83%E5%BC%8F/" style="font-size: 10px;">三范式</a> <a href="/tags/%E4%B9%B0%E6%89%8B%E6%9C%BAtip/" style="font-size: 10px;">买手机tip</a> <a href="/tags/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">云服务器</a> <a href="/tags/%E4%BF%9D%E6%8A%A4%E6%B8%85%E7%90%86%E7%A1%AC%E7%9B%98/" style="font-size: 10px;">保护清理硬盘</a> <a href="/tags/%E5%85%AC%E8%AF%81%E5%85%AC%E7%AB%A0tip/" style="font-size: 10px;">公证公章tip</a> <a href="/tags/%E5%86%85%E5%AD%98%E6%9D%A1%E7%89%A9%E7%90%86%E5%B1%82%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">内存条物理层知识</a> <a href="/tags/%E5%89%91%E6%98%9F/" style="font-size: 10px;">剑星</a> <a href="/tags/%E5%8A%9B%E6%89%A3tip/" style="font-size: 10px;">力扣tip</a> <a href="/tags/%E5%8A%9B%E6%89%A3%E8%BF%94%E5%9B%9E/" style="font-size: 10px;">力扣返回</a> <a href="/tags/%E5%8E%8B%E7%BC%A9%E8%BD%AF%E4%BB%B67zip/" style="font-size: 10px;">压缩软件7zip</a> <a href="/tags/%E5%8E%BBVFS%E5%BE%B7%E7%AD%BE%E7%AB%99%E7%82%B9/" style="font-size: 10px;">去VFS德签站点</a> <a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/" style="font-size: 10px;">命令行</a> <a href="/tags/%E5%9B%9B%E5%A4%A7%E5%9F%BA%E7%9F%B3/" style="font-size: 10px;">四大基石</a> <a href="/tags/%E5%9D%A6%E5%85%8B%E4%B8%96%E7%95%8C/" style="font-size: 10px;">坦克世界</a> <a href="/tags/%E5%A2%9E%E6%94%B9%E6%9F%A5-%E5%88%A0%E8%A6%81%E6%85%8E%E9%87%8D/" style="font-size: 10px;">增改查,删要慎重</a> <a href="/tags/%E5%A4%96%E9%94%AE/" style="font-size: 10px;">外键</a> <a href="/tags/%E5%AD%A6%E6%9C%AF%E4%BC%9A%E8%AE%AE%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">学术会议记录</a> <a href="/tags/%E5%AD%A6%E6%A0%A1%E8%B4%A2%E5%8A%A1/" style="font-size: 10px;">学校财务</a> <a href="/tags/%E5%B0%8F%E7%9F%A5%E8%AF%86/" style="font-size: 10px;">小知识</a> <a href="/tags/%E5%B7%A5%E4%BD%9Ctip/" style="font-size: 10px;">工作tip</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E7%95%99%E7%97%95%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6/" style="font-size: 10px;">工作留痕保存文件</a> <a href="/tags/%E5%B8%B8%E7%94%A8%E5%BE%B7%E8%AF%AD/" style="font-size: 10px;">常用德语</a> <a href="/tags/%E5%BB%BA%E8%8A%82%E7%82%B9/" style="font-size: 10px;">建节点</a> <a href="/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/" style="font-size: 10px;">快捷键</a> <a href="/tags/%E6%89%A9%E5%B1%95%E5%AD%98%E5%82%A8NAS/" style="font-size: 10px;">扩展存储NAS</a> <a href="/tags/%E6%8A%A5%E5%91%8A%E5%BC%80%E5%8F%91tip/" style="font-size: 10px;">报告开发tip</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%96%87%E7%AB%A0%E7%AD%89%E7%BA%A7/" style="font-size: 10px;">文章等级</a> <a href="/tags/%E6%AC%A7%E5%85%83/" style="font-size: 10px;">欧元</a> <a href="/tags/%E6%B1%BD%E8%BD%A6%E7%A7%9F%E8%BD%A6tip/" style="font-size: 10px;">汽车租车tip</a> <a href="/tags/%E6%B6%A6tip/" style="font-size: 10px;">润tip</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E4%BF%A1%E6%81%AF/" style="font-size: 10px;">游戏信息</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E9%85%8D%E7%BD%AE/" style="font-size: 20px;">游戏配置</a> <a href="/tags/%E7%88%860E/" style="font-size: 10px;">爆0E</a> <a href="/tags/%E7%9D%80%E8%A3%85%E6%80%BB%E7%BB%93/" style="font-size: 10px;">着装总结</a> <a href="/tags/%E7%A0%B4%E9%99%A4String/" style="font-size: 10px;">破除String</a> <a href="/tags/%E7%A7%81%E9%92%A5%E5%85%AC%E9%92%A5/" style="font-size: 10px;">私钥公钥</a> <a href="/tags/%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%BB%B4%E6%8A%A4/" style="font-size: 10px;">笔记本维护</a> <a href="/tags/%E7%AD%94%E8%BE%A9%E6%BC%94%E8%AE%B2%E6%80%BB%E7%BB%93/" style="font-size: 10px;">答辩演讲总结</a> <a href="/tags/%E7%AE%80%E5%8E%86%E7%9B%B8%E5%85%B3/" style="font-size: 10px;">简历相关</a> <a href="/tags/%E7%AE%A1%E7%90%86%EF%BF%A5/" style="font-size: 10px;">管理￥</a> <a href="/tags/%E8%80%83%E7%A0%94%E6%88%90%E7%BB%A9/" style="font-size: 10px;">考研成绩</a> <a href="/tags/%E8%81%8C%E5%9C%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">职场学习</a> <a href="/tags/%E8%AE%B0%E5%A8%B1%E4%B9%90/" style="font-size: 10px;">记娱乐</a> <a href="/tags/%E8%AE%BA%E6%96%87%E7%8A%B6%E6%80%81/" style="font-size: 10px;">论文状态</a> <a href="/tags/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98Cors/" style="font-size: 10px;">跨域问题Cors</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%85%92%E5%8F%8A%E4%B9%A0%E4%BF%97%E7%9B%B8%E5%85%B3/" style="font-size: 10px;">酒及习俗相关</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+        <p></p>
+      
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/jquery-1.4.3.min.js"></script>
+
+<script src="/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+<script>
+  MathJax = {
+    options: {
+      enableMenu: false
+    },
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    }
+  };
+</script>
+<!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+    CommonHTML: {
+      linebreaks: false
+    }
+  });
+  </script> -->
+<script type="text/javascript" id="MathJax-script" async
+  src="/mathjax/tex-chtml.js">
+</script>
+<!-- <script type="text/javascript"
+   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML">
+</script> -->
+
+  </div>
+</body>
+</html>

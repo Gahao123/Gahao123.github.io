@@ -183,16 +183,18 @@ mmap的映射可分为三个阶段:1.进程启动映射过程<span class="bd-box
 </blockquote>
 <h2 id="远程通过git同步hexo,其实就是迁移hexo">远程通过git同步hexo,其实就是迁移hexo</h2>
 <p>首先在原笔记本上初始化git仓库:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd 你的hexo项目目录</span><br><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;初始化hexo博客&quot;</span><br></pre></td></tr></table></figure>
-<p>然后设置远程仓库:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin 你的仓库地址</span><br><span class="line">git push origin master //(或者main,具体使用git branch检查是哪个)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd 你的hexo项目目录</span><br><span class="line">git init</span><br></pre></td></tr></table></figure>
+<p>然后在这个目录下新建一个文件,文件名必须是<code>.gitignore</code>,然后写下这些东西:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy_git/</span><br><span class="line">db.json</span><br><span class="line">*.log</span><br></pre></td></tr></table></figure>
+<p>然后上传到仓库:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;初始化hexo博客&quot;</span><br><span class="line">git remote add origin 你的仓库地址</span><br><span class="line">git push origin master //(或者main,具体使用git branch检查是哪个)</span><br></pre></td></tr></table></figure>
 <p>然后这就传上去了,接下来在新设备上:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone 你的仓库地址 //要直接一步到位分支也选好的话就是git clone -b main https://github.com/Gahao123/Gahao123.github.io.git</span><br><span class="line">cd 项目目录</span><br><span class="line">npm install // 重新安装依赖</span><br></pre></td></tr></table></figure>
 <p>然后全局安装hexo-cli,为了能正常使用hexo命令:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 <p>然后手动迁移主题目录:去原笔记本的<code>themes/mashiro</code>下,把这个文件夹整个用U盘复制到新设备上<br>
 然后清除Git追踪,在新设备的hexo目录下<code>git rm -rf --cached .deploy_git</code>,并且还要把<code>./.deploy_git</code>给删了<br>
-接着验证环境就行:</p>
+接着验证环境能跑就行:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
 <p>接下来pull的时候也得注意先把这个<code>./.deploy_git</code>给删了再pull,否则还是弄不下来<br>
 <span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>注意,这样搞的话不管在哪台机器上写文章<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>写之前先pull,写完之后commit+push<br>

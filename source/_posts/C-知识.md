@@ -130,11 +130,19 @@ git的流程就是:本地更新主干，基于主干新建一个分支并切换 
 ```
 cd 你的hexo项目目录
 git init
+```
+然后在这个目录下新建一个文件,文件名必须是`.gitignore`,然后写下这些东西:
+```
+node_modules/
+public/
+.deploy_git/
+db.json
+*.log
+```
+然后上传到仓库:
+```
 git add .
 git commit -m "初始化hexo博客"
-```
-然后设置远程仓库:
-```
 git remote add origin 你的仓库地址
 git push origin master //(或者main,具体使用git branch检查是哪个)
 ```
@@ -144,12 +152,19 @@ git clone 你的仓库地址 //要直接一步到位分支也选好的话就是g
 cd 项目目录
 npm install // 重新安装依赖
 ```
-接着验证环境就行:
+然后全局安装hexo-cli,为了能正常使用hexo命令:
+```
+npm install -g hexo-cli
+```
+然后手动迁移主题目录:去原笔记本的`themes/mashiro`下,把这个文件夹整个用U盘复制到新设备上
+然后清除Git追踪,在新设备的hexo目录下`git rm -rf --cached .deploy_git`,并且还要把`./.deploy_git`给删了
+接着验证环境能跑就行:
 ```
 hexo clean
 hexo generate
 hexo deploy
 ```
+接下来pull的时候也得注意先把这个`./.deploy_git`给删了再pull,否则还是弄不下来
 【注意,这样搞的话不管在哪台机器上写文章】写之前先pull,写完之后commit+push
 【`npm install`报错】管理员身份打开PowerShell执行`Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`,下面的询问输入`Y`回车确认,然后就能`npm install`了
 【调整vscode代码高亮样式/中文】: 在vscode下`Ctrl+Shift+P`,然后输入`Preferences: Color Theme`,回车,弹出的框里选"深色(Visual Studio) Visual Studio Dark" ; 中文直接在扩展里搜`Chinese`,找到微软的简体中文,安装即可

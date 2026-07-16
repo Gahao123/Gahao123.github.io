@@ -130,11 +130,19 @@ git的流程就是:本地更新主干，基于主干新建一个分支并切换 
 ```
 cd 你的hexo项目目录
 git init
+```
+然后在这个目录下新建一个文件,文件名必须是`.gitignore`,然后写下这些东西:
+```
+node_modules/
+public/
+.deploy_git/
+db.json
+*.log
+```
+然后上传到仓库:
+```
 git add .
 git commit -m "初始化hexo博客"
-```
-然后设置远程仓库:
-```
 git remote add origin 你的仓库地址
 git push origin master //(或者main,具体使用git branch检查是哪个)
 ```
@@ -150,7 +158,7 @@ npm install -g hexo-cli
 ```
 然后手动迁移主题目录:去原笔记本的`themes/mashiro`下,把这个文件夹整个用U盘复制到新设备上
 然后清除Git追踪,在新设备的hexo目录下`git rm -rf --cached .deploy_git`,并且还要把`./.deploy_git`给删了
-接着验证环境就行:
+接着验证环境能跑就行:
 ```
 hexo clean
 hexo generate

@@ -168,6 +168,7 @@ hexo deploy
 【注意,这样搞的话不管在哪台机器上写文章】写之前*先pull*,写完之后*commit + push*
 【`npm install`报错】管理员身份打开PowerShell执行`Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`,下面的询问输入`Y`回车确认,然后就能`npm install`了
 【调整vscode代码高亮样式/中文】: 在vscode下`Ctrl+Shift+P`,然后输入`Preferences: Color Theme`,回车,弹出的框里选"深色(Visual Studio) Visual Studio Dark" ; 中文直接在扩展里搜`Chinese`,找到微软的简体中文,安装即可
+GitHub仓库的"可见性"(Public/Private)是针对整个仓库的,不能按分支单独设置,权限控制只到仓库级
 
 ## 隔离hexo和Gitea本地仓库
 本地git大概率用的是http,因此push本地Gitea时,把http代理先取消,push完再加上就行

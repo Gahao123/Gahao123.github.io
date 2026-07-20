@@ -81,7 +81,7 @@ Linux内核为每个进程提供`/proc/[pid]/pagemap`文件，用于查看每个
 
 ## 日常流程
 git的流程就是:本地更新主干，基于主干新建一个分支并切换 -> Coding -> 将这个分支推送到远端 -> 打开仓库,进入创建Pull Request界面 -> 选定目标分支,填写Title以及Description,点击提交Pull Request
-`git pull <远程仓库名origin> <要拉取的分支名main或master>`;从远程仓库获取最新代码并合并到当前分支
+`git pull <远程仓库名origin> <要拉取的分支名main或master>`;从远程仓库获取最新代码并合并到当前分支 ; `pull`的时候弹出vim不用管,`Esc + :q`退出就得,要是写了点啥再`:wq`
 `git add 文件名`(`git add .`是所有文件)添加到暂存区
 `git commit -m "xxxxx” -m`后面的文本是本次提交的注释信息
 `git checkout -b 分支名称`。若已有分支，则可使用命令 `git switch 分支名称`
@@ -452,3 +452,6 @@ main里返回错误`exit(-1);`,正常`exit(0);`
 - 【**C++的string类**】(可修改):`string str="google";` , 赋值`str1=str;` , 连接`str3=str1+str2;` , 求长度`int len=s.size();`和`s.length()`都行 , 判空`s.empty()` , C++的string可修改,访问`s[i]`(不检查越界)/`s.at(i)`(检查越界) , 插入`s.insert(插入位置,插入字符串);` , 删除`s.erase(pos,len);`删除位置和长度 , 替换`s.replace(pos,len,str);` , 查找`auto pos=s.find("bc");` , 子串`s.substr(pos,len);` , 比较可以直接比
 - 【空指针`NULL`】是一个值为0的常量 ; 可以把数组名当作指针来访问数组元素,但数组名本身不能修改(不能++,--,+,-)
 - 【C++时间】需要`<ctime>`,主要知道`time_t now=time(0);`,这是1970年到目前的秒数,这是用整数表示时间(还有`clock_t`和`size_t`),还有一个结构体`tm`表示结构化的时间信息
+- 【C++输入输出】需要`<iostream>`,标准输入`cin>>` ; 标准输出`cout<<` ; 标准错误`cerr<<`(这个显示错误信息) ; 标准日志`clog<<`(这个输出日志消息) -> 【*注*】`endl`相比`'\n'`还会刷新缓冲区,因此更慢,所以刷题时用`'\n'`不用`endl` ; 要读入中间带空白的字符串如`"hello world"`用`cin>>`只能读入`"hello"`,因为`>>`遇到空白结束,所以要读整行则`getline(cin,s);`; 【*再注*】`<iostream>`开销大,因此嵌入式更常见`printf()`和`scanf()`或日志框架/UART输出(串口打印)
+- 【**结构体struct**】可包含成员函数、构造函数,可操作结构体的成员变量,也可使用`public`、`private`和`protected`控制访问权限 ; `struct`的成员默认`public`,而`class`默认`private`,在C++里这俩几乎是一个东西(这个能力是C++带来的,C的`struct`没有类相关的能力) -> 实践中建议纯数据对象/数据包用`struct`,带复杂函数的复杂对象用`class`
+- 【**vector动态数组**】需包含`<vector>`,不需手动`malloc`/`free`且可方便地与STL配合使用 ; 创建空`vector`: `std::vector<int>vec;`,创5个元素默认值为0: `std::vector<int>vec(5);`,指定初始值: `std::vector<int>vec(5,10);`就是5个10,初始化列表就按数组那样`={1,2,3};` ; 尾部添加`.push_back(元素);` ; 尾部删除`.pop_back()` ; 访问: `[]`访问不检查越界,速度更快,`vec.at(i)`会检查越界,更安全 ; 访问大小`.size()`,访问容量`.capacity()`,注意`vector`扩容代价较高,所以有提前扩容`.reserve(容量,如1000000)`,可减少损耗,改变`size`:`.resize(数量)`,扩大则默认初始化,缩小则删除后面元素 ; 判是否为空`.empty()` ; 头对象`.begin()`(是迭代器指针),尾对象`.end()`(注意这个是尾部的下一个空位置的迭代器),可用这个遍历(当然下标也行): `for(auto it=vec.begin();it!=vec.end();++it){}`(注意`.end()`是尾部下一个,所以这样没问题) ; 头引用`.front()`,尾引用`.back()`,这俩都是返回头尾元素的引用,可直接操作 ; 删除第3个元素`vec.erase(vec.begin()+2)`,头部插入`vec.insert(vec.begin(),100)`,但这两个操作会影响后面元素,时间`O(n)` ; 清空内容`.clear()`,注意这样`size`变0但`capacity`保留,要释放内存需`std::vector<int>().swap(vec);` ; 现代C++对复杂对象的`vector`插入更推荐`.emplace_back()`而不是`.push_back()`以避免产生临时对象,效率更高(不过简单类型就没啥区别了) 【*注意坑*】`vector`扩容可能导致原内存地址失效,例如在`push_back()`之前弄了一个`auto it=vec.begin()`,`push_back()`后`it`可能失效

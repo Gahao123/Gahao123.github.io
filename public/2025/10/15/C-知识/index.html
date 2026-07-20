@@ -145,7 +145,11 @@ mmap的映射可分为三个阶段:1.进程启动映射过程<span class="bd-box
 <code>git push origin 分支名</code> 推送到远程仓库<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>基本格式如下:<br>
 <code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</code><br>
 如果本地分支名和远程分支名相同<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>可以省略冒号和远程分支名<span class="bd-box"><h-char class="bd bd-beg"><h-inner>：</h-inner></h-char></span><br>
-<code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;</code></p>
+<code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;</code><br>
+出现<code>git pull</code>的时候<code>Please, commit your changes or stash them before you can merge.</code>:<br>
+若要保留本地修改,先<code>git stash</code>将工作区恢复到上次提交的内容,同时备份本地所做的修改,然后就可以正常<code>git pull</code>了,<code>git pull</code>完成后<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>执行<code>git stash pop</code>将之前本地做的修改应用到当前工作区<br>
+<code>git stash clear</code>:清空Git栈,就是把stash那些节点清理掉<br>
+若要放弃本地修改,就<code>git reset --hard</code>,然后<code>git pull</code></p>
 <blockquote>
 <p>命令行下按Tab键可以进行自动代码补全(若有多个补全选项,补的是哪个不确定)</p>
 </blockquote>
@@ -433,6 +437,8 @@ CPU也会被绑定,无法兼容</p>
 <li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span><strong>Lambda函数</strong><span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>就是匿名函数,比如用于那些临时占位的函数,不用起名字+外部维护了(比如<code>sort</code>的<code>cmp</code>就可以用这个占位),写法是<code>[capture](parameters)-&gt;return-type&#123;body&#125;</code>,例如<code>[](int x, int y)&#123; return x&lt;y; &#125;</code> ; 相当于用前面那个<code>[]</code>来匿名指代一个函数,然后这个<code>[]</code>里可以控制这个匿名函数能访问的外部变量 -&gt; 如果是<code>[]</code>则不能访问当前作用域下的任何变量(不过后面的函数参数还是能正常用的) ; 是<code>[x,&amp;y]</code>表示能访问当前位置的x和y,x以传值方式传入(默认),y以引用方式传入 ; <code>[&amp;]</code>表示当前任何变量都以引用方式可访问,<code>[=]</code>表示当前任何变量都以传值方式可访问 ; <code>[&amp;,x]</code>表示x以传值方式传入,其余变量以引用方式可访问,<code>[=,&amp;z]</code>表示z以引用方式传入,其余变量以传值方式可访问 ; <span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span><em>注</em><span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>对于<code>[=]</code>或<code>[&amp;]</code>的形式,lambda表达式可以直接使用<code>this</code>指针;但是对于<code>[]</code>的形式,如果要使用<code>this</code>指针,必须显式传入:<code>[this]()&#123;this-&gt;someFunc();&#125;</code> -&gt; 后面的参数表<code>()</code>和函数体<code>&#123;&#125;</code>和正常函数一样</li>
 <li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>数组初始化赋值<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><code>int a[5]=&#123;1,2,3,4,5&#125;;</code></li>
 <li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span><strong>C++的string类</strong><span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>(可修改):<code>string str=&quot;google&quot;;</code> , 赋值<code>str1=str;</code> , 连接<code>str3=str1+str2;</code> , 求长度<code>int len=s.size();</code>和<code>s.length()</code>都行 , 判空<code>s.empty()</code> , C++的string可修改,访问<code>s[i]</code>(不检查越界)/<code>s.at(i)</code>(检查越界) , 插入<code>s.insert(插入位置,插入字符串);</code> , 删除<code>s.erase(pos,len);</code>删除位置和长度 , 替换<code>s.replace(pos,len,str);</code> , 查找<code>auto pos=s.find(&quot;bc&quot;);</code> , 子串<code>s.substr(pos,len);</code> , 比较可以直接比</li>
+<li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>空指针<code>NULL</code><span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>是一个值为0的常量 ; 可以把数组名当作指针来访问数组元素,但数组名本身不能修改(不能++,–,+,-)</li>
+<li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>C++时间<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>需要<code>&lt;ctime&gt;</code>,主要知道<code>time_t now=time(0);</code>,这是1970年到目前的秒数,这是用整数表示时间(还有<code>clock_t</code>和<code>size_t</code>),还有一个结构体<code>tm</code>表示结构化的时间信息</li>
 </ul>
 
       

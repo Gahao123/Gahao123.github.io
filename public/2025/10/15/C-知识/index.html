@@ -205,6 +205,9 @@ mmap的映射可分为三个阶段:1.进程启动映射过程<span class="bd-box
 <span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span><code>npm install</code>报错<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>管理员身份打开PowerShell执行<code>Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned</code>,下面的询问输入<code>Y</code>回车确认,然后就能<code>npm install</code>了<br>
 <span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>调整vscode代码高亮样式/中文<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>: 在vscode下<code>Ctrl+Shift+P</code>,然后输入<code>Preferences: Color Theme</code>,回车,弹出的框里选&quot;深色(Visual Studio) Visual Studio Dark&quot; ; 中文直接在扩展里搜<code>Chinese</code>,找到微软的简体中文,安装即可<br>
 GitHub仓库的&quot;可见性&quot;(Public/Private)是针对整个仓库的,不能按分支单独设置,权限控制只到仓库级</p>
+<h2 id="删除git">删除git</h2>
+<p>就在当前文件夹下把隐藏的<code>.git</code>文件夹删了,就移除了git ; 若是要清空一个设备上的东西,文件夹直接全删了就行<br>
+不过还是推荐保留,可以简化命令为<code>git add .</code> ; <code>git commit -m &quot;my&quot;</code> ; <code>git push</code> 就得了,起码有了版本管理+备份,等哪天又要迁移了再<code>pull</code></p>
 <h2 id="隔离hexo和gitea本地仓库">隔离hexo和Gitea本地仓库</h2>
 <p>本地git大概率用的是http,因此push本地Gitea时,把http代理先取消,push完再加上就行</p>
 <h2 id="查看当前文件路径命令&lt;span-class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;：&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;pwd&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;；&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;查看文件ls&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;，&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;详细信息ls -l">查看当前文件路径命令<span class="bd-box"><h-char class="bd bd-beg"><h-inner>：</h-inner></h-char></span>pwd<span class="bd-box"><h-char class="bd bd-beg"><h-inner>；</h-inner></h-char></span>查看文件ls<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>详细信息ls -l</h2>
@@ -454,7 +457,9 @@ CPU也会被绑定,无法兼容</p>
 <li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>无序集合<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><code>unordered_set&lt;int&gt; s;</code>,和<code>set</code>类似,但无排序,底层是哈希表,查找平均<code>O(1)</code></li>
 </ul>
 </li>
-<li></li>
+<li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>类<code>class</code><span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>要在定义时<code>&quot;;&quot;</code>结束一个类 -&gt; 类内定义和类内声明类外定义都可(但大型项目一般类外定义) ; 类里有一个默认的<code>this</code>是指针,比如类名<code>Box</code>,<code>this</code>实际是<code>Box*</code>,所以C++访问<code>this</code>的变量是<code>this-&gt;length</code></li>
+<li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>权限<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><code>public</code>公开,<code>private</code>纯私密,<code>protected</code>只允许子类访问 -&gt; 若是定义子类如<code>class B:public A</code>,这里的修饰符决定父类的成员在子类中&quot;表现&quot;成什么样 -&gt; 降级原则:这个修饰符决定了父类成员在子类中的最高权限,更高级就保持,更严格就降级</li>
+<li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>类初始化<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>C++推荐用成员初始化列表,eg:<code>Line::Line(double len):length(len)&#123;&#125;</code>,就是直接用传入的参数len初始化成员变量length ; 用这种初始化列表,在进入函数体(后面的{})之前就完成了成员变量的初始化 ; 对<code>const</code>成员<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>引用成员及没有默认构造函数的对象成员来说,初始化列表是唯一的初始化方式 ; 多个初始化就是<code>C::C(double a,double b,double c):X(a),Y(b),Z(c)&#123;&#125;</code>(<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span><em>注</em><span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>这里的X<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>Y<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>Z谁先初始化是由类中声明顺序决定,而不是这里写的顺序,建议和类的声明顺序一致避免混淆) -&gt; 在构造函数里赋值的话是&quot;先默认构造在赋值&quot;,会多一步复制开销,使用成员初始化列表就可以避免这种开销</li>
 </ul>
 
       

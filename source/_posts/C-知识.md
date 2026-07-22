@@ -174,6 +174,10 @@ hexo deploy
 【调整vscode代码高亮样式/中文】: 在vscode下`Ctrl+Shift+P`,然后输入`Preferences: Color Theme`,回车,弹出的框里选"深色(Visual Studio) Visual Studio Dark" ; 中文直接在扩展里搜`Chinese`,找到微软的简体中文,安装即可
 GitHub仓库的"可见性"(Public/Private)是针对整个仓库的,不能按分支单独设置,权限控制只到仓库级
 
+## 删除git
+就在当前文件夹下把隐藏的`.git`文件夹删了,就移除了git ; 若是要清空一个设备上的东西,文件夹直接全删了就行
+不过还是推荐保留,可以简化命令为`git add .` ; `git commit -m "my"` ; `git push` 就得了,起码有了版本管理+备份,等哪天又要迁移了再`pull`
+
 ## 隔离hexo和Gitea本地仓库
 本地git大概率用的是http,因此push本地Gitea时,把http代理先取消,push完再加上就行
 
@@ -464,4 +468,6 @@ main里返回错误`exit(-1);`,正常`exit(0);`
   - 【映射】`map<string,int> myMap;`,插入`myMap["apple"]=10;`,查找`auto it=myMap.find("apple")`然后判断`if(it!= myMap.end())`,或者直接`myMap.contains(要查的)`,不推荐用`[]`查询,因为这样不存在会自动创建元素,底层是红黑树,查找、插入、删除复杂度`O(logn)`,自动升序排列key
   - 【集合】`set<int> s;`,插入`s.insert(数据)`,取得第一个的值`*s.begin()`,判断元素存在`if(s.find(x)!=s.end())`,自动升序排列且保证元素不重复,时间复杂度`O(logn)`
   - 【无序集合】`unordered_set<int> s;`,和`set`类似,但无排序,底层是哈希表,查找平均`O(1)`
-- 
+- 【类`class`】要在定义时`";"`结束一个类 -> 类内定义和类内声明类外定义都可(但大型项目一般类外定义) ; 类里有一个默认的`this`是指针,比如类名`Box`,`this`实际是`Box*`,所以C++访问`this`的变量是`this->length`
+- 【权限】`public`公开,`private`纯私密,`protected`只允许子类访问 -> 若是定义子类如`class B:public A`,这里的修饰符决定父类的成员在子类中"表现"成什么样 -> 降级原则:这个修饰符决定了父类成员在子类中的最高权限,更高级就保持,更严格就降级
+- 【类初始化】C++推荐用成员初始化列表,eg:`Line::Line(double len):length(len){}`,就是直接用传入的参数len初始化成员变量length ; 用这种初始化列表,在进入函数体(后面的{})之前就完成了成员变量的初始化 ; 对`const`成员、引用成员及没有默认构造函数的对象成员来说,初始化列表是唯一的初始化方式 ; 多个初始化就是`C::C(double a,double b,double c):X(a),Y(b),Z(c){}`(【*注*】这里的X、Y、Z谁先初始化是由类中声明顺序决定,而不是这里写的顺序,建议和类的声明顺序一致避免混淆) -> 在构造函数里赋值的话是"先默认构造在赋值",会多一步复制开销,使用成员初始化列表就可以避免这种开销

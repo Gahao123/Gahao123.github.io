@@ -218,6 +218,10 @@
 <h2 id="额外,可加上密码管理部署">额外,可加上密码管理部署</h2>
 <p>找那些开源密码管理器,比如Bitwarden这种,自己部署,密文数据完全在你自己的服务器上<br>
 但是注意,这样的话服务器的安全维护(系统更新<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>Docker 镜像更新<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>防火墙配置)得自己搞,出了漏洞自己扛风险 ; 必须要HTTPS ; 东西还要自己备份 -&gt; 自建密码管理,那就得信任自己的运维能力才行</p>
+<h2 id="记一次vultr安全更新强制重启">记一次Vultr安全更新强制重启</h2>
+<p>7.22收到邮件,Vultr发现了一个影响Linux KVM虚拟化环境的严重漏洞,需要对基础设施进行安全补丁更新,因此要求对受影响VM进行一次强制重启,会在<code>2026-07-27 07:00 UTC</code>进行,换成<code>UTC+8</code>就是<code>2026-07-27 15:00</code><br>
+说明Vultr还算正规,一些小厂可能遇到这种KVM级漏洞会不通知<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>拖几个月或不维护宿主机,大型云厂商一般会强制维护<br>
+重启后看是否正常运行<code>systemctl status x-ui</code>,正常输出<code>enabled</code></p>
 
       
     </div>

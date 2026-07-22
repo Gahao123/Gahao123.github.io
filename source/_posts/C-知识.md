@@ -464,3 +464,4 @@ main里返回错误`exit(-1);`,正常`exit(0);`
   - 【映射】`map<string,int> myMap;`,插入`myMap["apple"]=10;`,查找`auto it=myMap.find("apple")`然后判断`if(it!= myMap.end())`,或者直接`myMap.contains(要查的)`,不推荐用`[]`查询,因为这样不存在会自动创建元素,底层是红黑树,查找、插入、删除复杂度`O(logn)`,自动升序排列key
   - 【集合】`set<int> s;`,插入`s.insert(数据)`,取得第一个的值`*s.begin()`,判断元素存在`if(s.find(x)!=s.end())`,自动升序排列且保证元素不重复,时间复杂度`O(logn)`
   - 【无序集合】`unordered_set<int> s;`,和`set`类似,但无排序,底层是哈希表,查找平均`O(1)`
+- 

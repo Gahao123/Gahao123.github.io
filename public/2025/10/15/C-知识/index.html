@@ -208,6 +208,9 @@ GitHub仓库的&quot;可见性&quot;(Public/Private)是针对整个仓库的,不
 <h2 id="删除git">删除git</h2>
 <p>就在当前文件夹下把隐藏的<code>.git</code>文件夹删了,就移除了git ; 若是要清空一个设备上的东西,文件夹直接全删了就行<br>
 不过还是推荐保留,可以简化命令为<code>git add .</code> ; <code>git commit -m &quot;my&quot;</code> ; <code>git push</code> 就得了,起码有了版本管理+备份,等哪天又要迁移了再<code>pull</code></p>
+<h2 id="迁移git到新目录(hexo也保持正常)">迁移git到新目录(hexo也保持正常)</h2>
+<p>直接复制所有东西到新目录下就行,Git仓库本身不依赖具体的绝对路径,<code>.git</code>文件夹跟着一起移动过去,仓库的所有历史<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>分支<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>远程关联都会完好保留 -&gt; 但是注意<code>.git</code>是隐藏文件夹,记得显示隐藏再复制<br>
+使用命令<code>git status</code>能正常显示仓库状态<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span><code>git remote -v</code>还指向你的GitHub仓库地址,说明Git迁移成功了</p>
 <h2 id="隔离hexo和gitea本地仓库">隔离hexo和Gitea本地仓库</h2>
 <p>本地git大概率用的是http,因此push本地Gitea时,把http代理先取消,push完再加上就行</p>
 <h2 id="查看当前文件路径命令&lt;span-class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;：&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;pwd&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;；&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;查看文件ls&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;，&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;详细信息ls -l">查看当前文件路径命令<span class="bd-box"><h-char class="bd bd-beg"><h-inner>：</h-inner></h-char></span>pwd<span class="bd-box"><h-char class="bd bd-beg"><h-inner>；</h-inner></h-char></span>查看文件ls<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>详细信息ls -l</h2>

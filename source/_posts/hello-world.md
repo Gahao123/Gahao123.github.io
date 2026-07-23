@@ -62,6 +62,20 @@ $ hexo deploy
 3. blog下直接clean,generate,deploy 
 4. 去网页上Settings,Pages,Deploy from branch,选gh-pages/(root),Save即可 
 
+#### 清理git提交的commit历史 -> github往main和master提交不会触发workflow runs和deployments,只有在github里往gh-pages推送才会触发
+在Gahao123.github.io(master分支)目录下创建一个全新的、没有历史的孤儿分支
+`git checkout --orphan temp_branch`
+把当前所有文件加入这个新分支(相当于一次性的"初始提交")
+`git add -A`
+`git commit -m "重置历史记录"`
+删除旧的master分支
+`git branch -D master`
+把临时分支改名为master
+`git branch -m master`
+强制推送,覆盖远程的历史
+`git push -f origin main`
+【Claude建议】这个也是偶尔清理即可
+
 【GPT建议,如果想多设备同步的话,还可以在blog目录下弄git来把源码弄到main分支里,这样可以多设备同步并防误删 ; 或者直接blog文件夹整个复制迁移也能用(得安装依赖环境)】
 注意仓库code主页右上角,Unwatch是多少在看,为1基本就是自己;fork后数字是副本数,有数字说明你这个有完整副本在别人那;star相当于曝光度
 

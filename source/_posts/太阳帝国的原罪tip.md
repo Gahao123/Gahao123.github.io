@@ -5,7 +5,6 @@ categories:
   - 信息保存
 tags:
   - Sins of a Solar Empire
-  - 游戏配置
 ---
 
 ## 技能许可目标

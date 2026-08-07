@@ -7,12 +7,10 @@ tags:
   - 部署
   - 一些工具是什么学习
   - Vue
-  - Java
   - jar包和war包
   - 三范式
   - Axios、为什么不用HTTPS
   - 跨域问题Cors
-  - Date类选sql.Date
   - HTTPS学习
 ---
 
@@ -92,7 +90,3 @@ Axios是同构的，可以用相同的代码在浏览器和服务器上运行
 所有的需要跨域的类或者函数上都加上注解`@CrossOrigin`
 就把所有Controller类上都加上`@CrossOrigin`就行
 > 或者写Springboot的`@Configuration`，不过就相对麻烦了。
-
-## 选择Date有Java.util.Date和Java.sql.Date
-用sql.Date，这个是专门为了和数据库交流做的
-sql.Date是util.Date的子类

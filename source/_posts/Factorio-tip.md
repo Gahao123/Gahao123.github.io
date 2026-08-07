@@ -15,6 +15,8 @@ categories:
 
 ## 加了模组也能解锁成就方法
 
+<!-- more -->
+
 ### 方法1
 用GitHub上的`oorzkws/FactorioAchievementEnabler`(可直接搜索`FactorioAchievementEnabler`或者直接到[这里](https://github.com/oorzkws/FactorioAchievementEnabler))，下载下来`version.dll`并放到`Factorio.exe`旁边，在Steam里游戏的启动项填`cmd /c start "" %command%` -> 参考Github上的Readme即可
 这个方法约等于一劳永逸,但游戏大更时有可能会失效,失效的话要重新下更新后的

@@ -3,14 +3,6 @@ title: C++知识
 date: 2025-10-15 14:13:56
 categories:
   - 信息保存
-tags:
-  - 报告开发tip
-  - C/C++
-  - git
-  - Linux
-  - 命令行
-  - DRAM
-  - 内存条物理层知识
 ---
 
 ## 生成报告tip(重要)

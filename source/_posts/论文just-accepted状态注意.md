@@ -3,9 +3,6 @@ title: 论文just accepted状态注意
 date: 2025-02-07 09:28:34
 categories:
   - 论文相关
-tags:
-  - 学校财务
-  - 论文状态
 ---
 
 ## 学校财务暂用

@@ -3,9 +3,6 @@ title: 数据库MySQLRedis相关
 date: 2025-04-07 09:06:04
 categories:
   - 开发tip
-tags:
-  - 数据库
-  - 外键
 ---
 
 ## 高并发系统全景图(是靠分层削峰的)

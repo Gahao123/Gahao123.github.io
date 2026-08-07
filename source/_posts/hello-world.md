@@ -9,6 +9,11 @@ Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [docume
 换电脑了要迁移hexo就直接去搜:迁移hexo
 【让GPT评价注意】要说写"个人笔记Note""我的攻略",这样才符合自用hexo场景 -> 给自己看的标准是"能帮你少踩一次坑"就是100分
 在md文件里加上`<!-- more -->`就可以在主页隐藏下面的部分,然后点按钮跳转阅读
+【尽量减少使用`tags`和`categories`】Hexo会为每个`tag`和`categories`都生成一个独立页面,会导致巨大膨胀 ; 图片也会导致hexo性能急速下降 -> 关闭词云: 主题`config`下的`widgets:`把`- tagcloud`注释掉,然后在`_config.yml`加上
+```
+tag_generator:
+  enable: false
+```
 
 <!-- more -->
 

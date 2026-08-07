@@ -3,12 +3,6 @@ title: PPT简历汇报Word等相关
 date: 2025-03-26 15:07:49
 categories:
   - 信息保存
-tags:
-  - PPT注意
-  - 答辩演讲总结
-  - 简历相关
-  - Word标题
-  - Excel
 ---
 
 ## PPT母版-->上面视图栏-->幻灯片母版

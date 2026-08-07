@@ -3,8 +3,6 @@ title: 太阳帝国的原罪tip
 date: 2025-01-30 17:08:53
 categories:
   - 信息保存
-tags:
-  - Sins of a Solar Empire
 ---
 
 ## 技能许可目标

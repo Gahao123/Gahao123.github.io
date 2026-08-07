@@ -3,10 +3,6 @@ title: AI相关知识
 date: 2026-01-11 10:30:04
 categories:
   - 学习
-tags:
-  - AI相关
-  - GPT特别注意
-  - 四大基石
 ---
 
 ## 大模型落地四大基石:RAG,微调,Agent,提示词工程

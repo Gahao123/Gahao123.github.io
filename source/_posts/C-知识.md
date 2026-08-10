@@ -363,6 +363,42 @@ CPU也会被绑定,无法兼容
 - PRAC是JESD79-5C版本引入的比RFM更新、更精细的RowHammer防护机制，*但是*它和RFM(上一条那个)是【**互斥**】的，一旦PRAC被启用，RFM和DRFM这两套机制会被DRAM内部自动禁用，二者不会同时生效，是互斥替代关系，不是叠加关系 ; 并且PRAC是可选特性，不是所有16Gb颗粒都支持，并且默认是禁用的，需要先通过MR70:OP[1]=1显式启用，而且启用前必须先做ACI（Activation Counter Initialization，激活计数器初始化），这是个相对复杂的初始化流程，不是"开机自动生效"(即需要主机（BIOS/内存控制器）主动去启用它，普通消费级/工作站平台的BIOS大概率不会去做这个初始化流程，因为这个流程相当复杂，涉及全阵列刷新和状态机切换)
 - 4.36说明on-die ECC是*强制要求*的，合规的DDR5一定会有，128个数据位 -> 生成8个ECC校验位(SEC，单比特纠错)，并且DRAM芯片在把数据返回给内存控制器之前，会先在芯片内部自动纠正任何单比特错误，所以只要是"单比特错误"，on-die ECC会在数据被读出、返回给你的检测程序之前，就已经自动纠正掉了，但是是读的时候纠正，但没有写回，也就是说，纠正只发生在"读出瞬间"，芯片存储阵列里的原始错误比特依然留在那里，没被修复，并且不存在任何统计 ; *唯一的例外是*:当同一个128位数据块里，同时出现2个或以上的错误（超出了SEC单比特纠错的能力范围）时，才会变成"检测到但没法纠正"的状态 ; 还有4.37ECS(这个不是强制要求,要看厂家弄不弄)，这个是建立在on-die ECC基础设施之上的一个"主动巡检/统计"外壳，这个是按特定频率主动读出,纠正,写回阵列,这是ECS特有的动作,会真正修复存储阵列里的错误,并且有统计,EC/EpRC这两个计数器来记录"哪里错了、错了几次"(不过操作系统也很难读到)
 
+## 读rhohammer,关于Aggressor、AAP、Pattern、intra/inter
+主线:
+```
+Aggressor：一个抽象编号
+    ↓ 多个 Aggressor 组成一个局部规则
+AAP：描述一组 Aggressor 怎么周期性出现
+    ↓ 多个 AAP 合并、展开
+Pattern：最终完整的访问顺序
+    ↓ 地址映射
+PatternAddressMapper：把抽象 Aggressor 变成物理 DRAM 行
+```
+1. Aggressor目前只是一个抽象ID,如`A,B,C,D`或代码里的`agg1,agg2,agg3,agg4`,表示`A=“以后需要找一个DRAM地址给我”`
+2. AAP是`AggressorAccessPattern`的缩写,表示一组aggressor应该从哪里开始、连续访问几轮、每隔多久再次出现,包括四个字段:
+```
+std::vector<Aggressor> aggressors;
+int amplitude;
+size_t frequency;
+size_t start_offset;
+```
+假设
+```
+aggressors  = {A, B}
+amplitude   = 2
+frequency   = 8
+start_offset = 0
+```
+这样表示这一组有两个aggressor：A、B ; 每次出现时重复两轮：A B A B ; 第一次从槽位 0 开始 ; 每隔 8 个槽位再次出现
+展开后就是：
+```
+槽位： 0 1 2 3 4 5 6 7 | 8 9 10 11 12 13 14 15
+AAP1： A B A B _ _ _ _ | A B A  B  _  _  _  _
+```
+所以 AAP 是一个“局部周期规则”，不是最终完整的访问序列
+3. Pattern是最终完整的 hammering 访问模板,包括这是展开后的完整访问顺序`std::vector<Aggressor> aggressors;`和生成完整顺序所使用的全部 AAP 规则`std::vector<AggressorAccessPattern> agg_access_patterns;`,就是说AAP是规则, Pattern是所有规则叠加后的完整结果 ; 比如前面的AAP例子弄的是`A B A B _ _ _ _ | A B A B _ _ _ _`,再假如弄个AAP2是`_ _ _ _ C D C D | _ _ _ _ C D C D`,最后两个AAP合并成一个Pattern是`A B A B C D C D | A B A B C D C D`,由`PatternBuilder`完成
+4. `intra/inter`: 前面的AAP 和Pattern 只决定访问顺序,上面的弄完之后才是`agg_intra_distance ,agg_inter_distance `这些,是在把Pattern中的 A、B、C、D 放到哪些 DRAM row时产生作用的
+
 ## C/C++做准备(标准库全不看,记不住的,而且不会问)
 
 ### C , 是面向过程式的,编译后直接生成高效率机器代码,可直接操作内存和硬件
@@ -484,3 +520,4 @@ main里返回错误`exit(-1);`,正常`exit(0);`
 - 【数据抽象】强调接口与实现分离,只向外提供必要功能,隐藏内部实现细节,即用户只需要知道对象能做什么,不需要知道内部如何实现 -> C++通过类、`private`成员、`public`接口实现数据抽象 -> 一般数据成员设成`private`封装 -> C++的接口使用抽象类的纯虚函数来实现,上层代码依赖抽象接口而不是具体实现,从而方便扩展新的实现
 - 【C++文件和流】标准输入输出是`<iostream>`的`cin`和`cout` ; 文件流是`<fstream>`里`ofstream`文件输出流,`ifstream`文件输入流,`fstream`文件流,同时具有前面两个的功能 -> 常用: 打开文件`ifstream/ofstream file("xxx.txt");`,判断打开`file.is_open()`,读取一行`getline(file,line)`,关闭`file.close()`
 - 【C++异常】`throw 异常对象`主动抛出异常,`try{ 要保护的代码 } catch(异常类型1){ 对应的异常处理1 } catch(异常类型2){ 对应的异常处理2 }`,要自定义异常就引入`<exception>`,然后自定义一个异常类,继承`std::exception`类并重写`what`函数即可 -> `catch`推荐使用引用:`catch(const Exception& e)`,避免异常对象拷贝并保持多态 -> 异常向上层传播时会进行栈展开,自动调用经过作用域局部对象的析构函数(即抛出异常也会让局部对象正常析构) -> C++异常和Java的区别:C++异常没有checked exception, Java函数后面可以写上如`throws IOException`,并且只要这么写那调用那里就必须有`try-catch`异常处理 ; 而C++在哪抛出异常对象都行,并且也没有强制异常处理
+- 【**C++动态内存**】程序运行时内存大致分为栈和堆 ; `new`在堆上动态创建对象,`delete`释放资源(*注意*`new`返回的是地址,得用指针变量接收,无论是基本类型还是类对象!!) -> 栈stack主要用于函数调用,局部变量,函数参数,返回地址,这个是自动管理自动销毁 ; 堆heap用于程序运行过程中动态申请的内存,比如`int* p = new int(10);`,这里指针`p`在栈里,它指向的数据在堆里,若函数结束,栈里的`p`消失,但堆里的`[10]`还在,这就是内存泄漏,所以需要`delete p;`释放堆里的数据 ; 栈的生命周期短且空间有限,每个线程创建时有自己的栈,一般很有限(超大数组可能直接爆栈),但是堆只要系统还有内存,能`new`出来就能接着塞,所以大数据一般放堆 ; 【`new/delete`和`malloc/free`区别】`new`不只是分配内存,还创建对象,即调用构造函数初始化,同时`delete`也会调用析构函数,`delete[]`会调用数组里所有对象的析构函数,而`malloc(sizeof(Box));`只会申请一块裸内存,不会调用构造函数和初始化对象,所以C++推荐类对象不要用`malloc/free` ; `new`和`delete`必须匹配,如果是`int* p = new int;`则释放是`delete p;`,如果是数组`int* p = new int[10];`那释放就是`delete[] p;` -> 更进一步,现代C++更推荐智能指针管理动态资源,减少手动`new/delete`,避免忘记`delete`

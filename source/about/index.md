@@ -18,5 +18,7 @@ layout: about
 
 真正的自由不是想做什么就做什么,而是不想做什么就可以不做什么
 
+方向对了,时间就是复利;方向错了,时间就是绞索
+
 # 关于本站
 本站由 hexo 驱动，使用的主题是[mashiro](https://github.com/bill-xia/hexo-theme-mashiro "感谢作者@bill-xia")，托管于 GitHub Page。

@@ -399,6 +399,44 @@ AAP1： A B A B _ _ _ _ | A B A  B  _  _  _  _
 3. Pattern是最终完整的 hammering 访问模板,包括这是展开后的完整访问顺序`std::vector<Aggressor> aggressors;`和生成完整顺序所使用的全部 AAP 规则`std::vector<AggressorAccessPattern> agg_access_patterns;`,就是说AAP是规则, Pattern是所有规则叠加后的完整结果 ; 比如前面的AAP例子弄的是`A B A B _ _ _ _ | A B A B _ _ _ _`,再假如弄个AAP2是`_ _ _ _ C D C D | _ _ _ _ C D C D`,最后两个AAP合并成一个Pattern是`A B A B C D C D | A B A B C D C D`,由`PatternBuilder`完成
 4. `intra/inter`: 前面的AAP 和Pattern 只决定访问顺序,上面的弄完之后才是`agg_intra_distance ,agg_inter_distance `这些,是在把Pattern中的 A、B、C、D 放到哪些 DRAM row时产生作用的
 
+检查是否有误: `cd "/mnt/c/Users/wangj/Desktop/yjs/代码文件/弄x86服务器/dram_test_1/dram_test/rhohammer-main/rhohammer/build"`然后先把这个`build`目录下的东西全删完,然后`cmake .. && make -j$(nproc)`然后`sudo ./rhoHammer --dimm-id 0 --runtime-limit 21600 --geometry 2,4,4 --samsung --sweeping`
+
+## WSL更换镜像源
+用`Win + R`输入`\\wsl$`,回车就是WSL的文件系统,进入`Ubuntu`文件夹,然后`/etc/apt/sources.list.d`文件夹，可以看见`ubuntu.sources`这一个文件，里面就是WSL-Ubuntu默认的apt源是国外的源 -> 先备份原来的文件`sudo cp /etc/apt/sources.list.d/ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources.bak`,然后用vim打开编辑`sudo vim /etc/apt/sources.list.d/ubuntu.sources`,然后直接将国内镜像`ctrl+c、ctrl+v`放入到`ubuntu.sources`后面,把原来的两个部分都`#`注释掉即可,然后分别运行`sudo apt update`和`sudo apt upgrade -y`即可完成替换 -> 如果要还原源,那就`sudo mv /etc/apt/sources.list.d/ubuntu.sources.bak /etc/apt/sources.list.d/ubuntu.sources`然后`sudo apt update`
+一些国内的源:
+阿里云:
+```
+Types: deb
+URIs: http://mirrors.aliyun.com/ubuntu/
+Suites: noble noble-updates noble-security
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+```
+中科大:
+```
+Types: deb
+URIs: http://mirrors.ustc.edu.cn/ubuntu/
+Suites: noble noble-updates noble-security
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+```
+清华:
+```
+Types: deb
+URIs: http://mirrors.tuna.tsinghua.edu.cn/ubuntu/
+Suites: noble noble-updates noble-security
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+```
+网易:
+```
+Types: deb
+URIs: http://mirrors.163.com/ubuntu/
+Suites: noble noble-updates noble-security
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+```
+
 ## C/C++做准备(标准库全不看,记不住的,而且不会问)
 
 ### C , 是面向过程式的,编译后直接生成高效率机器代码,可直接操作内存和硬件

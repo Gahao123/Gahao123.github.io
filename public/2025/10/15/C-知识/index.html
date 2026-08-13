@@ -390,7 +390,40 @@ CPU也会被绑定,无法兼容</p>
 <p>所以 AAP 是一个<span class="bd-box"><h-char class="bd bd-end"><h-inner>“</h-inner></h-char></span>局部周期规则<span class="bd-box"><h-char class="bd bd-beg"><h-inner>”</h-inner></h-char><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>不是最终完整的访问序列<br>
 3. Pattern是最终完整的 hammering 访问模板,包括这是展开后的完整访问顺序<code>std::vector&lt;Aggressor&gt; aggressors;</code>和生成完整顺序所使用的全部 AAP 规则<code>std::vector&lt;AggressorAccessPattern&gt; agg_access_patterns;</code>,就是说AAP是规则, Pattern是所有规则叠加后的完整结果 ; 比如前面的AAP例子弄的是<code>A B A B _ _ _ _ | A B A B _ _ _ _</code>,再假如弄个AAP2是<code>_ _ _ _ C D C D | _ _ _ _ C D C D</code>,最后两个AAP合并成一个Pattern是<code>A B A B C D C D | A B A B C D C D</code>,由<code>PatternBuilder</code>完成<br>
 4. <code>intra/inter</code>: 前面的AAP 和Pattern 只决定访问顺序,上面的弄完之后才是<code>agg_intra_distance ,agg_inter_distance </code>这些,是在把Pattern中的 A<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>B<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>C<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>D 放到哪些 DRAM row时产生作用的</p>
-<p>检查是否有误: <code>cd &quot;/mnt/c/Users/wangj/Desktop/yjs/代码文件/弄x86服务器/dram_test_1/dram_test/rhohammer-main/rhohammer/build&quot;</code>然后先把这个<code>build</code>目录下的东西全删完,然后<code>cmake .. &amp;&amp; make -j$(nproc)</code>然后<code>sudo ./rhoHammer --dimm-id 0 --runtime-limit 21600 --geometry 2,4,4 --samsung --sweeping</code></p>
+<p>检查是否有误: <code>cd &quot;/mnt/c/Users/wangj/Desktop/yjs/代码文件/弄x86服务器/dram_test_AAP1/rhohammer/build&quot;</code>然后先把这个<code>build</code>目录下的东西全删完,(这里可以选择直接解压依赖,免得Cmake下载因为网络问题卡住,在<code>/build</code>目录下<code>unzip ../_deps.zip</code>(要是建议直接丢给Deepseek让他修复),解压后应该有<code>build/_deps/argagg-src , build/_deps/asmjit-src , build/_deps/json-src , build/_deps/yaml-cpp-src</code>),然后<code>cmake .. &amp;&amp; make -j$(nproc)</code>然后<code>sudo ./rhoHammer --dimm-id 0 --runtime-limit 21600 --geometry 2,4,4 --samsung --sweeping</code></p>
+<h3 id="修改的rhohammer的内容留档">修改的rhoHammer的内容留档</h3>
+<p>首先是文件其实只有<code>./output</code>和<code>./rhoHammer</code>这俩有用,像<code>./baseline</code>那些全都没用,可以直接舍弃</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>问题</th>
+<th>修复</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>include/Utilities/Range.hpp [blocked]</td>
+<td>段错误根因<span class="bd-box"><h-char class="bd bd-beg"><h-inner>：</h-inner></h-char></span>Range(min&gt;max) 时 std::uniform_int_distribution 构造 UB<span class="bd-box"><h-char class="bd bd-beg"><h-inner>；</h-inner></h-char></span>get_random_number 里 swap 后 dist 没重建</td>
+<td>构造函数先归一化 min/max 再建 dist</td>
+</tr>
+<tr>
+<td>src/Fuzzer/FuzzingParameterSet.cpp [blocked]</td>
+<td>get_random_amplitude<span class="bd-box"><h-char class="bd bd-beg"><h-inner>：</h-inner></h-char></span>剩余 2 槽<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>2 aggressor 时 max=1 &lt; amplitude.min=2</td>
+<td>放不下最小 amplitude 时直接返回 max</td>
+</tr>
+<tr>
+<td>src/Utilities/Pagemap.cpp [blocked]</td>
+<td>pagemap 打开失败时 fclose(NULL)</td>
+<td>加 NULL 判断</td>
+</tr>
+<tr>
+<td>src/Memory/Memory.cpp [blocked]</td>
+<td>malloc(1G) shadow_page 无 NULL 检查</td>
+<td>加检查并报错退出</td>
+</tr>
+</tbody>
+</table>
 <h2 id="wsl更换镜像源">WSL更换镜像源</h2>
 <p>用<code>Win + R</code>输入<code>\\wsl$</code>,回车就是WSL的文件系统,进入<code>Ubuntu</code>文件夹,然后<code>/etc/apt/sources.list.d</code>文件夹<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>可以看见<code>ubuntu.sources</code>这一个文件<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>里面就是WSL-Ubuntu默认的apt源是国外的源 -&gt; 先备份原来的文件<code>sudo cp /etc/apt/sources.list.d/ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources.bak</code>,然后用vim打开编辑<code>sudo vim /etc/apt/sources.list.d/ubuntu.sources</code>,然后直接将国内镜像<code>ctrl+c&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;、&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;ctrl+v</code>放入到<code>ubuntu.sources</code>后面,把原来的两个部分都<code>#</code>注释掉即可,然后分别运行<code>sudo apt update</code>和<code>sudo apt upgrade -y</code>即可完成替换 -&gt; 如果要还原源,那就<code>sudo mv /etc/apt/sources.list.d/ubuntu.sources.bak /etc/apt/sources.list.d/ubuntu.sources</code>然后<code>sudo apt update</code><br>
 一些国内的源:<br>

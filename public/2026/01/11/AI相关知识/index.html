@@ -103,7 +103,8 @@
 <h2 id="gpt特别注意">GPT特别注意</h2>
 <p>上传文件(如图片,甚至cpp代码文件)会导致快速限额 -&gt; 可以的话还是多用文字<br>
 网页端似乎是不限额的随便用<br>
-<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>使用Codex做RowHammer,rhohammer Tip<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>档位就用5.6 Sol 高即可,别开极高,额度消耗太快,开到中也会有点蠢 ; 让codex直接修改rhohammer代码几乎100%触发安全风控不给做,这个时候让它定位所需的修改,也就是查找,这个更大概率能行</p>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>使用Codex做RowHammer,rhohammer Tip<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>档位就用5.6 Sol 高即可,别开极高,额度消耗太快,开到中也会有点蠢 ; 让codex直接修改rhohammer代码几乎100%触发安全风控不给做,这个时候让它定位所需的修改,也就是查找,这个更大概率能行<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>deepseek使用Tip<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>直接用最强的模型,deepseek-v4-pro,推理超高(拉满) -&gt; 不用担心额度消耗,deepseek超便宜,总token 12.7M才花费￥2.85</p>
 <h2 id="解决gpt聊天太长导致大规模前端渲染--&gt; 卡顿+硬件压力(注意gpt的每一个聊天都是完全隔离的上下文容器,彼此之间没有交流)">解决GPT聊天太长导致大规模前端渲染 -&gt; 卡顿+硬件压力(注意GPT的每一个聊天都是完全隔离的上下文容器,彼此之间没有交流)</h2>
 <p>GPT现在没有只保留记忆,不显示太长的历史,或者就是浏览器不再渲染上面很长的聊天内容的功能,因为<strong>收益/复杂度比目前不划算</strong>:<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>1<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>现实情况是80%用户都是聊10–20轮一次性问题,看完就走,单会话太多轮,强上下文,技术导向的不是产品目标用户;<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>2<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>上下文不等于原文也会引入语义风险,使用户信任成本高,所以设计为-&gt; 所见即所用,所用即所见,“笨&quot;却有效;<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>3<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>虚拟化只能优化浏览器体验,但完全不优化模型,不能降OpenAI的成本;<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>4<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>引入局部上下文,虚拟折叠,动态摘要会导致多端一致性困难<br>
 <span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span><strong>最优解决方法:总结+新开聊天</strong><span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>在当前对话里发一句:请你把我们目前这个聊天中对我有用的长期上下文做一个结构化总结<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>包括<span class="bd-box"><h-char class="bd bd-beg"><h-inner>：</h-inner></h-char></span>我的背景,正在做的事,偏好/目标,已经达成的结论<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span>用要点列出来<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>方便我复制<br>
@@ -190,6 +191,15 @@ RAG属于动态获取最新信息,可访问私有或实时数据并基于权重,
 AI服务器上用的是HBM显存,是和GPU封装在一起的,HBM3E显存单颗位宽1024bit,B300 GPU周围8颗HBM3E,总位宽8192bit ; HBM3E光传数据的导线就有1024根,加上配套那些,HBM3E有3982根导线 ; GB300服务器每块HBM容量是36G,1颗GPU配置8块,就是288G,一共4颗GPU,总容量1152GB ; HBM虽然给AI提供了基础设施,但它的生产工艺和设备与传统的DRAM高度重叠,大量抢占了普通内存的产能 ; 不过HBM延迟太高,并不适合家用</p>
 <h2 id="零日漏洞">零日漏洞</h2>
 <p>指在被发现后立即被恶意利用的安全漏洞,指在漏洞被公开的当天,相关的恶意程序就已经出现并开始利用该漏洞进行攻击</p>
+<h2 id="记录使用codex--&gt; 记得审批!一定要慎重!">记录使用Codex -&gt; 记得审批!一定要慎重!</h2>
+<p><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>codex<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>直接在vscode扩展里搜&quot;codex&quot;,安装OpenAI那个codex插件,然后右边打开侧边栏里的 Codex 面板 , 用 ChatGPT 账号或 API key 登录,然后就可以在当前项目里直接开始提问或下达任务<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>ChatGPT APP<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>直接在Web端左下角用户后面的小图标下载ChatGPT Installer.exe,然后直接安装,登录,就可以用GPT App了,可以跑项目了<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>记得审批!一定要慎重!<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span></p>
+<h2 id="记录使用kun开源agent-+ deepseek api">记录使用Kun开源Agent + Deepseek API</h2>
+<p>DeepSeek 官方只有网页版和 API 接口调用这两种使用方式,要使用Agent的话,只能走API调用<br>
+<em>Kun</em>是一款基于 DeepSeek 的本地桌面 AI Agent 工作台,开源免费,在Github上有4.1k的Star,可到<a target="_blank" rel="noopener" href="https://deepseek-gui.com/">这里</a>去下载Windows版直接安装即可,安装完成后,首次启动需要填入 DeepSeek API ,几分钟就能搞定<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span><br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>记得审批!一定要慎重!<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span></p>
+<p><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>Deepseek API<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>官方API界面搜&quot;Deepseek&quot;,然后进API开放平台,登录<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>充值<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>生成API即可使用</p>
 
       
     </div>

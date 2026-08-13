@@ -399,7 +399,17 @@ AAP1： A B A B _ _ _ _ | A B A  B  _  _  _  _
 3. Pattern是最终完整的 hammering 访问模板,包括这是展开后的完整访问顺序`std::vector<Aggressor> aggressors;`和生成完整顺序所使用的全部 AAP 规则`std::vector<AggressorAccessPattern> agg_access_patterns;`,就是说AAP是规则, Pattern是所有规则叠加后的完整结果 ; 比如前面的AAP例子弄的是`A B A B _ _ _ _ | A B A B _ _ _ _`,再假如弄个AAP2是`_ _ _ _ C D C D | _ _ _ _ C D C D`,最后两个AAP合并成一个Pattern是`A B A B C D C D | A B A B C D C D`,由`PatternBuilder`完成
 4. `intra/inter`: 前面的AAP 和Pattern 只决定访问顺序,上面的弄完之后才是`agg_intra_distance ,agg_inter_distance `这些,是在把Pattern中的 A、B、C、D 放到哪些 DRAM row时产生作用的
 
-检查是否有误: `cd "/mnt/c/Users/wangj/Desktop/yjs/代码文件/弄x86服务器/dram_test_1/dram_test/rhohammer-main/rhohammer/build"`然后先把这个`build`目录下的东西全删完,然后`cmake .. && make -j$(nproc)`然后`sudo ./rhoHammer --dimm-id 0 --runtime-limit 21600 --geometry 2,4,4 --samsung --sweeping`
+检查是否有误: `cd "/mnt/c/Users/wangj/Desktop/yjs/代码文件/弄x86服务器/dram_test_AAP1/rhohammer/build"`然后先把这个`build`目录下的东西全删完,(这里可以选择直接解压依赖,免得Cmake下载因为网络问题卡住,在`/build`目录下`unzip ../_deps.zip`(要是建议直接丢给Deepseek让他修复),解压后应该有`build/_deps/argagg-src , build/_deps/asmjit-src , build/_deps/json-src , build/_deps/yaml-cpp-src`),然后`cmake .. && make -j$(nproc)`然后`sudo ./rhoHammer --dimm-id 0 --runtime-limit 21600 --geometry 2,4,4 --samsung --sweeping`
+
+### 修改的rhoHammer的内容留档
+首先是文件其实只有`./output`和`./rhoHammer`这俩有用,像`./baseline`那些全都没用,可以直接舍弃
+
+| 文件 | 问题 | 修复 |
+| --- | --- | --- |
+| include/Utilities/Range.hpp [blocked] | 段错误根因：Range(min>max) 时 std::uniform_int_distribution 构造 UB；get_random_number 里 swap 后 dist 没重建 | 构造函数先归一化 min/max 再建 dist |
+| src/Fuzzer/FuzzingParameterSet.cpp [blocked] | get_random_amplitude：剩余 2 槽、2 aggressor 时 max=1 < amplitude.min=2 | 放不下最小 amplitude 时直接返回 max |
+| src/Utilities/Pagemap.cpp [blocked] | pagemap 打开失败时 fclose(NULL) | 加 NULL 判断 |
+| src/Memory/Memory.cpp [blocked] | malloc(1G) shadow_page 无 NULL 检查 | 加检查并报错退出 |
 
 ## WSL更换镜像源
 用`Win + R`输入`\\wsl$`,回车就是WSL的文件系统,进入`Ubuntu`文件夹,然后`/etc/apt/sources.list.d`文件夹，可以看见`ubuntu.sources`这一个文件，里面就是WSL-Ubuntu默认的apt源是国外的源 -> 先备份原来的文件`sudo cp /etc/apt/sources.list.d/ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources.bak`,然后用vim打开编辑`sudo vim /etc/apt/sources.list.d/ubuntu.sources`,然后直接将国内镜像`ctrl+c、ctrl+v`放入到`ubuntu.sources`后面,把原来的两个部分都`#`注释掉即可,然后分别运行`sudo apt update`和`sudo apt upgrade -y`即可完成替换 -> 如果要还原源,那就`sudo mv /etc/apt/sources.list.d/ubuntu.sources.bak /etc/apt/sources.list.d/ubuntu.sources`然后`sudo apt update`

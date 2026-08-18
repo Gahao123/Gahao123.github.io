@@ -237,7 +237,8 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="大模型落地四大基石:rag,微调,agent,提示词工程">大模型落地四大基石:RAG,微调,Agent,提示词工程</h2>
+        <p><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>写在前面,关于AI<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>你喝着洁净的自来水,没有跑肚拉稀的风险,吃着含碘食盐加铁面粉,用着电,病了能吃药,这里面的原理你懂了哪些? -&gt; 往前倒10年也有一批人说过要学明白汇编语言才能写代码,现在汇编在哪发财呢? -&gt; 类似开车,控制好方向盘,在关键时刻能够踩刹车,如果不是为了求职,学的速度还不如等AI更新,握好方向盘就行 -&gt; 面试不太有知名度(如商汤)的算法实习,面试官都说现在代码都是AI写,不考代码了</p>
+<h2 id="大模型落地四大基石:rag,微调,agent,提示词工程">大模型落地四大基石:RAG,微调,Agent,提示词工程</h2>
 <p>配置环境+环境切换+安各种包:python + conda(可以用Miniconda,更小)<br>
 注意作业跑模型<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>用CUDA,GPU,别让CPU搁那拉大车了<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>4060才适合跑模型<br>
 <span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>验证GPU是否成功<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><code>python -c &quot;import torch; print(torch.cuda.is_available())&quot;</code> -&gt; 输出<code>&quot;True&quot;</code>才算成功 -&gt; <span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>再进一步<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><code>python -c &quot;import torch; print(torch.cuda.get_device_name(0))&quot;</code> -&gt; 输出<code>&quot;NVIDIA GeForce RTX 4060 Laptop GPU&quot;</code>才算成功<br>

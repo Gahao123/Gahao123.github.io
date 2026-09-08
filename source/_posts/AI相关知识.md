@@ -18,6 +18,9 @@ categories:
 越强的模型越不会人人可用,有了更强的,才放出淘汰的,这样永远保持领先
 `on hold`:暂停,指暂时停止或延迟某事物的进行
 
+## deepseek高峰时段
+空闲时段价格为高峰时段价格的一半。高峰时段为北京时间周一至周五 `9:00 - 12:00`、`14:00 - 18:00`（其余为空闲时段）
+
 ## 一些另外的AI选择
 开源AI,OpenCode -> [这里](https://opencode.ai/zh)
 放开限制的AI,如果别的AI都拒绝了你,Abliteration.ai -> [这里](https://abliteration.ai/)

@@ -13,6 +13,7 @@
   
   <meta name="description" content="Factorio
 【按键H水平翻转horizontal,V垂直翻转vertical,可以对电磁工厂管道入口!!】
+【一般强制建造Shift + 点击 ; 超级强制建造Ctrl + Shift + 点击,自动放地基,并且有碰撞的东西拆掉】
 【关掉烟雾显示,防止火星往岩浆里丢东西挡视线】设置 -&amp;gt; 图像 -&amp;gt; 常规设置 -&amp;gt; 显示全部烟雾,关
 【分流器的输入优先级可以控制哪一条路优先进入!!】
 拒绝折磨创建地图设置
@@ -91,6 +92,7 @@
       
         <h1 id="factorio">Factorio</h1>
 <p><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>按键<code>H</code>水平翻转horizontal,<code>V</code>垂直翻转vertical,可以对电磁工厂管道入口!!<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>一般强制建造<code>Shift + 点击</code> ; 超级强制建造<code>Ctrl + Shift + 点击</code>,自动放地基,并且有碰撞的东西拆掉<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><br>
 <span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>关掉烟雾显示,防止火星往岩浆里丢东西挡视线<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>设置 -&gt; 图像 -&gt; 常规设置 -&gt; 显示全部烟雾,关<br>
 <span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>分流器的输入优先级可以控制哪一条路优先进入!!<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span></p>
 <h2 id="拒绝折磨创建地图设置">拒绝折磨创建地图设置</h2>
@@ -116,11 +118,71 @@ MOD的默认存放路径为:<code>C:\Users\你的用户名\AppData\Roaming\Facto
 <li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>热量输出<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>供热塔和核反应堆其实输出热量相同,供热塔燃烧效率高(有能源的地方推荐这个),核反应堆有相连加成(这个造成<code>2*2</code>的4个一组效果最好)</li>
 <li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>核反应堆摆放++双行布局,以及换热器布局<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>最为有效的摆放方式是对齐双行摆放<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>数量任意 ; 紧密放置的核反应堆能获得毗连加成<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>没有加成的核反应堆可驱动四座换热器<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>每获得100%的毗连加成便可驱动额外的四座换热器</li>
 <li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>逐日者成就<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>仅使用太阳能板发电,每小时发电量达一百亿焦耳(10GJ) -&gt; 关键是指定电网内除了太阳能板外<strong>不能有其它发电设施</strong> ; 1小时内产生10GJ电能所需的稳定功率为10GJ÷(60×60s)=2778kW<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span>考虑昼夜交替因素<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>在新地星上太阳能板的平均发电功率为42kW<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>即理论上只需铺设67块太阳能板并保持满负载即可解锁本成就</li>
+<li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>摧枯拉朽成就<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>注意描述是撞毁!需要汽车或坦克!</li>
+<li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>成就矢志开采<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>是耗尽一片资源不是一格! 实际判定条件为<span class="bd-box"><h-char class="bd bd-beg"><h-inner>：</h-inner></h-char></span>每当一格中的资源完全耗尽时<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>检查周围12格范围内是否有剩余资源 -&gt; 用Creative创造者造一格数量为1的矿,挖了就行(那个挖完自动变10w的mod不会影响这个判定)</li>
 <li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>回收机变质物<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>实际上只有营养物会转化为变质物,其他常见的生物制品如果冻<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>虫卵<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>生物研究中心等仍有25%几率被原样返还 ; 回收营养物会产生2.5倍数量的变质物,这与变质物制营养素的情形类似</li>
 <li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>创造箱设置爪子白名单抓出东西<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>得把那个创造箱翻到有对应东西的那一页,爪子才能抓出对应的东西!!</li>
 <li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>亿级科研工厂<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>采矿产能研究能干到<code>+271010%</code>,机器人移速<code>+2060%</code>,科研产能到<code>+900%</code>,后面的产能加成全部到<code>+300%</code>(不过也只到<code>300%</code>足够了,别再往后搞了) -&gt; 磁轨炮伤害<code>+840%</code>射速<code>+375%</code>,特斯拉伤害<code>+1680%</code>,血量<code>+1250</code>,无人机跟随数<code>50</code>(就是不点),机枪伤害<code>+660%</code>,火焰伤害<code>+580%</code>,激光伤害<code>+2120%</code>(点个300级有点变态了),重炮射程<code>+750%</code>伤害<code>+210%</code>射速<code>+2100%</code>,火箭弹伤害<code>+1430%</code>(这个300级也很变态)</li>
 <li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>磁轨炮塔<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>磁轨炮塔的射击速度与其射击动画相关<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>这使得存在最大的射速加成<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>所以磁轨炮射速就别点那么多了</li>
 </ul>
+<h2 id="激光炮塔一炮秒星岩需要的科技">激光炮塔一炮秒星岩需要的科技</h2>
+<table>
+<thead>
+<tr>
+<th>星岩</th>
+<th style="text-align:right">血量</th>
+<th style="text-align:right">激光抗性</th>
+<th style="text-align:right">一发秒所需面板伤害</th>
+<th style="text-align:right">需要的激光加成等级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中型基础</td>
+<td style="text-align:right">400</td>
+<td style="text-align:right">90%</td>
+<td style="text-align:right">4,000</td>
+<td style="text-align:right"><strong>约 288 级</strong></td>
+</tr>
+<tr>
+<td>大型基础</td>
+<td style="text-align:right">2,000</td>
+<td style="text-align:right">95%</td>
+<td style="text-align:right">40,000</td>
+<td style="text-align:right"><strong>约 2,859 级</strong></td>
+</tr>
+<tr>
+<td>巨型基础</td>
+<td style="text-align:right">5,000</td>
+<td style="text-align:right">99%</td>
+<td style="text-align:right">500,000</td>
+<td style="text-align:right"><strong>约 35,716 级</strong></td>
+</tr>
+<tr>
+<td>中型二级</td>
+<td style="text-align:right">800</td>
+<td style="text-align:right">90%</td>
+<td style="text-align:right">8,000</td>
+<td style="text-align:right"><strong>约 573 级</strong></td>
+</tr>
+<tr>
+<td>大型二级</td>
+<td style="text-align:right">4,000</td>
+<td style="text-align:right">95%</td>
+<td style="text-align:right">80,000</td>
+<td style="text-align:right"><strong>约 5,716 级</strong></td>
+</tr>
+<tr>
+<td>巨型二级</td>
+<td style="text-align:right">10,000</td>
+<td style="text-align:right">99%</td>
+<td style="text-align:right">1,000,000</td>
+<td style="text-align:right"><strong>约 71,430 级</strong></td>
+</tr>
+</tbody>
+</table>
+<p><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>注意<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>从301级开始的所需<code>18E</code>已经撞到64位无符号整数<code>uint64</code>的上限了,并且这里可能有上限截断,因为再怎么往后都是<code>18E</code>了<br>
+<span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>建议去搜索mod<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>带&quot;自动研究&quot;的,找那种&quot;自动研究无限科技&quot;/“”,再开Creative的即时科研,就能快速提升等级</p>
 <h2 id="creative关联法,可跳过太空实现星际物流+任意物流">Creative关联法,可跳过太空实现星际物流+任意物流</h2>
 <ul>
 <li>白带,关联带,在任何地方放两个,然后在想要的起点<code>Shift + 右键点击</code>,想要的终点<code>Shift + 左键点击</code>,这两个地方就连上了,跨星球跨平台也能连</li>
@@ -160,6 +222,9 @@ MOD的默认存放路径为:<code>C:\Users\你的用户名\AppData\Roaming\Facto
 所有燃烧设备和供热设施(例如供热塔)不受冻结效果影响<br>
 当建筑物与热源相距一格以内<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>无论是从正面还是对角线方向<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>它都被视为与热源相邻并能接受供热<br>
 <span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>聚变发电最优配置公式<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span><code>最优发电机数量 = 2*(反应堆数量 + 所有反应堆享受的毗连加成之和(取整数))</code></p>
+<h3 id="破碎星球">破碎星球</h3>
+<p>那个条件变成&quot;添加飞行条件&quot;了,从开始起飞破碎星球就算停靠了,所以&quot;定时停靠120s&quot;就是定时飞120s,一开始起飞就检测条件,条件满足立刻就下一个(返程)<br>
+注意遭受伤害这个条件,这个一触发立刻返航通常也来不及,只能手动扣引擎降速之类,所以建议定时飞就够了</p>
 <h2 id="看性能">看性能</h2>
 <p>按<code>F4</code>,里面找FPS/UPS相关的开关,应该是第一个 ; FPS是画面帧率,代表显卡压力 , UPS是游戏逻辑更新速度,代表CPU单核压力,默认在60UPS就没问题<br>
 地图非必要就少开 -&gt; 最好别用<code>Creative</code>里的超级雷达二,用超级雷达那么大的地方完全够了</p>
@@ -179,7 +244,7 @@ MOD的默认存放路径为:<code>C:\Users\你的用户名\AppData\Roaming\Facto
 <h3 id="传说铸造厂,传说碳化钨,传说速度3">传说铸造厂,传说碳化钨,传说速度3</h3>
 <p>在火星从铸造厂造铸造厂开始硬摇升品(一定要用铸造厂造吃50%产能,期望出传说碳化钨是40出1),初级铸造厂直接扔了,2级及以上的开始进回收机再升品,回收机出来用分流器筛选可完全分流,然后4排铸造厂分别造从2级到5级的升品(建议从普通造铸造厂-传说造铸造厂(都用传说铸造厂来造)比率为<code>10:2:1:1:1</code>,机器越少越好,不容易遗漏原料),然后小于传说的回流进回收机,传说的输出 -&gt; 一半传说铸造厂留着,分流一半回收出碳化钨,用于造传说速度3(回收拉4台回收机,只留碳化钨,剩下的传送到虚空箱的上下左右四个方向送入销毁,这个产碳化钨的效率其实很不错,完全压得住传说速度3的消耗) -&gt; 满配传说铸造厂速率能干到300,炼钢产能弄到<code>300%</code>之后更是轻松单厂堆满堆叠绿带,所以这个优先级挺高</p>
 <h3 id="传说电磁工厂,传说钬板">传说电磁工厂,传说钬板</h3>
-<p>雷星专门一个岛制作并摇传说电磁工厂即可,注意钬溶液造钬板用铸造厂吃产能,用电磁工厂造电磁工厂吃产能 ; 先弄出品质普通产线3台即可(这里用creative的超级速度组件,加快生产速度,还不减品质概率),然后类似蓝板的思路爪子夹到环带里品质回收机回收,后面回收完从造普通到造传说比率为<code>2:1:1:1:1</code>,机器少了不容易遗漏原料,小于传说的回流进回收机,传说的输出</p>
+<p>雷星专门一个岛制作并摇传说电磁工厂即可,注意钬溶液造钬板用铸造厂吃产能,用电磁工厂造电磁工厂吃产能 ; 先弄出品质普通产线3台即可(这里用creative的超级速度组件,加快生产速度,还不减品质概率),然后普通的直接虚空箱扔了(免得普通材料挤占传送带),带品质的用类似蓝板的思路爪子夹到环带里品质回收机回收,后面回收完从造2级到造传说各1台即可,机器少了不容易遗漏原料,小于传说的回流进回收机,传说的输出</p>
 <h3 id="传说之后">传说之后</h3>
 <ul>
 <li>

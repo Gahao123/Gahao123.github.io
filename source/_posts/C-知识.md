@@ -39,8 +39,6 @@ uint64_t -> %llu
 ## ISA -> 指令集
 就是x86,x86-64,ARM这些
 
-## NDA就是保密协议的意思
-
 ## 交叉编译
 以下这些情况需要交叉编译,注意交叉编译是为了快,小东西也可直接MobaXterm拖文件在板子上编译:
 在x86电脑上编大型RISC-V程序 ; 编Linux kernel/driver ; 编大型项目(比如 AI runtime)
@@ -319,7 +317,7 @@ nohup	忽略终端断开
 验证程序运行状态:`dmesg | tail -n 50`检测ko有没有在用【这里连上Debugger串口也会自动输出信息】;`lsmod | grep dram`确认模块还在;`ls /dev | grep dram`确认设备存在
 【改了代码之后卸载模块挂载】`rmmod dram_chain_thread`和`rmmod dram_init`,检查`lsmod | grep dram`和`ls /dev | grep dram`都没输出即可
 
-## RowHammer特别注意!!!
+## RowHammer特别注意去散热!!!
 温度对内存稳定性是有直接影响的,记得把风扇(散热)去掉!!
 温度高会更不稳定容易翻转,并且直接拔线完全没问题
 
@@ -399,7 +397,7 @@ AAP1： A B A B _ _ _ _ | A B A  B  _  _  _  _
 3. Pattern是最终完整的 hammering 访问模板,包括这是展开后的完整访问顺序`std::vector<Aggressor> aggressors;`和生成完整顺序所使用的全部 AAP 规则`std::vector<AggressorAccessPattern> agg_access_patterns;`,就是说AAP是规则, Pattern是所有规则叠加后的完整结果 ; 比如前面的AAP例子弄的是`A B A B _ _ _ _ | A B A B _ _ _ _`,再假如弄个AAP2是`_ _ _ _ C D C D | _ _ _ _ C D C D`,最后两个AAP合并成一个Pattern是`A B A B C D C D | A B A B C D C D`,由`PatternBuilder`完成
 4. `intra/inter`: 前面的AAP 和Pattern 只决定访问顺序,上面的弄完之后才是`agg_intra_distance ,agg_inter_distance `这些,是在把Pattern中的 A、B、C、D 放到哪些 DRAM row时产生作用的
 
-检查是否有误: `cd "/mnt/d/yjs/代码文件/弄x86服务器/dram_test_AAP1/rhohammer/build"`然后先把这个`build`目录下的东西全删完,(这里可以选择直接解压依赖,免得Cmake下载因为网络问题卡住,在`/build`目录下`unzip ../_deps.zip`(要是建议直接丢给Deepseek让他修复),解压后应该有`build/_deps/argagg-src , build/_deps/asmjit-src , build/_deps/json-src , build/_deps/yaml-cpp-src`),然后`cmake .. && make -j$(nproc)`然后`sudo ./rhoHammer --dimm-id 0 --runtime-limit 21600 --geometry 2,4,4 --samsung --sweeping`
+检查是否有误: `cd "/mnt/d/yjs/代码文件/弄x86服务器/dram_test_AAP1/rhohammer/build"`然后先把这个`build`目录下的东西全删完,(这里可以选择直接解压依赖,免得Cmake下载因为网络问题卡住,在`/build`目录下`unzip ../_deps.zip`(要是建议直接丢给Deepseek让他修复),解压后应该有`build/_deps/argagg-src , build/_deps/asmjit-src , build/_deps/json-src , build/_deps/yaml-cpp-src`)
 
 ### 修改的rhoHammer的内容留档
 首先是文件其实只有`./output`和`./rhoHammer`这俩有用,像`./baseline`那些全都没用,可以直接舍弃
@@ -411,46 +409,37 @@ AAP1： A B A B _ _ _ _ | A B A  B  _  _  _  _
 | src/Utilities/Pagemap.cpp [blocked] | pagemap 打开失败时 fclose(NULL) | 加 NULL 判断 |
 | src/Memory/Memory.cpp [blocked] | malloc(1G) shadow_page 无 NULL 检查 | 加检查并报错退出 |
 
-## WSL更换镜像源
-用`Win + R`输入`\\wsl$`,回车就是WSL的文件系统,进入`Ubuntu`文件夹,然后`/etc/apt/sources.list.d`文件夹，可以看见`ubuntu.sources`这一个文件，里面就是WSL-Ubuntu默认的apt源是国外的源 -> 先备份原来的文件`sudo cp /etc/apt/sources.list.d/ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources.bak`,然后用vim打开编辑`sudo vim /etc/apt/sources.list.d/ubuntu.sources`,然后直接将国内镜像`ctrl+c、ctrl+v`放入到`ubuntu.sources`后面,把原来的两个部分都`#`注释掉即可,然后分别运行`sudo apt update`和`sudo apt upgrade -y`即可完成替换 -> 如果要还原源,那就`sudo mv /etc/apt/sources.list.d/ubuntu.sources.bak /etc/apt/sources.list.d/ubuntu.sources`然后`sudo apt update`
-一些国内的源:
-阿里云:
-```
-Types: deb
-URIs: http://mirrors.aliyun.com/ubuntu/
-Suites: noble noble-updates noble-security
-Components: main restricted universe multiverse
-Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-```
-中科大:
-```
-Types: deb
-URIs: http://mirrors.ustc.edu.cn/ubuntu/
-Suites: noble noble-updates noble-security
-Components: main restricted universe multiverse
-Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-```
-清华:
-```
-Types: deb
-URIs: http://mirrors.tuna.tsinghua.edu.cn/ubuntu/
-Suites: noble noble-updates noble-security
-Components: main restricted universe multiverse
-Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-```
-网易:
-```
-Types: deb
-URIs: http://mirrors.163.com/ubuntu/
-Suites: noble noble-updates noble-security
-Components: main restricted universe multiverse
-Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-```
 ## DDR和LPDDR
 这俩都属于DRAM -> SDRAM,DDR是PC上的,LPDDR是移动设备上的,即Low Power DDR,低功耗
 
-## 新申请的项目当主力
-260828早上汇报的很不错，有自己的思考，但是列出的都是一些技术性问题，还需要找出具体角度获得硕士论文的选题
+## 为什么要加fence
+核心事实：CPU 写内存 ≠ 立刻写进 DRAM。 现代 CPU 是"写回式缓存"——`memset`只是把 `0x55` 写进 L1/L2 缓存（标记为脏行），DRAM 单元里此刻还是旧值。所以写入、刷缓存、fence三步缺一不可，写入指令`memset`将模板数据进缓存（脏行），刷缓存指令`clflushopt`把该缓存行写回 DRAM 单元并作废缓存，fence指令`mfence`等前面所有写回真正完成后才执行后面指令
+**为什么必须有第三步fence?**: `clflushopt` 是"弱序"指令——CPU 发出后不等它完成就继续跑下一条。不加 fence，锤击循环可能已经开打了，而最后几行的 `0x55` 还在写回队列里飘着。那段时间 DRAM 单元里是旧数据，你的互补模板就残缺了。mfence（全屏障）强制 CPU 把前面所有访存（含 `clflushopt`的写回）全部完成、全局可见，才继续执行。
+
+## 发代码千万别删`output/`目录和`/rhohammer/build`,还有一些rhohammer参数
+- `output/`是逆向出来的地址,这个就用他们有的那个千万别改 -> 这个`mem_config.json`在代码中只有读取，没有任何写入，所以保留
+- `/build`目录下是每次编译自动生成的,这个要在服务器上现场编,所以全删掉
+- ACT数量必须至少1000w要不频率绝对不够 ; 行映射数量就为4到64,数量不足会有问题 ; `MULTI_BANK`必须是2
+- 查看系统日志: 1.最基础日志`dmesg`,实时看日志`dmesg -w`,只看错误和警告`dmesg --level=err,warn`; 2.systemd内核日志,只看内核的`journalctl -k`,看当前启动`journalctl -k -b`,看上次启动`journalctl -k -b -1`
+- 背景图片花了,先在服务器上刷新一下桌面背景（右键桌面 → 更改背景/刷新，或者注销再登录）：刷新后花屏消失 → 是内存里的像素数据被翻转了（刷新=重新写入正确数据）→ 高度指向 RowHammer ; 刷新后花屏依旧/位置固定 → 可能是显卡硬件或驱动问题，与你们无关
+- 运行的代码就是`sudo ./rhoHammer --dimm-id 1 --runtime-limit 108000 --geometry 1,4,4 --samsung --sweeping`,这里确定是`--geometry 1,4,4`
+- 检查当前大页状态 `# 1G 大页：预留数 / 空闲数`: `cat /sys/kernel/mm/hugepages/hugepages-1048576kB/nr_hugepages` ; `cat /sys/kernel/mm/hugepages/hugepages-1048576kB/free_hugepages` ; `# 当前所有 hugetlbfs 挂载点`: `mount | grep -i huge`
+- 【编译】解压命令`unzip ../_deps.zip`; 解压完的`cmake`命令`cmake .. -DFETCHCONTENT_SOURCE_DIR_ARGAGG=$PWD/_deps/argagg-src  -DFETCHCONTENT_SOURCE_DIR_ASMJIT=$PWD/_deps/asmjit-src   -DFETCHCONTENT_SOURCE_DIR_JSON=$PWD/_deps/json-src   -DFETCHCONTENT_SOURCE_DIR_YAML-CPP=$PWD/_deps/yaml-cpp-src`; 编译命令`make -j$(nproc) 2>&1 | tail -5`
+
+## 读DRAM到底有没有在读写
+- 需要把`perf`装上
+- 每秒输出一次内存控制器读写统计`sudo perf stat -a   -e uncore_imc/data_reads/   -e uncore_imc/data_writes/   -I 1000`，同时另开一个终端，先让机器空闲几秒，记住 baseline，然后启动你的 many-side。如果它真的在大量打 DRAM，你应该能看到 data_reads 明显上升；停掉程序后又下降
+- 想精确判断 many-side 自己是不是在制造大量内存访问`sudo perf stat -p $(pidof many-side)   -e cycles,instructions,cache-references,cache-misses   -I 1000`
+- 查看`perf`提供的所有内存相关事件`perf list | grep -Ei 'dram|ddr|memory|mem|bus|read|write'`，然后是`sudo perf stat -p 23241   -e mem_load_retired.l1_miss   -e mem_load_retired.l2_miss   -e mem_load_retired.l3_miss   -e offcore_response.demand_data_rd.l3_miss_local_dram.any_snoop   -I 1000`，`mem_load_retired.l1_miss`：已经退休的 load 中，L1 没命中的次数; `mem_load_retired.l2_miss`：已经退休的 load 中，L2 没命中的次数; `mem_load_retired.l3_miss`：已经退休的 load 中，L3 没命中的次数; `offcore_response.demand_data_rd.l3_miss_local_dram.any_snoop`：真正的 demand data read，L3 miss 后最终由本地 DRAM 提供数据的次数
+- 发出的 demand data read 中，有多少请求 miss 了 L3: `sudo perf stat -p 23241   -e offcore_requests.l3_miss_demand_data_rd   -I 1000`; 还可以一起测`sudo perf stat -p 23241   -e offcore_requests.l3_miss_demand_data_rd   -e offcore_response.demand_data_rd.l3_miss_local_dram.any_snoop   -I 1000`如果两者数量很接近，就说明大量 L3 miss 最终确实落到了 DRAM
+- 预取未命中 L2 的次数，即prefetchnta 真正穿透到 DRAM 的次数（即 ACT 流量）`sudo perf stat -p <PID> -e l2_rqsts.pf_miss -I 1000`
+
+## 检查1G大页挂载状态
+- 先三连查,查1G大页的预留数和空闲数`cat /sys/kernel/mm/hugepages/hugepages-1048576kB/nr_hugepages`,`cat /sys/kernel/mm/hugepages/hugepages-1048576kB/free_hugepages` ; 查当前所有 hugetlbfs 挂载点`mount | grep -i huge`, 如果`free_hugepages >= 1` 且 mount 里有 `/mnt/huge（pagesize=1024M）`→ 不用动，直接编译即可，否则下一步
+- 卸载现有 hugetlbfs（把 <挂载点> 换成上面实际显示的，如 `/dev/hugepages` 或 `/mnt/huge`）：`sudo umount <挂载点>`
+- 清零旧预留（如果之前预留了很多）: `echo 0 | sudo tee /sys/kernel/mm/hugepages/hugepages-1048576kB/nr_hugepages`
+- 预留 2 个 1G 大页: `echo 2 | sudo tee /sys/kernel/mm/hugepages/hugepages-1048576kB/nr_hugepages`; `cat /sys/kernel/mm/hugepages/hugepages-1048576kB/nr_hugepages    # 确认=2`
+- 挂到程序要求的 /mnt/huge（代码里写死这个路径）: `sudo mkdir -p /mnt/huge` ; `sudo mount -t hugetlbfs -o pagesize=1G none /mnt/huge` ; `mount | grep /mnt/huge    # 确认：none on /mnt/huge type hugetlbfs (rw,relatime,pagesize=1024M)`
 
 ## C/C++做准备(标准库全不看,记不住的,而且不会问)
 
@@ -549,7 +538,7 @@ main里返回错误`exit(-1);`,正常`exit(0);`
   - 【栈】`stack<int> s;`,插入`s.push(数据)`,顶`s.top()`,弹出`s.pop()`,后进先出,底层是`deque`,不支持`[]`访问
   - 【队列】`queue<int> q;`,插入`q.push(数据)`,队头`q.front()`,队尾`q.back()`,出队`q.pop()`,先进先出,底层也是`deque`
   - 【双端队列】`deque<int> dq;`,头部插入`dq.push_front(数据)`,尾部插入`dq.push_back(数据)`,队头`dq.front()`,出队头`dq.pop_front()`,出队尾`dq.pop_back()`
-  - 【哈希表】`unordered_map<string,int> hashTable;`,插入`hashTable["apple"]=10;`,查找`auto it=hashTable.find("apple")`然后判断`if(it!= hashTable.end())`,或者直接`hashTable.contains(要查的)`,不推荐用`[]`查询,因为这样不存在会自动创建元素
+  - 【哈希表】`unordered_map<string,int> hashTable;`,插入`hashTable["apple"]=10;`,查找`auto it=hashTable.find("apple")`然后判断`if(it!= hashTable.end())`,然后要取值就是`it->second`,或者直接`hashTable.contains(要查的)`,不推荐用`[]`查询,因为这样不存在会自动创建元素 ; 要遍历就是`for(auto it=hashTable.begin();it!=hashTable.end();++it)`然后里面使用`it->second`来访问value
   - 【映射】`map<string,int> myMap;`,插入`myMap["apple"]=10;`,查找`auto it=myMap.find("apple")`然后判断`if(it!= myMap.end())`,或者直接`myMap.contains(要查的)`,不推荐用`[]`查询,因为这样不存在会自动创建元素,底层是红黑树,查找、插入、删除复杂度`O(logn)`,自动升序排列key
   - 【集合】`set<int> s;`,插入`s.insert(数据)`,取得第一个的值`*s.begin()`,判断元素存在`if(s.find(x)!=s.end())`,自动升序排列且保证元素不重复,时间复杂度`O(logn)`
   - 【无序集合】`unordered_set<int> s;`,和`set`类似,但无排序,底层是哈希表,查找平均`O(1)`
@@ -579,3 +568,7 @@ main里返回错误`exit(-1);`,正常`exit(0);`
 - 【C++预处理器】现代C++尽量减少宏的使用,常量宏优先用`constexpr/const`,函数宏优先用普通函数/inline/模板 ; 头文件防重复包含可使用`#ifndef`或`#pragma once`使这个头文件在一个编译单元中只包含一次
 - 【**C++多线程**】多任务处理是允许电脑同时运行两个或两个以上的程序,可分为多进程和多线程,多进程是程序的并发执行,多线程是同一程序的片段的并发执行,多个线程可以在同一个进程中独立运行,线程共享进程的地址空间、文件描述符、堆和全局变量等资源，但每个线程有自己的栈、寄存器和程序计数器 ; 【并发与并行】:并发是多个任务在时间片段内交替执行,表现出同时进行的效果,并行是多个任务在多个处理器或处理器核上同时执行 -> 创建并运行线程`std::thread t1(一个要在线程里跑的函数名, 传给前面函数的参数表);`(线程创建时就已经开始运行,需包含`<thread>`) ; 主线程等待线程结束`t1.join();` ; `t1.detach();`将线程与主线程分离,线程在后台独立运行,主线程不再等待它(注,线程对象不`join/detach`就销毁会导致程序崩溃) ; 线程创建时参数引用传递需使用`std::ref`:`std::thread t1(函数, std::ref(参数));` ; 【互斥量】`std::mutex`保护共享资源,防止数据竞争,使用时在全局定义互斥量`std::mutex mtx;`,然后在要保护的共享资源上面锁定互斥锁`mtx.lock();`,弄完解锁`mtx.unlock();`,或者直接`std::lock_guard`(作用域锁,构造时自动锁定互斥量,析构时自动解锁,相当于锁定当前作用域,不能手动修改锁),在共享资源上面`std::lock_guard<std::mutex> lock(mtx);`,`std::unique_lock`自动锁定和解锁且比前面那个更灵活,可以手动`lock/unlock` ; 【条件变量】让一个或多个线程等待某个条件的发生,并避免忙等待,它通常与互斥量一起使用以实现线程间的同步,使用时先全局定义互斥锁`std::mutex mtx;`,全局条件变量`std::condition_variable cv;`,再搞一个全局标记`bool ready = false;`,在需要等待的线程函数里的锁下面加上`cv.wait(lk, []{ return ready; });`,这里的`ready`可为任意`bool`表达式,为`true`才会让线程继续执行,然后主线程加锁`mtx`后弄`ready=true`的后面通知一个等待的线程`cv.notify_one();`即可唤醒等待的线程(只需要一个线程来处理用这个),通知所有等待的线程是`cv.notify_all();`(如果状态改变应该让大家都开始用这个) ; 当`wait`配`unique_lock`的时候,就是`std::unique_lock<std::mutex> lk(mtx);  cv.wait(lk, []{ return ready; });`时,等待时会释放`mutex`让线程等待期间把锁让出来,避免产生死锁(`cv`只负责让线程在状态不满足时睡眠,并在状态变化后的通知) ; 【原子变量`std::atomic`】对于一些简单共享变量,我只是想安全地读、写、加减,不想专门搞一把`mutex`,就用这个,比如创一个原子的初值为0的`int`:`std::atomic<int> count(0);`,然后对这个变量的比如读取、赋值、`++,--,+=,-=`操作都是原子的,【注意】`count=count*2`是3步,不是一次原子操作! ; 每个线程拥有自己的数据副本`thread_local` ; 【线程间结果传递】`std::promise<T>`用于一个线程设置结果`.set_value()`,与之对应的`std::future<T>`可通过`.get()`在另一个线程获取结果,如果结果还没产生则等待,就是`promise`负责提供未来的结果,`future`负责以后获取结果 ; 另有`std::async`可直接异步执行任务并返回`future`
 - 【C++智能指针】`RAII`,核心思想是把资源交给一个对象管理,对象创建时获得资源,对象析构时自动释放资源,其实是利用局部对象离开作用域时,析构函数一定会被调用这条规则,智能指针就是通过`RAII`来做,如`auto p1 = std::make_unique<Box>();  p1->func();`,就不需要`delete`了 -> 【最重要的三个智能指针】`unique_ptr`,需要`<memory>`,`auto p1 = std::make_unique<Box>();`,可以理解为自动释放的`Box* p1 = new Box();`,这个核心规则是不允许复制,即禁止`auto p2 = p1;`,因为会有自动释放的重复析构问题,但是可以转移所有权`auto p2 = std::move(p1);`,转移后`p2`指向`Box`,`p1`变成`nullptr` ; `shared_ptr`,大家一起拥有,`auto p1 = std::make_shared<Box>();`,比上一个允许复制,通过一个引用计数器决定什么时候释放资源(计数器为0则释放资源),虽然更强但`unique_ptr`更简单、开销更小且所有权关系清晰 ; `weak_ptr`,解决`shared_ptr`循环引用的问题,即会有两个`shared_ptr`互相指导致计数器无法清零无法释放资源,`weak_ptr`可以指向`shared_ptr`的对象,但不增加引用计数,即"只知道在哪而不拥有",使用时可通过`.lock()`尝试取得`shared_ptr`,即`if(auto sp = wp.lock()) { sp->func(); }`表示如果对象活着,临时取得一个`shared_ptr`操作对象,如果对象已经销毁,得到空的`shared_ptr`,就不用操作了 -> 【*即*】`unique_ptr`独占所有权,这东西归我一个管,只有一个主人,主人没了,资源就释放,所有权可以通过`std::move`转交给别人 ; `shared_ptr`共享所有权,这东西我们几个一起管,只要还有一个主人存在,资源就不能释放,最后一个主人没了才释放 ; `weak_ptr`没有所有权只建立联系,这东西不归我管,但我需要的时候想找到它,它不会阻止资源被释放，所以使用前要`lock()` 看看对象还活不活
+
+### 力扣
+- 返回类型为`vector<int>`的话,可以直接`return {i,j};`
+- 要对一个`string str`内部字符排序,`sort(str.begin(),str.end());`

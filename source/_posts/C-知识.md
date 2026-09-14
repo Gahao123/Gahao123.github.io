@@ -441,6 +441,10 @@ AAP1： A B A B _ _ _ _ | A B A  B  _  _  _  _
 - 预留 2 个 1G 大页: `echo 2 | sudo tee /sys/kernel/mm/hugepages/hugepages-1048576kB/nr_hugepages`; `cat /sys/kernel/mm/hugepages/hugepages-1048576kB/nr_hugepages    # 确认=2`
 - 挂到程序要求的 /mnt/huge（代码里写死这个路径）: `sudo mkdir -p /mnt/huge` ; `sudo mount -t hugetlbfs -o pagesize=1G none /mnt/huge` ; `mount | grep /mnt/huge    # 确认：none on /mnt/huge type hugetlbfs (rw,relatime,pagesize=1024M)`
 
+## 经检查,程序没使用`mem_config.json`下的东西
+- 需要进行的修改:改`config.json`里的`samsung`为1，改完后运行`generate_matrix.py`，然后改`DRAMAddr`里最开头那里为`2,2`，还有改参数弄成double-side，然后跑就行了
+- 可以让GPT6再生成一些东西在服务器上跑一下验证一下地址结果
+
 ## C/C++做准备(标准库全不看,记不住的,而且不会问)
 
 ### C , 是面向过程式的,编译后直接生成高效率机器代码,可直接操作内存和硬件
@@ -533,15 +537,18 @@ main里返回错误`exit(-1);`,正常`exit(0);`
 - 【C++输入输出】需要`<iostream>`,标准输入`cin>>` ; 标准输出`cout<<` ; 标准错误`cerr<<`(这个显示错误信息) ; 标准日志`clog<<`(这个输出日志消息) -> 【*注*】`endl`相比`'\n'`还会刷新缓冲区,因此更慢,所以刷题时用`'\n'`不用`endl` ; 要读入中间带空白的字符串如`"hello world"`用`cin>>`只能读入`"hello"`,因为`>>`遇到空白结束,所以要读整行则`getline(cin,s);`; 【*再注*】`<iostream>`开销大,因此嵌入式更常见`printf()`和`scanf()`或日志框架/UART输出(串口打印)
 - 【**结构体struct**】可包含成员函数、构造函数,可操作结构体的成员变量,也可使用`public`、`private`和`protected`控制访问权限 ; `struct`的成员默认`public`,而`class`默认`private`,在C++里这俩几乎是一个东西(这个能力是C++带来的,C的`struct`没有类相关的能力) -> 实践中建议纯数据对象/数据包用`struct`,带复杂函数的复杂对象用`class`
 - 【**vector动态数组**】需包含`<vector>`,不需手动`malloc`/`free`且可方便地与STL配合使用 ; 创建空`vector`: `std::vector<int>vec;`,创5个元素默认值为0: `std::vector<int>vec(5);`,指定初始值: `std::vector<int>vec(5,10);`就是5个10,初始化列表就按数组那样`={1,2,3};` ; 尾部添加`.push_back(元素);` ; 尾部删除`.pop_back()` ; 访问: `[]`访问不检查越界,速度更快,`vec.at(i)`会检查越界,更安全 ; 访问大小`.size()`,访问容量`.capacity()`,注意`vector`扩容代价较高,所以有提前扩容`.reserve(容量,如1000000)`,可减少损耗,改变`size`:`.resize(数量)`,扩大则默认初始化,缩小则删除后面元素 ; 判是否为空`.empty()` ; 头对象`.begin()`(是迭代器指针),尾对象`.end()`(注意这个是尾部的下一个空位置的迭代器),可用这个遍历(当然下标也行): `for(auto it=vec.begin();it!=vec.end();++it){}`(注意`.end()`是尾部下一个,所以这样没问题) ; 头引用`.front()`,尾引用`.back()`,这俩都是返回头尾元素的引用,可直接操作 ; 删除第3个元素`vec.erase(vec.begin()+2)`,头部插入`vec.insert(vec.begin(),100)`,但这两个操作会影响后面元素,时间`O(n)` ; 清空内容`.clear()`,注意这样`size`变0但`capacity`保留,要释放内存需`std::vector<int>().swap(vec);` ; 现代C++对复杂对象的`vector`插入更推荐`.emplace_back()`而不是`.push_back()`以避免产生临时对象,效率更高(不过简单类型就没啥区别了) 【*注意坑*】`vector`扩容可能导致原内存地址失效,例如在`push_back()`之前弄了一个`auto it=vec.begin()`,`push_back()`后`it`可能失效
+- 【**vector补充**】`vector`比较基础,所以没有太多成员函数写法,都只能像后面这么写: 升序排序`sort(vec.begin(),vec.end());` , 降序排序`sort(vec.begin(),vec.end(),greater<int>());` , 反转`reverse(vec.begin(),vec.end());` , 查找`find(vec.begin(),vec.end(),x);` ,最大值迭代器`max_element(vec.begin(), vec.end());` ,最小值迭代器`min_element(vec.begin(), vec.end());` ,数组有序的前提下找第一个`>= x`:`auto it = std::lower_bound(vec.begin(),vec.end(),x);`(底层是二分) , 数组有序前提下找第一个`> x`:`auto it = std::upper_bound(vec.begin(), vec.end(), x);`
 - 【更多数据结构】
   - 【链表】用`struct`模拟,节点里面包含指向下一个节点的指针 ; 也可以`list<int> l;`,结构是`prev <- node -> next`,头迭代器`l.begin()`,插入删除:`auto it = l.begin(); l.insert(it, 10); l.erase(it);`
   - 【栈】`stack<int> s;`,插入`s.push(数据)`,顶`s.top()`,弹出`s.pop()`,后进先出,底层是`deque`,不支持`[]`访问
   - 【队列】`queue<int> q;`,插入`q.push(数据)`,队头`q.front()`,队尾`q.back()`,出队`q.pop()`,先进先出,底层也是`deque`
   - 【双端队列】`deque<int> dq;`,头部插入`dq.push_front(数据)`,尾部插入`dq.push_back(数据)`,队头`dq.front()`,出队头`dq.pop_front()`,出队尾`dq.pop_back()`
-  - 【哈希表】`unordered_map<string,int> hashTable;`,插入`hashTable["apple"]=10;`,查找`auto it=hashTable.find("apple")`然后判断`if(it!= hashTable.end())`,然后要取值就是`it->second`,或者直接`hashTable.contains(要查的)`,不推荐用`[]`查询,因为这样不存在会自动创建元素 ; 要遍历就是`for(auto it=hashTable.begin();it!=hashTable.end();++it)`然后里面使用`it->second`来访问value
-  - 【映射】`map<string,int> myMap;`,插入`myMap["apple"]=10;`,查找`auto it=myMap.find("apple")`然后判断`if(it!= myMap.end())`,或者直接`myMap.contains(要查的)`,不推荐用`[]`查询,因为这样不存在会自动创建元素,底层是红黑树,查找、插入、删除复杂度`O(logn)`,自动升序排列key
+  - 【哈希表】`unordered_map<string,int> hashTable;`,插入`hashTable["apple"]=10;`,查找`auto it=hashTable.find("apple")`然后判断`if(it!= hashTable.end())`,然后要取值就是`it->second`,或者直接`hashTable.contains(要查的)`,不推荐用`[]`查询,因为这样不存在会自动创建元素 ; 要遍历就是`for(auto it=hashTable.begin();it!=hashTable.end();++it)`然后里面使用`it->second`来访问value ; 删除`.erase(x)`
+  - 【映射】`map<string,int> myMap;`,插入`myMap["apple"]=10;`,查找`auto it=myMap.find("apple")`然后判断`if(it!= myMap.end())`,或者直接`myMap.contains(要查的)`,不推荐用`[]`查询,因为这样不存在会自动创建元素,底层是红黑树,查找、插入、删除复杂度`O(logn)`,自动升序排列key , 删除`mp.erase(key);`
   - 【集合】`set<int> s;`,插入`s.insert(数据)`,取得第一个的值`*s.begin()`,判断元素存在`if(s.find(x)!=s.end())`,自动升序排列且保证元素不重复,时间复杂度`O(logn)`
-  - 【无序集合】`unordered_set<int> s;`,和`set`类似,但无排序,底层是哈希表,查找平均`O(1)`
+  - 【无序集合】`unordered_set<int> s;`,和`set`类似,但无排序,底层是哈希表,查找平均`O(1)`,`.count(x)`计算特定元素的出现次数(`set`里只有0或1)
+  - 【关于`contains`】所有带`map`或`set`的才有`contains`这个用来判断元素是否存在 ; 像`vector`、链表和队列没有`contains`需要用`find()!=end()`来判断元素存在
+  - 【堆】`priority_queue<int> pq;`默认大顶堆,插入`pq.push(10);`,`pq.top();`输出最大,`pq.pop();`,`pq.empty();`,`pq.size();` ; 小顶堆是
 - 【**类**`class`】要在定义时`";"`结束一个类 -> 类内定义和类内声明类外定义都可(但大型项目一般类外定义) ; 类里有一个默认的`this`是指针(可访问自己的地址),比如类名`Box`,`this`实际是`Box*`,所以C++访问`this`的变量是`this->length`
 - 【权限】`public`公开,`private`纯私密,`protected`只允许子类访问 -> 若是定义子类如`class B:public A`,这里的修饰符决定父类的成员在子类中"表现"成什么样 -> 降级原则:这个修饰符决定了父类成员在子类中的最高权限,更高级就保持,更严格就降级
 - 【类初始化】C++推荐用成员初始化列表,eg:`Line::Line(double len):length(len){}`,就是直接用传入的参数len初始化成员变量length ; 用这种初始化列表,在进入函数体(后面的{})之前就完成了成员变量的初始化 ; 对`const`成员、引用成员及没有默认构造函数的对象成员来说,初始化列表是唯一的初始化方式 ; 多个初始化就是`C::C(double a,double b,double c):X(a),Y(b),Z(c){}`(【*注*】这里的X、Y、Z谁先初始化是由类中声明顺序决定,而不是这里写的顺序,建议和类的声明顺序一致避免混淆) -> 在构造函数里赋值的话是"先默认构造在赋值",会多一步复制开销,使用成员初始化列表就可以避免这种开销
@@ -572,3 +579,4 @@ main里返回错误`exit(-1);`,正常`exit(0);`
 ### 力扣
 - 返回类型为`vector<int>`的话,可以直接`return {i,j};`
 - 要对一个`string str`内部字符排序,`sort(str.begin(),str.end());`
+- 力扣C++可以直接使用`max()`和`min()`函数

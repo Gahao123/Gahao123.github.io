@@ -446,8 +446,7 @@ CPU也会被绑定,无法兼容</p>
 <li>ACT数量必须至少1000w要不频率绝对不够 ; 行映射数量就为4到64,数量不足会有问题 ; <code>MULTI_BANK</code>必须是2</li>
 <li>查看系统日志: 1.最基础日志<code>dmesg</code>,实时看日志<code>dmesg -w</code>,只看错误和警告<code>dmesg --level=err,warn</code>; 2.systemd内核日志,只看内核的<code>journalctl -k</code>,看当前启动<code>journalctl -k -b</code>,看上次启动<code>journalctl -k -b -1</code></li>
 <li>背景图片花了,先在服务器上刷新一下桌面背景<span class="bd-box"><h-char class="bd bd-end"><h-inner>（</h-inner></h-char></span>右键桌面 → 更改背景/刷新<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>或者注销再登录<span class="bd-box"><h-char class="bd bd-beg"><h-inner>）</h-inner></h-char><h-char class="bd bd-beg"><h-inner>：</h-inner></h-char></span>刷新后花屏消失 → 是内存里的像素数据被翻转了<span class="bd-box"><h-char class="bd bd-end"><h-inner>（</h-inner></h-char></span>刷新=重新写入正确数据<span class="bd-box"><h-char class="bd bd-beg"><h-inner>）</h-inner></h-char></span>→ 高度指向 RowHammer ; 刷新后花屏依旧/位置固定 → 可能是显卡硬件或驱动问题<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>与你们无关</li>
-<li>运行的代码就是<code>sudo ./rhoHammer --dimm-id 1 --runtime-limit 108000 --geometry 1,4,4 --samsung --sweeping</code>,这里确定是<code>--geometry 1,4,4</code></li>
-<li>检查当前大页状态 <code># 1G 大页&lt;span class=&quot;bd-box&quot;&gt;&lt;h-char class=&quot;bd bd-beg&quot;&gt;&lt;h-inner&gt;：&lt;/h-inner&gt;&lt;/h-char&gt;&lt;/span&gt;预留数 / 空闲数</code>: <code>cat /sys/kernel/mm/hugepages/hugepages-1048576kB/nr_hugepages</code> ; <code>cat /sys/kernel/mm/hugepages/hugepages-1048576kB/free_hugepages</code> ; <code># 当前所有 hugetlbfs 挂载点</code>: <code>mount | grep -i huge</code></li>
+<li>运行的代码就是<code>sudo ./rhoHammer --dimm-id 1 --runtime-limit 86400 --geometry 1,4,4 --samsung --sweeping</code>,这里确定是<code>--geometry 1,4,4</code>,并且时间最多设置24小时,也就是86400,不管是RV还是x86基本上都是十来个小时出翻转,如果12小时没出来基本上就没了</li>
 <li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>编译<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>解压命令<code>unzip ../_deps.zip</code>; 解压完的<code>cmake</code>命令<code>cmake .. -DFETCHCONTENT_SOURCE_DIR_ARGAGG=$PWD/_deps/argagg-src  -DFETCHCONTENT_SOURCE_DIR_ASMJIT=$PWD/_deps/asmjit-src   -DFETCHCONTENT_SOURCE_DIR_JSON=$PWD/_deps/json-src   -DFETCHCONTENT_SOURCE_DIR_YAML-CPP=$PWD/_deps/yaml-cpp-src</code>; 编译命令<code>make -j$(nproc) 2&gt;&amp;1 | tail -5</code></li>
 </ul>
 <h2 id="读dram到底有没有在读写">读DRAM到底有没有在读写</h2>
@@ -483,6 +482,14 @@ CPU也会被绑定,无法兼容</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NUM_OF_READ 50</span><br><span class="line">BANKS_NUMBER_TOTAL 32</span><br><span class="line">AVAILABLELENGTH 35</span><br></pre></td></tr></table></figure>
 <ul>
 <li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>王d补充质疑<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>确实保持质疑,因为你通过参数就能把程序限定在一个内存条执行这样不现实,肯定是不行的</li>
+<li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>代ht和任lq补充<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>rhoHammer最多设置24小时,也就是86400,不管是RV还是x86基本上都是十来个小时出翻转,如果12小时没出来基本上就没了</li>
+</ul>
+<h2 id="补充测试x86同bank不同行交替访存的延迟">补充测试x86同bank不同行交替访存的延迟</h2>
+<ul>
+<li>分成普通顺序访问<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>顺序访问+fence<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>指针追逐 -&gt; 他们最后测出来x86上的fence似乎非常不稳定?</li>
+<li>测出来x86上一次指针追逐只要80ns,RISCV得要170ns,x86访存延迟只有RISCV的一半 -&gt; 王d说相同时间攻击次数翻倍,至少单核下是这样的</li>
+<li>似乎是因为x86上处理器的基准频率是3.6GHz<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>RV是1.8<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>差不多刚好一半?</li>
+<li>王d说RV多核能把指针追逐降到150,不过代ht说似乎也没快多少,并且这样的话应该两核心就行,再多就没太大提升了 -&gt; 说再加上4A刷新周期还短,也就是说一个周期内激活次数才人家的1/4?</li>
 </ul>
 <h2 id="c/c++做准备(标准库全不看,记不住的,而且不会问)">C/C++做准备(标准库全不看,记不住的,而且不会问)</h2>
 <h3 id="c-, 是面向过程式的,编译后直接生成高效率机器代码,可直接操作内存和硬件">C , 是面向过程式的,编译后直接生成高效率机器代码,可直接操作内存和硬件</h3>

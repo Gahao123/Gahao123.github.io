@@ -432,8 +432,7 @@ AAP1： A B A B _ _ _ _ | A B A  B  _  _  _  _
 - ACT数量必须至少1000w要不频率绝对不够 ; 行映射数量就为4到64,数量不足会有问题 ; `MULTI_BANK`必须是2
 - 查看系统日志: 1.最基础日志`dmesg`,实时看日志`dmesg -w`,只看错误和警告`dmesg --level=err,warn`; 2.systemd内核日志,只看内核的`journalctl -k`,看当前启动`journalctl -k -b`,看上次启动`journalctl -k -b -1`
 - 背景图片花了,先在服务器上刷新一下桌面背景（右键桌面 → 更改背景/刷新，或者注销再登录）：刷新后花屏消失 → 是内存里的像素数据被翻转了（刷新=重新写入正确数据）→ 高度指向 RowHammer ; 刷新后花屏依旧/位置固定 → 可能是显卡硬件或驱动问题，与你们无关
-- 运行的代码就是`sudo ./rhoHammer --dimm-id 1 --runtime-limit 108000 --geometry 1,4,4 --samsung --sweeping`,这里确定是`--geometry 1,4,4`
-- 检查当前大页状态 `# 1G 大页：预留数 / 空闲数`: `cat /sys/kernel/mm/hugepages/hugepages-1048576kB/nr_hugepages` ; `cat /sys/kernel/mm/hugepages/hugepages-1048576kB/free_hugepages` ; `# 当前所有 hugetlbfs 挂载点`: `mount | grep -i huge`
+- 运行的代码就是`sudo ./rhoHammer --dimm-id 1 --runtime-limit 86400 --geometry 1,4,4 --samsung --sweeping`,这里确定是`--geometry 1,4,4`,并且时间最多设置24小时,也就是86400,不管是RV还是x86基本上都是十来个小时出翻转,如果12小时没出来基本上就没了
 - 【编译】解压命令`unzip ../_deps.zip`; 解压完的`cmake`命令`cmake .. -DFETCHCONTENT_SOURCE_DIR_ARGAGG=$PWD/_deps/argagg-src  -DFETCHCONTENT_SOURCE_DIR_ASMJIT=$PWD/_deps/asmjit-src   -DFETCHCONTENT_SOURCE_DIR_JSON=$PWD/_deps/json-src   -DFETCHCONTENT_SOURCE_DIR_YAML-CPP=$PWD/_deps/yaml-cpp-src`; 编译命令`make -j$(nproc) 2>&1 | tail -5`
 
 ## 读DRAM到底有没有在读写
@@ -467,6 +466,13 @@ BANKS_NUMBER_TOTAL 32
 AVAILABLELENGTH 35
 ```
 - 【王d补充质疑】确实保持质疑,因为你通过参数就能把程序限定在一个内存条执行这样不现实,肯定是不行的
+- 【代ht和任lq补充】rhoHammer最多设置24小时,也就是86400,不管是RV还是x86基本上都是十来个小时出翻转,如果12小时没出来基本上就没了
+
+## 补充测试x86同bank不同行交替访存的延迟
+- 分成普通顺序访问、顺序访问+fence、指针追逐 -> 他们最后测出来x86上的fence似乎非常不稳定?
+- 测出来x86上一次指针追逐只要80ns,RISCV得要170ns,x86访存延迟只有RISCV的一半 -> 王d说相同时间攻击次数翻倍,至少单核下是这样的
+- 似乎是因为x86上处理器的基准频率是3.6GHz，RV是1.8，差不多刚好一半?
+- 王d说RV多核能把指针追逐降到150,不过代ht说似乎也没快多少,并且这样的话应该两核心就行,再多就没太大提升了 -> 说再加上4A刷新周期还短,也就是说一个周期内激活次数才人家的1/4?
 
 ## C/C++做准备(标准库全不看,记不住的,而且不会问)
 

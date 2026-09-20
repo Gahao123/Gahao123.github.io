@@ -569,7 +569,7 @@ main里返回错误`exit(-1);`,正常`exit(0);`
 - 【C++时间】需要`<ctime>`,主要知道`time_t now=time(0);`,这是1970年到目前的秒数,这是用整数表示时间(还有`clock_t`和`size_t`),还有一个结构体`tm`表示结构化的时间信息
 - 【C++输入输出】需要`<iostream>`,标准输入`cin>>` ; 标准输出`cout<<` ; 标准错误`cerr<<`(这个显示错误信息) ; 标准日志`clog<<`(这个输出日志消息) -> 【*注*】`endl`相比`'\n'`还会刷新缓冲区,因此更慢,所以刷题时用`'\n'`不用`endl` ; 要读入中间带空白的字符串如`"hello world"`用`cin>>`只能读入`"hello"`,因为`>>`遇到空白结束,所以要读整行则`getline(cin,s);`; 【*再注*】`<iostream>`开销大,因此嵌入式更常见`printf()`和`scanf()`或日志框架/UART输出(串口打印)
 - 【**结构体struct**】可包含成员函数、构造函数,可操作结构体的成员变量,也可使用`public`、`private`和`protected`控制访问权限 ; `struct`的成员默认`public`,而`class`默认`private`,在C++里这俩几乎是一个东西(这个能力是C++带来的,C的`struct`没有类相关的能力) -> 实践中建议纯数据对象/数据包用`struct`,带复杂函数的复杂对象用`class`
-- 【**vector动态数组**】需包含`<vector>`,不需手动`malloc`/`free`且可方便地与STL配合使用 ; 创建空`vector`: `std::vector<int>vec;`,创5个元素默认值为0: `std::vector<int>vec(5);`,指定初始值: `std::vector<int>vec(5,10);`就是5个10,初始化列表就按数组那样`={1,2,3};` ; 尾部添加`.push_back(元素);` ; 尾部删除`.pop_back()` ; 访问: `[]`访问不检查越界,速度更快,`vec.at(i)`会检查越界,更安全 ; 访问大小`.size()`,访问容量`.capacity()`,注意`vector`扩容代价较高,所以有提前扩容`.reserve(容量,如1000000)`,可减少损耗,改变`size`:`.resize(数量)`,扩大则默认初始化,缩小则删除后面元素 ; 判是否为空`.empty()` ; 头对象`.begin()`(是迭代器指针),尾对象`.end()`(注意这个是尾部的下一个空位置的迭代器),可用这个遍历(当然下标也行): `for(auto it=vec.begin();it!=vec.end();++it){}`(注意`.end()`是尾部下一个,所以这样没问题) ; 头引用`.front()`,尾引用`.back()`,这俩都是返回头尾元素的引用,可直接操作 ; 删除第3个元素`vec.erase(vec.begin()+2)`,头部插入`vec.insert(vec.begin(),100)`,但这两个操作会影响后面元素,时间`O(n)` ; 清空内容`.clear()`,注意这样`size`变0但`capacity`保留,要释放内存需`std::vector<int>().swap(vec);` ; 现代C++对复杂对象的`vector`插入更推荐`.emplace_back()`而不是`.push_back()`以避免产生临时对象,效率更高(不过简单类型就没啥区别了) 【*注意坑*】`vector`扩容可能导致原内存地址失效,例如在`push_back()`之前弄了一个`auto it=vec.begin()`,`push_back()`后`it`可能失效
+- 【**vector动态数组**】需包含`<vector>`,不需手动`malloc`/`free`且可方便地与STL配合使用 ; 创建空`vector`: `std::vector<int>vec;`,创5个元素默认值为0: `std::vector<int>vec(5);`,指定初始值: `std::vector<int>vec(5,10);`就是5个10,初始化列表就按数组那样`={1,2,3};` ; 尾部添加`.push_back(元素);` ; 尾部删除`.pop_back()` ; 访问: `[]`访问不检查越界,速度更快,`vec.at(i)`会检查越界,更安全 ; 访问大小`.size()`,访问容量`.capacity()`,注意`vector`扩容代价较高,改变`size`:`.resize(数量)`,扩大则默认初始化,缩小则删除后面元素 ; 判是否为空`.empty()` ; 头对象`.begin()`(是迭代器指针),尾对象`.end()`(注意这个是尾部的下一个空位置的迭代器),可用这个遍历(当然下标也行): `for(auto it=vec.begin();it!=vec.end();++it){}`(注意`.end()`是尾部下一个,所以这样没问题) ; 头引用`.front()`,尾引用`.back()`,这俩都是返回头尾元素的引用,可直接操作 ; 删除第3个元素`vec.erase(vec.begin()+2)`,头部插入`vec.insert(vec.begin(),100)`,但这两个操作会影响后面元素,时间`O(n)` ; 清空内容`.clear()`,注意这样`size`变0但`capacity`保留,要释放内存需`std::vector<int>().swap(vec);` ; 现代C++对复杂对象的`vector`插入更推荐`.emplace_back()`而不是`.push_back()`以避免产生临时对象,效率更高(不过简单类型就没啥区别了) 【*注意坑*】`vector`扩容可能导致原内存地址失效,例如在`push_back()`之前弄了一个`auto it=vec.begin()`,`push_back()`后`it`可能失效
 - 【**vector补充**】`vector`比较基础,所以没有太多成员函数写法,都只能像后面这么写: 升序排序`sort(vec.begin(),vec.end());` , 降序排序`sort(vec.begin(),vec.end(),greater<int>());` , 反转`reverse(vec.begin(),vec.end());` , 查找`find(vec.begin(),vec.end(),x);` ,最大值迭代器`max_element(vec.begin(), vec.end());` ,最小值迭代器`min_element(vec.begin(), vec.end());` ,数组有序的前提下找第一个`>= x`:`auto it = std::lower_bound(vec.begin(),vec.end(),x);`(底层是二分) , 数组有序前提下找第一个`> x`:`auto it = std::upper_bound(vec.begin(), vec.end(), x);`
 - 【更多数据结构】
   - 【链表】用`struct`模拟,节点里面包含指向下一个节点的指针 ; 也可以`list<int> l;`,结构是`prev <- node -> next`,头迭代器`l.begin()`,插入删除:`auto it = l.begin(); l.insert(it, 10); l.erase(it);`
@@ -581,6 +581,7 @@ main里返回错误`exit(-1);`,正常`exit(0);`
   - 【集合】`set<int> s;`,插入`s.insert(数据)`,`s.erase(x);`,取得第一个的值`*s.begin()`,判断元素存在`if(s.find(x)!=s.end())`,`s.count(x);`,`s.contains(x)`,`s.size()`,`s.empty()`,`s.clear()`,自动升序排列且保证元素不重复,每次插入时间复杂度`O(logn)`,相当于做了排序
   - 【无序集合】`unordered_set<int> s;`,和`set`类似,但无排序,底层是哈希表,查找平均`O(1)`,`.count(x)`计算特定元素的出现次数(`set`里只有0或1)
   - 【关于`contains`】所有带`map`或`set`的才有`contains`这个用来判断元素是否存在 ; 像`vector`、链表和队列没有`contains`需要用`find()!=end()`来判断元素存在
+  - 【比较】大部分STL容器可直接使用`==`比较内容，包括`vector/list/deque/map/unordered_map/set/unordered_set/stack/queue`; 序列容器要求对应位置相同,关联容器比较其元素或键值对,无序容器不要求遍历/插入顺序相同(即`unordered`那俩可以直接比); 但`priority_queue`不支持直接`==`
   - 【堆】`priority_queue<int> pq;`默认大顶堆,插入`pq.push(10);`,`pq.top();`输出最大,`pq.pop();`,`pq.empty();`,`pq.size();` ; 小顶堆是`priority_queue<int, vector<int>, greater<int>> pq;` -> 遇到"前 K 个最大/最小""第 K 大""动态维护最大/最小值"用这个
 - 【**类**`class`】要在定义时`";"`结束一个类 -> 类内定义和类内声明类外定义都可(但大型项目一般类外定义) ; 类里有一个默认的`this`是指针(可访问自己的地址),比如类名`Box`,`this`实际是`Box*`,所以C++访问`this`的变量是`this->length`
 - 【权限】`public`公开,`private`纯私密,`protected`只允许子类访问 -> 若是定义子类如`class B:public A`,这里的修饰符决定父类的成员在子类中"表现"成什么样 -> 降级原则:这个修饰符决定了父类成员在子类中的最高权限,更高级就保持,更严格就降级
@@ -613,4 +614,20 @@ main里返回错误`exit(-1);`,正常`exit(0);`
 - 返回类型为`vector<int>`的话,可以直接`return {i,j};`
 - 要对一个`string str`内部字符排序,`sort(str.begin(),str.end());`
 - 力扣C++可以直接使用`max()`和`min()`函数
-- 【最长连续序列】直接全入`set`的话,每次插入是`log n`,就是`nlog n`不符合题目要求的`O(n)`了 -> 如果明确要求`O(n)`那一般不太应该考虑内部有序的数据结构,因为要警惕它带来的`log n`,`map`和`set`内部自动有序,`unordered_map`和`unordered_set`不维护顺序,底层哈希表,查找插入删除平均都是`O(1)`
+- 【最长连续序列】直接全入`set`的话,每次插入是`log n`,就是`nlog n`不符合题目要求的`O(n)`了 -> 如果明确要求`O(n)`那一般不太应该考虑内部有序的数据结构,因为要警惕它带来的`log n`,`map`和`set`内部自动有序,`unordered_map`和`unordered_set`不维护顺序,底层哈希表,查找插入删除平均都是`O(1)` -> 找set里if判断now-1,寻找while里才是++
+- 力扣C++可以直接使用`swap(i,j);`来交换数值
+- 【最多水的容器】双指针,l和r每次移动`height[i]`较小的那个即可 -> 不会有同时移动的
+- 【三数之和】循环+哈希表会消耗大量时间+空间,因此去重采用先排序,再在循环中`i < j < k`的方式去重,然后`i , j , k`每次`++`的时候要和上一次不一样再算,避免重复 -> 再优化发现`i , j`确定之后`k`实际上就确定了,并且`i , j`对应的数是逐渐变大的,因此`k`是从右往左递减的和`j`并列,因此把`j , k`的循环用双指针优化,每次`i`移动之后初始`k=n-1`然后和`j`做双指针查找
+- 面试的时候突然忘记`vector<int> v(n)`,于是换数组写的话有C++规范问题: `int n = height.size(); int l[n + 1], r[n + 1];`不是标准C++,标准C++普通数组长度原则上必须是编译期常量,`int a[n];`属于可变长数组,标准C++是不支持的,要写就按题目这样写: `int l[100005]; int r[100005];`,因为题目要求`nums.length <= 100000` -> 最好还是记住`vector<int> v(n);`是n个`int`默认初始化为0,`vector<int> v(n,5);`是n个5
+- 【滑动窗口模版】
+```
+for (int l = 0, r = 0 ; r < n ; r++) { //外层循环扩展右边界，内层循环扩展左边界
+	//当前考虑的元素,即窗口里要判断的
+	while (l <= r && check()) {//区间[left,right]不符合题意
+        //扩展左边界
+    }
+  //区间[left,right]符合题意，统计相关信息
+}
+```
+- C++的`string`可以直接拿来当字符数组用,支持`[i]`下标访问元素,长度也是一样的`.size()`
+- 【找到字符串中所有字母异位词】C++的`vector`和`unordered_map`确实都可以直接用`==`比较,`vector<int> a = {1, 2, 3}; vector<int> b = {1, 2, 3}; if (a == b) {} // ✅ true`,`vector`的`==`会比较: 大小相同,并且对应位置的元素都相同(`unordered_map`也是一样的) -> 注意`unordered_map`的`==`大坑,`key-value`计数时减成0的那一项没有消失,还在`map`里保留,`unordered_map`判断的是存储的键值对是否一致,它并不知道你的业务语义是"0次出现就相当于不存在",所以在减`value`的时候记得判0时`erase`: `--smp[s[i]]; if(smp[s[i]]==0) { smp.erase(s[i]); }` -> 若字符范围固定如`'a'~'z'`，优先使用 `vector<int>(26)` 统计频率

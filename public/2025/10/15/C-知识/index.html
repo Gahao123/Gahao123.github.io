@@ -504,6 +504,11 @@ CPU也会被绑定,无法兼容</p>
 <li>卡住原因: 主线程执行<code>running.store(false); t.join();</code>,但监控线程执行的是<code>util.cc</code>中的函数有一个<code>while(running.load())</code>,于是主程序把 <code>running_A</code>改成 <code>false</code> -&gt; 监控线程仍读取 <code>running_B</code>,它始终为<code>true</code> -&gt; 监控线程一直循环 -&gt; <code>t.join()</code>一直等待监控线程结束 -&gt; 后面的报告生成代码无法执行</li>
 <li><span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>正确写法<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>头文件声明,其中一个源文件定义: 在<code>util.h</code>中改成<code>extern std::atomic&lt;bool&gt; running;</code>,然后<code>util.cc</code>在<code>#include &quot;util.h&quot;</code>之后定义<code>std::atomic&lt;bool&gt; running&#123;true&#125;;</code>,<code>extern</code>这一行只是声明: “程序中存在这个变量<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>定义在别处”; 这样提供唯一的定义后,主程序和监控线程就会访问同一个对象</li>
 </ul>
+<h2 id="260924组会上关于新板子指令探测">260924组会上关于新板子指令探测</h2>
+<ul>
+<li>目标平台缓存指令是根据手册得到的,不可能直接通过硬件探测得到指令 -&gt; <span class="bd-box"><h-char class="bd bd-end"><h-inner>【</h-inner></h-char></span>代ht<span class="bd-box"><h-char class="bd bd-beg"><h-inner>】</h-inner></h-char></span>这玩意做不了,啥来了都不好使,谁知道人家厂里咋定义的嘛 -&gt; 要是真能行,就不用搞RV了,直接去破解英伟达显卡和英特尔/AMD CPU</li>
+<li>还有RISC-H在RV服务器上有了但是组里达不到? -&gt; RISC-H人家用的是FPGA,甚至可以不要缓存,把CPU和内存挨得很近,还有SPL可定制改的(还有操作系统和驱动适配之类),所以延迟很低才40,但是这边算能服务器光是过3级缓存就不止40了,并且对交替访问之类的也没有优化,所以200延迟导致攻击不可达是设备差异问题</li>
+</ul>
 <h2 id="c/c++做准备(标准库全不看,记不住的,而且不会问)">C/C++做准备(标准库全不看,记不住的,而且不会问)</h2>
 <h3 id="c-, 是面向过程式的,编译后直接生成高效率机器代码,可直接操作内存和硬件">C , 是面向过程式的,编译后直接生成高效率机器代码,可直接操作内存和硬件</h3>
 <ul>
